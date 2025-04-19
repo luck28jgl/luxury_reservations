@@ -1,6 +1,24 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+// import HelloWorld from './components/HelloWorld.vue'
+// import TheWelcome from './components/TheWelcome.vue'
+
+import { ref, onMounted, onUnmounted } from 'vue';
+
+const isScrolled = ref(false);
+
+const handleScroll = () => {
+isScrolled.value = window.scrollY > 50; // Cambia el valor según el umbral deseado
+};
+
+onMounted(() => {
+    window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', handleScroll);
+});
+
+
 </script>
 
 <template>
@@ -23,6 +41,7 @@ import TheWelcome from './components/TheWelcome.vue'
   </div>
 </template>
 
+
 <style scoped>
 header {
   line-height: 1.5;
@@ -32,7 +51,14 @@ header {
   display: block;
   margin: 0 auto 2rem;
 }
-
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  /* margin-top: 60px; */
+}
 @media (min-width: 1024px) {
   header {
     display: flex;
