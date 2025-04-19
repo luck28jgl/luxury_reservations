@@ -47,6 +47,8 @@ onUnmounted(() => {
 .clsstrr-1 {
   width: 100%!important;
   padding: 6px!important;
+  background-color: white!important;
+  background: white!important;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

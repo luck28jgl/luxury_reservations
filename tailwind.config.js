@@ -6,6 +6,7 @@ export default {
   ],
   theme: {
     extend: {
+      darkMode: 'class', 
       colors:{
         'rosappa': '#a55676',
         'rosappa2': '#b56183',
@@ -22,38 +23,38 @@ export default {
         'yellowkmj': '#fdb200',
         'yellowkmjhv': '#bf8500',
       },
-    borderWidth: {
-      DEFAULT: '1px',
-      '0': '0',
-      '2': '2px',
-      '3': '3px',
-      '4': '4px',
-      '6': '6px',
-      '8': '8px',
-      '12': '12px',
-      '18': '18px',
-    },
-    width: {
-      '8': '8%',
-      '9': '9%',
-      '12': '12%',
-      '15': '15%',
-      '37': '37.333333'
-    },
-    maxWidth: {
-      '2000': '2000px',
-      '930': '930px'
-    },
-    maxHeight:{
-      '95vh': '95vh',
-    },
-    screens: {
-      '439': '439px',
-      'lap': '1550px'
-    },
-    fontSize: {
-      '13': '12px',
-    },
+      borderWidth: {
+        DEFAULT: '1px',
+        '0': '0',
+        '2': '2px',
+        '3': '3px',
+        '4': '4px',
+        '6': '6px',
+        '8': '8px',
+        '12': '12px',
+        '18': '18px',
+      },
+      width: {
+        '8': '8%',
+        '9': '9%',
+        '12': '12%',
+        '15': '15%',
+        '37': '37.333333'
+      },
+      maxWidth: {
+        '2000': '2000px',
+        '930': '930px'
+      },
+      maxHeight:{
+        '95vh': '95vh',
+      },
+      screens: {
+        '439': '439px',
+        'lap': '1550px'
+      },
+      fontSize: {
+        '13': '12px',
+      },
     },
   },
   plugins: [
