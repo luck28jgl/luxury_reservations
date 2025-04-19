@@ -36,12 +36,12 @@
 
     </div>
     <div class="max-w-6xl mt-20" style="margin-top: 100px;" >
-        <!-- <div class="flex items-center justify-center " v-for="item in tes" :key="item.id">
+        <div class="flex items-center justify-center " v-for="item in tes" :key="item.id">
             <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
                 <div class="bg-white shadow-xl rounded-lg overflow-hidden">
               
                     <div class="bg-cover bg-center h-56 p-4 image-container">
-                        <img :src="item.url" alt="" class="hover-image" />
+                        <img :src="item.url" alt="" class="hover-image cls-img22" />
                     </div>
                     <div class="p-4">
                         <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.name }}</p>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
     <TransitionRoot as="template" :show="open">
         <Dialog as="div" class="relative z-50" @close="open = false">
@@ -100,7 +100,7 @@
                                         <div class="login-with">
       
                                         </div>
-                                        <button class="button-confirm">Let`s go →</button>
+                                        <!-- <button class="button-confirm">Let`s go →</button> -->
                                     </form>
                                 </div>
                             </div>
@@ -122,7 +122,9 @@
     // import { RecaptchaV2, useRecaptcha } from "vue3-recaptcha-v2";
     // const { handleGetResponse } = useRecaptcha();
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-
+    import hotel1 from '@/assets/hotel1.jpg';
+    import hotel2 from '@/assets/hotel2.jpg';
+    import hotel3 from '@/assets/hotel3.jpg';
     export default {
         name: 'LoginPage',
         components: {
@@ -134,29 +136,29 @@
         },
         data() {
             return {
-                // tes: [
-                //     { id: 1, name: 'KRYSTAL GRAND PUNTA CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 891-5555', url:require('@/assets/hotel1.jpg') },
-                //     { id: 2, name: 'KRYSTAL GRAND LOS CABOS - SAN JOSÉ DEL CABO, BCS', telefono: '01 (624) 163-4750', url:require('@/assets/hotel2.jpg')  },
-                //     { id: 3, name: 'KRYSTAL GRAND SUITES INSURGENTES SUR - CIUDAD DE MÉXICO, CDMX', telefono: '01 (55) 5322-1580', url: require('@/assets/hotel3.jpg')  },
-                //     { id: 4, name: 'KRYSTAL GRAND NUEVO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-1050', url:require('@/assets/hotel1.jpg')  },
-                //     { id: 5, name: 'KRYSTAL GRAND PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 176-1176' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 6, name: 'KRYSTAL GRAND RESIDENCES & VILLAS SAN MIGUEL DE ALLENDE', telefono: '01 (415) 148-2000', url:require('@/assets/hotel1.jpg')  },
-                //     { id: 7, name: 'KRYSTAL CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-9800' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 8, name: 'KRYSTAL PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-0700' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 9, name: 'KRYSTAL IXTAPA - IXTAPA ZIHUATANEJO, GUERRERO', telefono: '01 (755) 555-0510' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 10, name: 'PLAYA KRYSTAL ACAPULCO - ACAPULCO, GUERRERO', telefono: '01 (744) 485-5050' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 11, name: 'KRYSTAL SATÉLITE MARIA BARBARA - TLALNEPANTLA, MÉXICO', telefono: '01 (55) 5366-9924' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 12, name: 'KRYSTAL MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8319-0900' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 13, name: 'KRYSTAL URBAN CANCUN CENTRO - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-8000' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 14, name: 'KRYSTAL URBAN CIUDAD JUAREZ - CIUDAD JUAREZ, CHIHUAHUA', telefono: '01 (656) 629-0995' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 15, name: 'KRYSTAL URBANO GUADALAJARA - GUADALAJARA, JALISCO', telefono: '01 (33) 3679-3780' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 16, name: 'KRYSTAL URBAN / MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8122-8000' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 17, name: 'HAMPTON INN & SUITES PARAISO TABASCO - PARAISO, TABASCO', telefono: '01 (933) 333-6092' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 18, name: 'HYATT PLACE AGUASCALIENTES', telefono: '(449) 800-1234' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 19, name: 'HYATT CENTRIC LEON', telefono: '01 (477) 344-1100' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 20, name: 'HYATT REGENCY MÉXICO CITY INSURGENTES', telefono: '01 (55) 57247700' , url:require('@/assets/hotel1.jpg')  },
-                //     { id: 21, name: 'MAHEKAL - PLAYA DEL CARMEN', telefono: '800 836-8942' , url:require('@/assets/hotel1.jpg')  },
-                // ],
+                tes: [
+                    { id: 1, name: 'KRYSTAL GRAND PUNTA CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 891-5555', url:hotel1 },
+                    { id: 2, name: 'KRYSTAL GRAND LOS CABOS - SAN JOSÉ DEL CABO, BCS', telefono: '01 (624) 163-4750', url:hotel2  },
+                    { id: 3, name: 'KRYSTAL GRAND SUITES INSURGENTES SUR - CIUDAD DE MÉXICO, CDMX', telefono: '01 (55) 5322-1580', url: hotel3  },
+                    { id: 4, name: 'KRYSTAL GRAND NUEVO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-1050', url:hotel1  },
+                    { id: 5, name: 'KRYSTAL GRAND PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 176-1176' , url:hotel1  },
+                    { id: 6, name: 'KRYSTAL GRAND RESIDENCES & VILLAS SAN MIGUEL DE ALLENDE', telefono: '01 (415) 148-2000', url:hotel1  },
+                    { id: 7, name: 'KRYSTAL CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-9800' , url:hotel1  },
+                    { id: 8, name: 'KRYSTAL PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-0700' , url:hotel1  },
+                    { id: 9, name: 'KRYSTAL IXTAPA - IXTAPA ZIHUATANEJO, GUERRERO', telefono: '01 (755) 555-0510' , url:hotel1  },
+                    { id: 10, name: 'PLAYA KRYSTAL ACAPULCO - ACAPULCO, GUERRERO', telefono: '01 (744) 485-5050' , url:hotel1  },
+                    { id: 11, name: 'KRYSTAL SATÉLITE MARIA BARBARA - TLALNEPANTLA, MÉXICO', telefono: '01 (55) 5366-9924' , url:hotel1  },
+                    { id: 12, name: 'KRYSTAL MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8319-0900' , url:hotel1  },
+                    { id: 13, name: 'KRYSTAL URBAN CANCUN CENTRO - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-8000' , url:hotel1  },
+                    { id: 14, name: 'KRYSTAL URBAN CIUDAD JUAREZ - CIUDAD JUAREZ, CHIHUAHUA', telefono: '01 (656) 629-0995' , url:hotel1  },
+                    { id: 15, name: 'KRYSTAL URBANO GUADALAJARA - GUADALAJARA, JALISCO', telefono: '01 (33) 3679-3780' , url:hotel1  },
+                    { id: 16, name: 'KRYSTAL URBAN / MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8122-8000' , url:hotel1  },
+                    { id: 17, name: 'HAMPTON INN & SUITES PARAISO TABASCO - PARAISO, TABASCO', telefono: '01 (933) 333-6092' , url:hotel1  },
+                    { id: 18, name: 'HYATT PLACE AGUASCALIENTES', telefono: '(449) 800-1234' , url:hotel1  },
+                    { id: 19, name: 'HYATT CENTRIC LEON', telefono: '01 (477) 344-1100' , url:hotel1  },
+                    { id: 20, name: 'HYATT REGENCY MÉXICO CITY INSURGENTES', telefono: '01 (55) 57247700' , url:hotel1  },
+                    { id: 21, name: 'MAHEKAL - PLAYA DEL CARMEN', telefono: '800 836-8942' , url:hotel1  },
+                ],
                 nomhotl: '',
                 vista: 0,
                 check: 0,
@@ -183,6 +185,10 @@
     }
 </script>
 <style scoped>
+.cls-img22{
+    width: 100%;
+    height: 100%;
+}
 #checklist {
   --background: #000000;
   --text: #414856;

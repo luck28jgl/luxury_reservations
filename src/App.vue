@@ -22,17 +22,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div id="app">
-    <header>
-      <div style="width: 100%; height: 5vh;  background: white; " >
-        <div style="height: 5vh; margin-bottom:6px; background: #024a71;     position: fixed; display: flex;     justify-content: center;align-items: center;     z-index: 99; " class="bg-[#024a71] w-full h-[1vh] " >
-            <h1 style="    font-size: 18px; font-weight: 600; font-family: none;" class="text-white font-bold text-2xl my-2 clsstt-3" :class="{ 'opacity-0 scale-75': !isScrolled, 'opacity-100 scale-100': isScrolled }">luxe reserve</h1>
-                <!-- <p class="text-gray-700 mb-2 md:mb-6 ltr-33">
-                    Te mejoramos el precio comparativo con Spedia y Booking....
-                </p> -->
-        </div>
+  <header>
+    <div style="width: 100%; height: 5vh;  background: white; " >
+      <div style="height: 5vh; margin-bottom:6px; background: #024a71;     position: fixed; display: flex;     justify-content: center;align-items: center;     z-index: 99; " class="bg-[#024a71] w-full h-[1vh] " >
+          <h1 style="    font-size: 18px; font-weight: 600; font-family: none;" class="text-white font-bold text-2xl my-2 clsstt-3" :class="{ 'opacity-0 scale-75': !isScrolled, 'opacity-100 scale-100': isScrolled }">luxe reserve</h1>
+              <!-- <p class="text-gray-700 mb-2 md:mb-6 ltr-33">
+                  Te mejoramos el precio comparativo con Spedia y Booking....
+              </p> -->
       </div>
-    </header>
+    </div>
+  </header>
+  <div id="app" class="clsstrr-1" >
 
 
     <router-view />
@@ -43,13 +43,10 @@ onUnmounted(() => {
 
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+.clsstrr-1 {
+  width: 100%!important;
+  padding: 6px!important;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -59,21 +56,5 @@ header {
   color: #2c3e50;
   /* margin-top: 60px; */
 }
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
 
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
