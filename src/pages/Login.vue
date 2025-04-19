@@ -20,7 +20,7 @@
     });
 </script>
 <template>
-    <div class="sm:flex items-center ">
+    <div class="sm:flex items-center " style="    height: 25vh; " >
         <!-- <div style="height: 5vh; margin-bottom:6px; background: white; " class="bg-[#024a71] w-full h-[1vh] " >
         </div> -->
         <div class="w-full flex justify-center md:px-10 sm:px-5 transition-all duration-300" :class="{ 'opacity-0 scale-75': isScrolled, 'opacity-100 scale-100': !isScrolled }">
@@ -35,8 +35,30 @@
         </div>
 
     </div>
-    <div class="max-w-6xl mt-20" style="margin-top: 100px;" >
-        <div class="flex items-center justify-center " v-for="item in tes" :key="item.id">
+    <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
+        <div style="width: 80%;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
+            <button @click="navigation_host()" style="    border: solid 1px #024a71; background-color: #024a7163; width: 50%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button>
+            <button @click="navigation_host()"  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 50%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Reservaciones</button>
+        </div>
+    </div>
+    <div class="max-w-6xl mt-20" style="margin-top: 40px;" >
+
+        <div v-if="reservaciones.length === 0 && swich " style="display: flex; flex-direction: column; justify-content: center;">
+          <div style="    width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+              <!-- <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Buscar hotel por nombre</label> -->
+
+              <input @input="debounceFilter()" v-model="searchQuery" id="search-field" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Buscar hotel por nombre" type="search" name="search" />
+
+          </div>
+          <div  class="w-[25%] mx-3  flex justify-center items-end gap-[15px]">
+              <div style=" width: 70%;  display: flex; justify-content: center; align-items: flex-end;">
+                  <div style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                      <button @click="applyFilter()"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Buscar</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div  v-if="swich " class="flex items-center justify-center " v-for="item in filteredTes" :key="item.id">
             <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
                 <div class="bg-white shadow-xl rounded-lg overflow-hidden">
               
@@ -59,6 +81,19 @@
                 </div>
             </div>
         </div>
+        <div  v-if="reservaciones.length > 0 &&!swich " class="flex cls-55 items-center justify-center " v-for="item in reservaciones" :key="item.id">
+            <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
+                <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+                    <div class="p-4">
+                        <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.hotel }}</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div v-else-if="!swich && reservaciones.length === 0" class="flex cls-55 items-center justify-center">
+            <p class="text-gray-700 text-lg font-semibold">No hay reservaciones</p>
+        </div>
     </div>
     <TransitionRoot as="template" :show="open">
         <Dialog as="div" class="relative z-50" @close="open = false">
@@ -76,14 +111,14 @@
                                 <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
                                     <form class="form">
                                         <div class="title">
-                                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nueva Reservacion para el  hotel <br> {{  nomhotl }}</DialogTitle>
+                                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nueva Reservacion para el  hotel : <br> {{  nomhotl }}</DialogTitle>
 
                                         </div>
                                         <!-- <input class="input" name="email" placeholder="Email" type="email">
                                         <input class="input" name="password" placeholder="Password" type="password"> -->
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
-                                            <input checked="" value="1" name="r" type="radio" id="01" v-model="check" >
+                                            <input checked="" value="1" name="r" type="radio" id="01" v-model="resev.check" >
                                             <label for="01">Solo alojamiento</label>
                                             <input value="2" name="r" type="radio" id="02" v-model="check">
                                             <label for="02">Desayuno bufet</label>
@@ -96,7 +131,7 @@
                                           <div class="w-full">
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Tipo de habitacion</label>
-                                                  <select id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
+                                                  <select v-model="resev.tipo_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
                                                       <option value="1" >King Size</option>
                                                       <option value="2" >Estandar</option>
                                                   </select>
@@ -107,7 +142,7 @@
                                           <div class="w-full">
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Selecciona la vista de la habitación</label>
-                                                  <select id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
+                                                  <select v-model="resev.vista_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
                                                       <option value="1" >vista a la montaña</option>
                                                       <option value="2" >vista al mar</option>
                                                   </select>
@@ -177,11 +212,21 @@
                     { id: 20, name: 'HYATT REGENCY MÉXICO CITY INSURGENTES', telefono: '01 (55) 57247700' , url:hotel1  },
                     { id: 21, name: 'MAHEKAL - PLAYA DEL CARMEN', telefono: '800 836-8942' , url:hotel1  },
                 ],
+                searchQuery: '',
+                filteredTes: [],
+                reservaciones: [],
+                debounceTimeout: null,
                 nomhotl: '',
                 vista: 0,
                 check: 0,
                 idhotl: 0,
+                swich: true,
                 open: false,
+                resev: {
+                  check: 1,
+                  tipo_habitacion: 1,
+                  vista_habitacion: 1,
+                },
                 userAdd: {
                     first_name: '',
                     tipo_usuario: 0,
@@ -192,7 +237,26 @@
                 },
             }
         },
+        mounted() {
+            this.filteredTes = this.tes;
+        },
         methods: {
+            navigation_host() {
+              this.swich = !this.swich
+              console.log('Switch state:', this.swich);
+            },
+            debounceFilter() {
+                clearTimeout(this.debounceTimeout);
+                this.debounceTimeout = setTimeout(() => {
+                    this.applyFilter();
+                }, 2000);
+            },
+            applyFilter() {
+                const query = this.searchQuery.toLowerCase();
+                this.filteredTes = this.tes.filter(item =>
+                    item.name.toLowerCase().includes(query)
+                );
+            },
             abrir_mdlserv(item){
                 console.log('id', item);
                 this.nomhotl = item.name
@@ -200,27 +264,32 @@
                 this.open = true;
             },
             guardarDatos(){
-
-                // console.log('userAdd',this.userAdd)
-                // let loader = this.$loading.show({
-                //     canCancel: false,
-                //     loader: 'bars'
-                // });
-                console.log('guardarDatos', this.nomhotl, this.idhotl);
-                this.open = false;
-                // this.userAdd.tipo_usuario = 1
-                // loader.hide()
-                this.$swal({
-                    icon: 'success',
-                    title: 'se ha Creado su reservacion con exito',
-                    timer: 2000
-                });
+              this.reservaciones.push({
+                  hotel: this.nomhotl,
+                  id: this.idhotl,
+                  plan: this.resev.check,
+                  tipo_habitacion: this.resev.tipo_habitacion,
+                  vista_habitacion: this.resev.vista_habitacion,
+              });
+              console.log('guardarDatos', this.nomhotl, this.idhotl);
+              this.open = false;
+              this.$swal({
+                  icon: 'success',
+                  title: 'se ha Creado su reservacion con exito',
+                  timer: 2000
+              });
 
             }
         }
     }
 </script>
 <style scoped>
+.cls-55{
+  height: 55vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 .cls-img22{
     width: 100%;
     height: 100%;

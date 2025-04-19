@@ -46,6 +46,7 @@ onUnmounted(() => {
 
 .clsstrr-1 {
   width: 100%!important;
+  height: 95vh!important;
   padding: 6px!important;
   background-color: white!important;
   background: white!important;
