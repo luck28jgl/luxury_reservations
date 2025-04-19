@@ -8,6 +8,7 @@ export default {
     extend: {
       darkMode: 'class', 
       colors:{
+        'imputs': '#e7e7e7',
         'rosappa': '#a55676',
         'rosappa2': '#b56183',
         'redppa': '#91173c',

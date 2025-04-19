@@ -20,7 +20,7 @@
     });
 </script>
 <template>
-    <div class="sm:flex items-center shadow-md ">
+    <div class="sm:flex items-center ">
         <!-- <div style="height: 5vh; margin-bottom:6px; background: white; " class="bg-[#024a71] w-full h-[1vh] " >
         </div> -->
         <div class="w-full flex justify-center md:px-10 sm:px-5 transition-all duration-300" :class="{ 'opacity-0 scale-75': isScrolled, 'opacity-100 scale-100': !isScrolled }">
@@ -68,8 +68,8 @@
 
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center max-sm:items-center  sm:p-0 max-2xl:items-center">
-                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" style="    max-height: 95vh;" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-10/12 sm:max-w-4xl sm:p-6 max-md:w-11/12 scroll" style="height: 95vh;     width: 100%; margin-block: 25px;">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" style="    max-height: 90vh;" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-10/12 sm:max-w-4xl sm:p-6 max-md:w-11/12 scroll" style="height: 90vh;     width: 100%; margin-block: 25px;">
                         <div>
                             <div class="mt-3 text-center sm:mt-5 ">
                                 <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
@@ -81,7 +81,7 @@
                                         </div>
                                         <!-- <input class="input" name="email" placeholder="Email" type="email">
                                         <input class="input" name="password" placeholder="Password" type="password"> -->
-                                        <span>Selecciona un plan</span>
+                                        <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
                                             <input checked="" value="1" name="r" type="radio" id="01" v-model="check" >
                                             <label for="01">Solo alojamiento</label>
@@ -90,13 +90,31 @@
                                             <input value="3" name="r" type="radio" id="03" v-model="check">
                                             <label for="03">Todo incluido</label>
                                         </div>
-                                        <!-- <span>Selecciona la vista de la habitación</span>
-                                        <div id="checkvist">
-                                            <input checked="" value="1" name="vista" type="radio" id="04" v-model="vista" >
-                                            <label for="04">vista a la montaña</label>
-                                            <input value="2" name="vista" type="radio" id="05" v-model="vista">
-                                            <label for="5">vista a la al mar</label>
-                                        </div> -->
+
+                                        <!-- <span>Selecciona la vista de la habitación</span> -->
+                                        <div >
+                                          <div class="w-full">
+                                              <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
+                                                  <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Tipo de habitacion</label>
+                                                  <select id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
+                                                      <option value="1" >King Size</option>
+                                                      <option value="2" >Estandar</option>
+                                                  </select>
+                                              </div>
+                                          </div>	
+                                        </div>
+                                        <div >
+                                          <div class="w-full">
+                                              <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
+                                                  <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Selecciona la vista de la habitación</label>
+                                                  <select id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
+                                                      <option value="1" >vista a la montaña</option>
+                                                      <option value="2" >vista al mar</option>
+                                                  </select>
+                                              </div>
+                                          </div>	
+                                        </div>
+                                    
                                         <div class="login-with">
       
                                         </div>
@@ -180,6 +198,24 @@
                 this.nomhotl = item.name
                 this.idhotl = item.id
                 this.open = true;
+            },
+            guardarDatos(){
+
+                // console.log('userAdd',this.userAdd)
+                // let loader = this.$loading.show({
+                //     canCancel: false,
+                //     loader: 'bars'
+                // });
+                console.log('guardarDatos', this.nomhotl, this.idhotl);
+                this.open = false;
+                // this.userAdd.tipo_usuario = 1
+                // loader.hide()
+                this.$swal({
+                    icon: 'success',
+                    title: 'se ha Creado su reservacion con exito',
+                    timer: 2000
+                });
+
             }
         }
     }
@@ -190,30 +226,10 @@
     height: 100%;
 }
 #checklist {
-  --background: #000000;
-  --text: #414856;
-  --check: #add8e6;
-  --disabled: #c3c8de;
-  --width: 100%;
-  --height: 180px;
-  --border-radius: 10px;
-  background: var(--background);
-  width: var(--width);
-  height: var(--height);
-  border-radius: var(--border-radius);
-  position: relative;
-  box-shadow: 0 10px 30px rgba(65, 72, 86, 0.05);
-  padding: 30px 45px;
-  display: grid;
-  grid-template-columns: 30px auto;
-  justify-content: start;
-  align-items: flex-start;
-}
-#checkvist {
-  --background: #000000;
-  --text: #414856;
-  --check: #add8e6;
-  --disabled: #c3c8de;
+  --background: #e7e7e7;
+  --text: #00000000;
+  --check: #000000;
+  --disabled: #000000;
   --width: 100%;
   --height: 180px;
   --border-radius: 10px;
@@ -230,9 +246,10 @@
   align-items: flex-start;
 }
 
+
 #checklist label {
   /* color: var(--text); */
-  color: white;
+  color: rgb(0, 0, 0);
   position: relative;
   cursor: pointer;
   display: grid;
@@ -241,26 +258,13 @@
   transition: color 0.3s ease;
   margin-right: 20px;
 }
-#checkvist label {
-  /* color: var(--text); */
-  color: white;
-  position: relative;
-  cursor: pointer;
-  display: grid;
-  align-items: center;
-  width: fit-content;
-  transition: color 0.3s ease;
-  margin-right: 20px;
-}
+
 
 #checklist label::before, #checklist label::after {
   content: "";
   position: absolute;
 }
-#checkvist label::before, #checkvist label::after {
-  content: "";
-  position: absolute;
-}
+
 
 #checklist label::before {
   height: 2px;
@@ -270,14 +274,7 @@
   border-radius: 2px;
   transition: background 0.3s ease;
 }
-#checkvist label::before {
-  height: 2px;
-  width: 8px;
-  left: -27px;
-  background: var(--check);
-  border-radius: 2px;
-  transition: background 0.3s ease;
-}
+
 
 #checklist label:after {
   height: 4px;
@@ -286,13 +283,7 @@
   left: -25px;
   border-radius: 50%;
 }
-#checkvist label:after {
-  height: 4px;
-  width: 4px;
-  top: 8px;
-  left: -25px;
-  border-radius: 50%;
-}
+
 
 #checklist input[type="radio"] {
   -webkit-appearance: none;
@@ -318,30 +309,9 @@
   background: var(--check);
   border-radius: 2px;
 }
-#checkvist input[type="radio"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  position: relative;
-  height: 15px;
-  width: 15px;
-  outline: none;
-  border: 0;
-  margin: 0 15px 0 0;
-  cursor: pointer;
-  background: var(--background);
-  display: grid;
-  align-items: center;
-  margin-right: 20px;
-}
 
-#checkvist input[type="radio"]::before, #checkvist input[type="radio"]::after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  top: auto;
-  background: var(--check);
-  border-radius: 2px;
-}
+
+
 
 #checklist input[type="radio"]::before {
   width: 0px;
@@ -362,25 +332,8 @@
 #checklist input[type="radio"]:checked::after {
   animation: check-02 0.4s ease forwards;
 }
-#checkvist input[type="radio"]::before {
-  width: 0px;
-  right: 60%;
-  transform-origin: right bottom;
-}
 
-#checkvist input[type="radio"]::after {
-  width: 0px;
-  left: 40%;
-  transform-origin: left bottom;
-}
 
-#checkvist input[type="radio"]:checked::before {
-  animation: check-01 0.4s ease forwards;
-}
-
-#checkvist input[type="radio"]:checked::after {
-  animation: check-02 0.4s ease forwards;
-}
 
 #checklist input[type="radio"]:checked + label {
   color: var(--disabled);
@@ -395,19 +348,7 @@
 #checklist input[type="radio"]:checked + label::after {
   animation: firework 0.5s ease forwards 0.1s;
 }
-#checkvist input[type="radio"]:checked + label {
-  color: var(--disabled);
-  animation: move 0.3s ease 0.1s forwards;
-}
 
-#checkvist input[type="radio"]:checked + label::before {
-  background: var(--disabled);
-  animation: slice 0.4s ease forwards;
-}
-
-#checkvist input[type="radio"]:checked + label::after {
-  animation: firework 0.5s ease forwards 0.1s;
-}
 
 @keyframes move {
   50% {
