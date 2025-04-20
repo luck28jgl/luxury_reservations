@@ -4,12 +4,12 @@ import axios from 'axios'
 // const URL_API = 'http://127.0.0.1:8000'
 // const URL_API = 'https://docs.djangoproject.com/en/5.2/howto/deployment'
 const URL_API = process.env.NODE_ENV === 'production'
-    ? 'https://rds-ejemplo.cdw4cq0g8nab.us-east-2.rds.amazonaws.com'  // URL de tu backend en producción
+    ? 'https://luck28jgl.github.io/luxury_reservations_bk'  // URL de tu backend en producción
     : 'http://127.0.0.1:8000';  // URL de tu backend en desarrollo
 
 const axiosInstance = axios.create({
     // baseURL: URL_API + '/api',//produccion
-    baseURL: URL_API , //desarrollo
+    baseURL: URL_API  + '/api', //desarrollo
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
