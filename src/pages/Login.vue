@@ -2,7 +2,7 @@
     // import imgBg from '../assets/bgstate.jpg'
     import { ref, onMounted, onUnmounted } from 'vue';
 
-    import ppalogo from '../assets/hotelbok.png'
+    import ppalogo from '../assets/logoluxereserv.jpg'
     // import ppalogo from '../assets/hotelbok.png'
 
     const isScrolled = ref(false);
@@ -20,15 +20,9 @@
     });
 </script>
 <template>
-    <div class="sm:flex items-center " style="    height: 25vh;     margin-top: 40px;" >
-        <div class="w-full flex justify-center md:px-10 sm:px-5 transition-all duration-300" :class="{ 'opacity-0 scale-75': isScrolled, 'opacity-100 scale-100': !isScrolled }">
+    <div class="sm:flex items-center " style="    height: 25vh;     margin-top: 40px;     display: flex;justify-content: center;" >
+        <div class="w-full flex justify-center md:px-10 sm:px-5 transition-all duration-300" style="    width: 50%;" :class="{ 'opacity-0 scale-75': isScrolled, 'opacity-100 scale-100': !isScrolled }">
             <img class="bg-cover" :src="ppalogo" alt="" />
-        </div>
-        <div class="md:px-10 sm:px-5 ctnn-33">
-            <h1 class="text-gray-800 font-bold text-2xl my-2 clsstt-3" :class="{ 'opacity-0 scale-75': isScrolled, 'opacity-100 scale-100': !isScrolled }">luxe reserve</h1>
-            <p class="text-gray-700 mb-2 md:mb-6 ltr-33">
-                Te mejoramos el precio comparativo con Spedia y Booking....
-            </p>
         </div>
 
     </div>
@@ -38,7 +32,7 @@
             <button @click="navigation_host(2)"  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 50%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Reservaciones</button>
         </div>
     </div>
-    <div class="max-w-6xl mt-20" style="margin-top: 40px;" >
+    <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;  " >
 
         <div v-if="reservaciones.length === 0 && swich " style="display: flex; flex-direction: column; justify-content: center;">
           <div style="    width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
@@ -55,7 +49,7 @@
               </div>
           </div>
         </div>
-        <div  v-if="swich " class="flex items-center justify-center " v-for="item in filteredTes" :key="item.id">
+        <div  class="flex items-center justify-center " v-for="item in filteredTes" :key="item.id">
             <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
                 <div class="bg-white shadow-xl rounded-lg overflow-hidden">
               
@@ -85,7 +79,10 @@
                 </div>
             </div>
         </div>
-        <div  v-if="reservaciones.length > 0 &&!swich " class="flex cls-55 items-center justify-center " v-for="item in reservaciones" :key="item.id">
+    </div>
+    <div v-if="reservaciones.length > 0 && !swich "  class="max-w-6xl mt-20" style="margin-top: 40px;   height: 56vh;overflow: scroll;" >
+
+        <div  v-if="reservaciones.length > 0 &&!swich "   class="flex cls-55 items-center justify-center " v-for="item in reservaciones" :key="item.id">
             <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
                 <div class="bg-white shadow-xl rounded-lg overflow-hidden">
                     <div class="p-4">
@@ -288,9 +285,8 @@
                 this.idhotl = item.id
                 this.open = true;
             },
-            get_prueb(page){
+            get_prueb(){
               this.loading = true;
-              const mensaje = "Este es el mensaje que deseas enviar";
               reservacionesservices.getNot({ mensaje: 'Test message' })
               .then(response => {
                 console.log('Success:', response.data);
@@ -300,10 +296,12 @@
               });
 
             },
-            get_reserv(page){
+            get_reserv(){
               this.loading = true;
               // const mensaje = "Este es el mensaje que deseas enviar";
-              reservacionesservices.getReservaciones({ filt: '' })
+              reservacionesservices.getReservaciones({ 
+                filt: '' ,
+              })
               .then(response => {
 
                 console.log('Success:', response.data);
@@ -315,13 +313,13 @@
 
             },
             guardarDatos(){              
-              this.reservaciones.push({
-                  hotel: this.nomhotl,
-                  id: this.idhotl,
-                  plan: this.resev.check,
-                  tipo_habitacion: this.resev.tipo_habitacion,
-                  vista_habitacion: this.resev.vista_habitacion,
-              });
+              // this.reservaciones.push({
+              //     hotel: this.nomhotl,
+              //     id: this.idhotl,
+              //     plan: this.resev.check,
+              //     tipo_habitacion: this.resev.tipo_habitacion,
+              //     vista_habitacion: this.resev.vista_habitacion,
+              // });
               // login('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
               reservacionesservices.createreserv({ 
                 email: this.emailusr, 
@@ -355,7 +353,7 @@
     --tw-ring-color: oklch(0 0 0);
 }
 .cls-55{
-  height: 55vh;
+  /* height: 55vh; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
