@@ -6,4 +6,8 @@ import router from '@/router/index.js'
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
-createApp(App).use(router).use(VueSweetalert2).mount('#app')
+const app = createApp(App)
+// createApp(App)
+app.use(router)
+app.use(VueSweetalert2)
+app.mount('#app')
