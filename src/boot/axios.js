@@ -4,7 +4,7 @@ import axios from 'axios'
 // const URL_API = 'http://127.0.0.1:8000'
 // const URL_API = 'https://docs.djangoproject.com/en/5.2/howto/deployment'
 const URL_API = process.env.NODE_ENV === 'production'
-    ? 'https://luck28jgl.github.io/luxury_reservations_bk'  // URL de tu backend en producción
+    ? 'https://luxury-reservations-bk-git-main-star-max.vercel.app'  // URL de tu backend en producción
     : 'http://127.0.0.1:8000';  // URL de tu backend en desarrollo
 
 const axiosInstance = axios.create({
