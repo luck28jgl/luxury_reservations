@@ -8,7 +8,7 @@ const URL_API = process.env.NODE_ENV === 'production'
     : 'http://127.0.0.1:8000';  // URL de tu backend en desarrollo
 
 const axiosInstance = axios.create({
-    baseURL: URL_API ,//produccion
+    baseURL: URL_API + '/api',//produccion
     // baseURL: URL_API + '/api',//desarrollo
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
