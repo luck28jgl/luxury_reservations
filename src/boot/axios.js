@@ -9,7 +9,7 @@ const URL_API = process.env.NODE_ENV === 'production'
 
 const axiosInstance = axios.create({
     // baseURL: URL_API + '/api',//produccion
-    baseURL: URL_API  , //desarrollo
+    baseURL: URL_API  + '/api' , //desarrollo
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
