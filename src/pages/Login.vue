@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div v-if="reservaciones.length > 0 && !swich "  class="max-w-6xl mt-20" style="margin-top: 40px;   height: 56vh;overflow: scroll;" >
+    <div class="max-w-6xl mt-20" style="margin-top: 40px;   height: 56vh;overflow: scroll;" >
 
         <div  v-if="reservaciones.length > 0 &&!swich "   class="flex cls-55 items-center justify-center " v-for="item in reservaciones" :key="item.id">
             <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
