@@ -10,11 +10,7 @@ export default defineConfig({
     vue(),
     vueDevTools(),
   ],
-  build: {
-    rollupOptions: {
-      external: ['vue-loading-overlay'], // Marca esta dependencia como externa
-    },
-  },
+
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
