@@ -14,5 +14,8 @@ export default {
     createreserv (data) {
         return axiosInstance.post('/reservaciones/', data);
     },
+    Deletereserv (data) {
+        return axiosInstance.delete(`/reservaciones/${data.id}/delete-reservation/`);
+    },
 
 };

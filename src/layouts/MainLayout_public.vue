@@ -31,7 +31,7 @@
           <TransitionChild as="template" enter="transition ease-in-out duration-300 transform" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="-translate-x-full">
             <DialogPanel class="relative mr-16 flex w-full max-w-xs flex-1">
               <TransitionChild as="template" enter="ease-in-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-300" leave-from="opacity-100" leave-to="opacity-0">
-                <div style="       left: 167px;" class="absolute left-full top-0 flex w-16 justify-center pt-5">
+                <div style="    left: 155px;" class="absolute left-full top-0 flex w-16 justify-center pt-5">
                   <button type="button" style="  width: 100%;   color: #000000;" class="-m-2.5 p-2.5 " @click="sidebarOpen = false">
                     <span class="sr-only">Close</span>
                     <XMarkIcon class="h-6 w-6 text-black" aria-hidden="true" />
@@ -39,7 +39,7 @@
                 </div>
               </TransitionChild>
               <!--Sidebar component, swap this element with another sidebar if you like -->
-              <div style="    display: flex ;flex-direction: column; width: 25vh;     border: solid 4px #024a71;  margin-top: 41px;" class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+              <div style="    display: flex ;flex-direction: column; width: 23vh; margin-top: 41px;" class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
                 <div style="    height: 20vh;" class="flex h-16 shrink-0 items-center mt-6">
                   <div class="w-11/12 flex justify-center">
                     <img :src="ppalogo" class="w-3/4">
@@ -50,7 +50,9 @@
                     <li >
                       <ul role="list" class="-mx-2 space-y-1">
                         <li v-for="item in navigation" :key="item.name">
-
+                          <!-- <div @click="pageIr(item)" :class="[item.url.includes(currentUrl) ? 'bg-gray-50 text-black' : 'text-black hover:text-black hover:bg-gray-50', 'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold cursor-pointer']">
+                            {{ item.name }}
+                          </div> -->
                           <div @click="pageIr(item)" style=" display: flex;     align-items: center; color: black;margin-block: 20px; height: 5vh;" class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-black hover:bg-gray-50 cursor-pointer">
                             {{ item.name }}
                           </div>
@@ -58,7 +60,7 @@
                       </ul>
                     </li>
                     <li  style="    left: 22px;     bottom: 20px;" class="absolute left-full top-0 flex w-16 justify-center pt-5">
-                        <div class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50 cursor-pointer" @click="logout()">
+                        <!-- <div class="flex items-center gap-x-4 px-6 py-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-50 cursor-pointer" @click="logout()">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
@@ -66,7 +68,7 @@
 
                             </div>
                             Cerrar Sesión
-                        </div>
+                        </div> -->
                     </li>
                   </ul>
                 </nav>
@@ -133,13 +135,8 @@
       },
       mounted() {
         // this.tipoUsuario = this.$store.state.user.type
-        this.id_user = localStorage.getItem('userPk'); // Obtén el ID del usuario desde localStorage
-        console.log(`ID del usuario obtenido: ${this.id_user}`);
-        if (this.id_user) {
-            this.filtrarNavigation(); // Llama al método si es necesario
-        } else {
-            console.error('No se pudo obtener el ID del usuario desde localStorage.');
-        }
+        this.id_user = sessionStorage.getItem('pk')
+        console.log(this.id_user)
         // this.filtrarNavigation(); // Re-enable the method call
       },
       computed: {
@@ -150,9 +147,9 @@
               sidebarOpen: false,
               nowYear: new Date().getFullYear(),
               navigation: [
-                // { name: 'Inicio de seción', link: 'ReservacionPath', icon: '', url: '/lista-all-reservation', tipo:[0]},
-                // { name: 'hacer reservaciones', link: 'LoginPath', icon: '', url: '/', tipo:[0]},
-                { name: 'Todas las reservaciones', link: 'LoginCompra', icon: '', url: '/', tipo:[0]},
+                { name: 'Inicio de seción', link: 'ReservacionPath', icon: '', url: '/inicio-sesion', tipo:[0]},
+                { name: 'hacer reservaciones', link: 'LoginPath', icon: '', url: '/', tipo:[0]},
+                // { name: 'todas las reservaciones', link: 'resevacionesall', icon: '', url: '/lista-all-reservation', tipo:[0]},
               ],
               open: false,
               tipoUsuario: '',
@@ -182,7 +179,7 @@
           });
         },
         filtrarNavigation() {
-          LoginServices.getUType({
+          LoginService.getUType({
             username: this.id_user
           }).then((response) => {
             this.tipoUsuario = response.data.tipo
