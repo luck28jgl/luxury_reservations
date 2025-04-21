@@ -1,5 +1,5 @@
 <script setup>
-    import kamajologo from '../assets/kamajo-logo-ferreteria.png'
+    // import kamajologo from '../assets/kamajo-logo-ferreteria.png'
     
     import { ref, onMounted, onUnmounted } from 'vue';
     import ppalogo from '../assets/logoluxereserv.jpg'
