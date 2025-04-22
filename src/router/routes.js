@@ -52,7 +52,7 @@ const routes = [
                         Authorization: 'Token ' + sessionStorage.getItem('auth_token')
                     };
                 }
-                if (tipoUsuario  === 1 && to.path == '/' ) {
+                if (tipoUsuario  === 0 && to.path == '/' ) {
                     next('/lista-all-reservation');
                 }  else {
                     next();

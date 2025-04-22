@@ -186,6 +186,9 @@
             username: this.id_user
           }).then((response) => {
             this.tipoUsuario = response.data.tipo
+            this.$store.dispatch('user/setUserType', this.tipoUsuario);
+            console.log('si se guardo el id del usuario',this.tipoUsuario)
+            // 
             this.navigation = this.navigation.filter(item => {
               if (item.tipo.includes(this.tipoUsuario)) {
                 return item;
