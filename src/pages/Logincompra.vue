@@ -130,6 +130,10 @@
                                             <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nueva Reservacion para el  hotel : <br> {{  nomhotl }}</DialogTitle>
 
                                         </div>
+                                        <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
+
+                                        </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">nombre de quien reserva </label>
 
@@ -142,13 +146,29 @@
                                             <input  v-model="emailusr" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="email de quien reserva" type="search" name="search" disabled />
 
                                         </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.desde) }}</p>
+
+
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.hasta) }}</p>
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
+
+                                            <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" />
+
+                                        </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
-                                            <input checked="" value="1" name="r" type="radio" id="01" v-model="resev.check" disabled>
+                                            <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" disabled>
                                             <label for="01">Solo alojamiento</label>
-                                            <input value="2" name="r" type="radio" id="02" v-model="check" disabled>
+                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="check" disabled>
                                             <label for="02">Desayuno bufet</label>
-                                            <input value="3" name="r" type="radio" id="03" v-model="check" disabled>
+                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="check" disabled>
                                             <label for="03">Todo incluido</label>
                                         </div>
                                         <div >
@@ -156,8 +176,8 @@
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Tipo de habitacion</label>
                                                   <select v-model="resev.tipo_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6"  disabled>
-                                                      <option value="1" >King Size</option>
-                                                      <option value="2" >Estandar</option>
+                                                      <option value="King Size" >King Size</option>
+                                                      <option value="Estandar" >Estandar</option>
                                                   </select>
                                               </div>
                                           </div>	
@@ -167,8 +187,8 @@
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Selecciona la vista de la habitación</label>
                                                   <select v-model="resev.vista_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6"  disabled>
-                                                      <option value="1" >vista a la montaña</option>
-                                                      <option value="2" >vista al mar</option>
+                                                      <option value="vista a la montaña" >vista a la montaña</option>
+                                                      <option value="vista al mar" >vista al mar</option>
                                                   </select>
                                               </div>
                                           </div>	
@@ -243,16 +263,21 @@
                 nomhotl: '',
                 emailusr: '',
                 namesr: '',
-                vista: 0,
+                vistasmash: 0,
+                vistasmash: 0,
                 check: 0,
                 idhotl: 0,
                 swich: true,
                 open_confirm: false,
                 open: false,
                 resev: {
-                  check: 1,
-                  tipo_habitacion: 1,
-                  vista_habitacion: 1,
+                  check: '',
+                  tipo_habitacion: '',
+                  fech_creacion: '',
+                  desde: '',
+                  hasta: '',
+                  numperson: '',
+                  vista_habitacion: '',
                 },
                 userAdd: {
                     first_name: '',
@@ -270,6 +295,14 @@
             this.get_reserv();
         },
         methods: {
+              
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            },
             deltereserv(){
                 reservacionesservices.Deletereserv({ id: this.idhotl })
                 .then(response => {
@@ -292,7 +325,12 @@
                 this.namesr = item.uduario
                 this.emailusr = item.email
                 this.resev.tipo_habitacion = item.tip_hab
-                this.resev.tip_vista = item.tip_vista
+
+                this.resev.vista_habitacion = item.tip_vista
+                this.resev.desde = item.desde;
+                this.resev.hasta = item.hasta;
+                this.resev.fech_creacion = item.fecha_de_creacion;
+                this.resev.numperson = item.cuentas_pesonas
                 this.idhotl = item.id
                 this.open = true;
                 this.check = item.check
