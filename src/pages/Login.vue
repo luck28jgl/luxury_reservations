@@ -32,8 +32,8 @@
 
     <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
         <div style="width: 80%;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
-            <button @click="navigation_host(1)" style="    border: solid 1px #024a71; background-color: #024a7163; width: 50%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button>
-            <button @click="navigation_host(2)"  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 50%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Reservaciones</button>
+            <button  style="    border: solid 1px #024a71; background-color: #024a7163;    width: 100%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button>
+            <!-- <button @click="navigation_host(2)"  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 50%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Reservaciones</button> -->
         </div>
     </div>
     <div>
@@ -147,13 +147,32 @@
                                             <input  v-model="emailusr" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="email de quien reserva" type="search" name="search" />
 
                                         </div>
+
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
+
+                                            <input  type="date"  v-model="resev.desde" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  name="search" />
+
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
+
+                                            <input type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"   name="search" />
+
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
+
+                                            <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" />
+
+                                        </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
-                                            <input checked="" value="1" name="r" type="radio" id="01" v-model="resev.check" >
+                                            <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" >
                                             <label for="01">Solo alojamiento</label>
-                                            <input value="2" name="r" type="radio" id="02" v-model="check">
+                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="check">
                                             <label for="02">Desayuno bufet</label>
-                                            <input value="3" name="r" type="radio" id="03" v-model="check">
+                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="check">
                                             <label for="03">Todo incluido</label>
                                         </div>
 
@@ -163,8 +182,8 @@
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Tipo de habitacion</label>
                                                   <select v-model="resev.tipo_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
-                                                      <option value="1" >King Size</option>
-                                                      <option value="2" >Estandar</option>
+                                                      <option value="King Size" >King Size</option>
+                                                      <option value="Estandar" >Estandar</option>
                                                   </select>
                                               </div>
                                           </div>	
@@ -174,8 +193,8 @@
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Selecciona la vista de la habitación</label>
                                                   <select v-model="resev.vista_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
-                                                      <option value="1" >vista a la montaña</option>
-                                                      <option value="2" >vista al mar</option>
+                                                      <option value="vista a la montaña" >vista a la montaña</option>
+                                                      <option value="vista al mar" >vista al mar</option>
                                                   </select>
                                               </div>
                                           </div>	
@@ -209,6 +228,22 @@
     import hotel1 from '@/assets/hotel1.jpg';
     import hotel2 from '@/assets/hotel2.jpg';
     import hotel3 from '@/assets/hotel3.jpg';
+    import hotel4 from '@/assets/hotel4.jpg';
+    import hotel5 from '@/assets/hotel5.jpg';
+    // import hotel6 from '@/assets/hotel6.jpg';
+    import hotel7 from '@/assets/hotel7.jpg';
+    import hotel8 from '@/assets/hotel8.jpg';
+    // import hotel9 from '@/assets/hotel9.jpg';
+    import hotel10 from '@/assets/hotel10.jpg';
+    // import hotel11 from '@/assets/hotel11.jpg';
+    import hotel12 from '@/assets/hotel12.jpg';
+    // import hotel13 from '@/assets/hotel13.jpg';
+    import hotel14 from '@/assets/hotel14.jpg';
+    import hotel15 from '@/assets/hotel15.jpg';
+    import hotel16 from '@/assets/hotel16.jpg';
+    import hotel17 from '@/assets/hotel17.jpg';
+    import hotel18 from '@/assets/hotel18.jpg';
+    import hotel19 from '@/assets/hotel19.jpg';
     export default {
         name: 'LoginPage',
         components: {
@@ -221,22 +256,26 @@
         data() {
             return {
                 tes: [
-                    { id: 1, name: 'KRYSTAL GRAND PUNTA CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 891-5555', url:hotel1 , precio_inicial: 400 , precio_dec: 2268 },
-                    { id: 2, name: 'KRYSTAL GRAND LOS CABOS - SAN JOSÉ DEL CABO, BCS', telefono: '01 (624) 163-4750', url:hotel2  , precio_inicial: 400 , precio_dec: 2268 },
-                    { id: 3, name: 'KRYSTAL GRAND SUITES INSURGENTES SUR - CIUDAD DE MÉXICO, CDMX', telefono: '01 (55) 5322-1580', url: hotel3 , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 4, name: 'KRYSTAL GRAND NUEVO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-1050', url:hotel1 , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 5, name: 'KRYSTAL GRAND PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 176-1176' , url:hotel2 , precio_inicial: 400 , precio_dec: 2268   },
-                    { id: 6, name: 'KRYSTAL GRAND RESIDENCES & VILLAS SAN MIGUEL DE ALLENDE', telefono: '01 (415) 148-2000', url:hotel3   , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 7, name: 'KRYSTAL CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-9800' , url:hotel1  },
-                    { id: 8, name: 'KRYSTAL PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-0700' , url:hotel2 , precio_inicial: 400 , precio_dec: 2268   },
+                    { id: 1, name: 'KRYSTAL GRAND PUNTA CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 891-5555', url:hotel4 , precio_inicial: 400 , precio_dec: 2268 },
+                    { id: 2, name: 'KRYSTAL GRAND LOS CABOS - SAN JOSÉ DEL CABO, BCS', telefono: '01 (624) 163-4750', url:hotel5  , precio_inicial: 400 , precio_dec: 2268 },
+                    { id: 3, name: 'KRYSTAL GRAND SUITES INSURGENTES SUR - CIUDAD DE MÉXICO, CDMX', telefono: '01 (55) 5322-1580', url:hotel3 , precio_inicial: 400 , precio_dec: 2268  },
+                    { id: 4, name: 'KRYSTAL GRAND NUEVO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-1050', url:hotel7 , precio_inicial: 400 , precio_dec: 2268  },
+                    { id: 5, name: 'KRYSTAL GRAND PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 176-1176' , url:hotel8 , precio_inicial: 400 , precio_dec: 2268   },
+                    { id: 6, name: 'KRYSTAL GRAND RESIDENCES & VILLAS SAN MIGUEL DE ALLENDE', telefono: '01 (415) 148-2000', url:hotel10   , precio_inicial: 400 , precio_dec: 2268  },
+                    { id: 7, name: 'KRYSTAL CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-9800' , url:hotel1 , precio_inicial: 400 , precio_dec: 2268 },
+
+
+                    { id: 8, name: 'KRYSTAL PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-0700' , url:hotel12 , precio_inicial: 400 , precio_dec: 2268   },
                     { id: 9, name: 'KRYSTAL IXTAPA - IXTAPA ZIHUATANEJO, GUERRERO', telefono: '01 (755) 555-0510' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 10, name: 'PLAYA KRYSTAL ACAPULCO - ACAPULCO, GUERRERO', telefono: '01 (744) 485-5050' , url:hotel1  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 11, name: 'KRYSTAL SATÉLITE MARIA BARBARA - TLALNEPANTLA, MÉXICO', telefono: '01 (55) 5366-9924' , url:hotel2   , precio_inicial: 400 , precio_dec: 2268 },
-                    { id: 12, name: 'KRYSTAL MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8319-0900' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 13, name: 'KRYSTAL URBAN CANCUN CENTRO - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-8000' , url:hotel1  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 14, name: 'KRYSTAL URBAN CIUDAD JUAREZ - CIUDAD JUAREZ, CHIHUAHUA', telefono: '01 (656) 629-0995' , url:hotel2  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 15, name: 'KRYSTAL URBANO GUADALAJARA - GUADALAJARA, JALISCO', telefono: '01 (33) 3679-3780' , url:hotel3 , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 16, name: 'KRYSTAL URBAN / MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8122-8000' , url:hotel1, precio_inicial: 400 , precio_dec: 2268   },
+                    { id: 10, name: 'PLAYA KRYSTAL ACAPULCO - ACAPULCO, GUERRERO', telefono: '01 (744) 485-5050' , url:hotel14 , precio_inicial: 400 , precio_dec: 2268  },
+                    { id: 11, name: 'KRYSTAL SATÉLITE MARIA BARBARA - TLALNEPANTLA, MÉXICO', telefono: '01 (55) 5366-9924' , url:hotel15   , precio_inicial: 400 , precio_dec: 2268 },
+                    { id: 12, name: 'KRYSTAL MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8319-0900' , url:hotel16  , precio_inicial: 400 , precio_dec: 2268  },
+                    { id: 13, name: 'KRYSTAL URBAN CANCUN CENTRO - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-8000' , url:hotel17  , precio_inicial: 400 , precio_dec: 2268  },
+                    { id: 14, name: 'KRYSTAL URBAN CIUDAD JUAREZ - CIUDAD JUAREZ, CHIHUAHUA', telefono: '01 (656) 629-0995' , url:hotel18  , precio_inicial: 400 , precio_dec: 2268  },
+                    { id: 15, name: 'KRYSTAL URBANO GUADALAJARA - GUADALAJARA, JALISCO', telefono: '01 (33) 3679-3780' , url:hotel19 , precio_inicial: 400 , precio_dec: 2268  },
+
+                    { id: 16, name: 'KRYSTAL URBAN / MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8122-8000' , url:hotel1 , precio_inicial: 400 , precio_dec: 2268   },
+
                     { id: 17, name: 'HAMPTON INN & SUITES PARAISO TABASCO - PARAISO, TABASCO', telefono: '01 (933) 333-6092' , url:hotel2  , precio_inicial: 400 , precio_dec: 2268  },
                     { id: 18, name: 'HYATT PLACE AGUASCALIENTES', telefono: '(449) 800-1234' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
                     { id: 19, name: 'HYATT CENTRIC LEON', telefono: '01 (477) 344-1100' , url:hotel1  , precio_inicial: 400 , precio_dec: 2268  },
@@ -256,13 +295,14 @@
                 swich: true,
                 open: false,
                 resev: {
-                  check: 1,
-                  tipo_habitacion: 1,
-                  vista_habitacion: 1,
+                  check: 'Solo alojamiento',
+                  tipo_habitacion: '',
+                  vista_habitacion: '',
                 },
                 userAdd: {
                     first_name: '',
                     tipo_usuario: 0,
+                    numperson: 0,
                     last_name: '',
                     email: '',
                     password: '',
@@ -330,20 +370,108 @@
               });
 
             },
-            guardarDatos(){              
-              this.reservaciones.push({
-                  hotel: this.nomhotl,
-                  id: this.idhotl,
-                  plan: this.resev.check,
-                  tipo_habitacion: this.resev.tipo_habitacion,
-                  vista_habitacion: this.resev.vista_habitacion,
-              });
+            guardarDatos(){   
+                // Validar campos requeridos
+              if (!this.resev.tipo_habitacion) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'Selecciona un tipo de habitación',
+                  text: 'Por favor selecciona el tipo de habitación.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.resev.vista_habitacion) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'Selecciona una vista de habitación',
+                  text: 'Por favor selecciona la vista de la habitación.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.resev.check) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'Selecciona un plan',
+                  text: 'Por favor selecciona un plan.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.nomhotl) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'escrive a nombre de quien reserva',
+                  text: 'Por favor selecciona un hotel.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.resev.desde) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'Selecciona un desde cuando ocupas la habitación',
+                  text: 'Por favor selecciona la fecha de inicio (desde).',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.resev.hasta) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'Selecciona hasta cuando ocupas la habitación',
+                  text: 'Por favor selecciona la fecha de fin (hasta).',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.resev.numperson || this.resev.numperson <= 0) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'Selecciona un número de personas',
+                  text: 'Por favor ingresa un número válido de personas.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+
+              // Si todo está completo, continuar con la lógica
+              // this.$swal({
+              //   icon: 'success',
+              //   title: 'Reservación creada',
+              //   text: 'Tu reservación se ha guardado con éxito.',
+              //   confirmButtonText: 'Aceptar',
+              // });
+              // console.log(this.resev.tipo_habitacion);
+              // console.log(this.resev.vista_habitacion);
+              // console.log(this.resev.check);
+              // console.log( this.nomhotl);
+              // console.log(this.reserv.desde);
+              // console.log(this.this.reserv.hasta);
+              // console.log(this.reserv.numperson);
+                         
+              // this.reservaciones.push({
+              //     hotel: this.nomhotl,
+              //     desde: this.resev.desde,
+              //     hasta: this.resev.hasta,
+              //     cuentas_pesonas: this.resev.numperson,
+              //     usuario_on: false,
+              //     id: this.idhotl,
+              //     plan: this.resev.check,
+              //     tipo_habitacion: this.resev.tipo_habitacion,
+              //     vista_habitacion: this.resev.vista_habitacion,
+              // });
               // login('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
               reservacionesservices.createreserv({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 
                 hotel: this.nomhotl, 
                 plan: this.resev.check, 
+                desde: this.resev.desde,
+                hasta: this.resev.hasta,
+                usuario_on: false,
+                cuentas_pesonas: this.resev.numperson,
                 tip_hab:  this.resev.tipo_habitacion, 
                 tip_vista: this.resev.vista_habitacion, 
               })
