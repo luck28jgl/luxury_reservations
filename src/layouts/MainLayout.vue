@@ -152,7 +152,7 @@
               navigation: [
                 // { name: 'Inicio de seción', link: 'ReservacionPath', icon: '', url: '/lista-all-reservation', tipo:[0]},
                 // { name: 'hacer reservaciones', link: 'LoginPath', icon: '', url: '/', tipo:[0]},
-                { name: 'Todas las reservaciones', link: 'LoginCompra', icon: '', url: '/', tipo:[0]},
+                { name: 'Todas las reservaciones', link: 'LoginCompra', icon: '', url: '/lista-all-reservation', tipo:[0]},
               ],
               open: false,
               tipoUsuario: '',
