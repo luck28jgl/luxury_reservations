@@ -37,7 +37,7 @@
         </div>
     </div>
     <div>
-      <a href="https://api.whatsapp.com/send?phone=5517247751&text=Hola,%20comunicate%20para%20una%20reservacion"  target="_blank" rel="noopener noreferrer">
+      <a href="https://api.whatsapp.com/send?phone=5517247751&text=Hola,%20me%20gustartia%20hacer%20una%20reservacion"  target="_blank" rel="noopener noreferrer">
         <img :src="ewtz" alt="wtz" target="_blank" class="wtz" >
       </a>
     </div>
