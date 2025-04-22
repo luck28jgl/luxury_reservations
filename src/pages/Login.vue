@@ -3,6 +3,9 @@
     import { ref, onMounted, onUnmounted } from 'vue';
 
     import ppalogo from '../assets/logoluxereserv.jpg'
+    import ewtz from '../assets/icons8-whatsapp-96.png'
+    // import tel from '../assets/icons8-llamada-saliente.png'
+    import tel from '../assets/icons8-asistente-100.png'
     // import ppalogo from '../assets/hotelbok.png'
 
     const isScrolled = ref(false);
@@ -26,12 +29,19 @@
         </div>
 
     </div>
+
     <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
         <div style="width: 80%;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
             <button @click="navigation_host(1)" style="    border: solid 1px #024a71; background-color: #024a7163; width: 50%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button>
             <button @click="navigation_host(2)"  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 50%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Reservaciones</button>
         </div>
     </div>
+    <div>
+      <a href="https://api.whatsapp.com/send?phone=5517247751&text=Hola,%20comunicate%20para%20una%20reservacion"  target="_blank" rel="noopener noreferrer">
+        <img :src="ewtz" alt="wtz" target="_blank" class="wtz" >
+      </a>
+    </div>
+
     <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;  " >
 
         <div v-if=" swich " style="display: flex; flex-direction: column; justify-content: center;">
@@ -61,9 +71,15 @@
 
                     </div>
                     <div>
+
                     </div>
                     <div class="px-4 pt-3 pb-4 border-b border-gray-300 bg-gray-100">
                         <div style="display: flex;     flex-direction: column;" class="flex flex-col justify-center items-center pt-2">
+                          <div class="tel-d">
+                            <a href="tel:+5636549047" class="tel-a"  rel="noopener noreferrer">
+                              <img :src="tel" alt="tel" class="tel" target="_blank"  >
+                            </a>
+                          </div>
                           <p class="uppercase tracking-wide text-sm font-bold text-gray-700">precio para 1 noche </p>
                           <p class="uppercase tracking-wide text-sm font-bold text-gray-700">2 dultos </p>
                           <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{item.precio_inicial}} MXN {{item.precio_dec}}</p>
@@ -80,6 +96,7 @@
             </div>
         </div>
     </div>
+
     <div class="max-w-6xl mt-20" style="margin-top: 40px;   height: 56vh;overflow: scroll;" >
 
         <div  v-if="reservaciones.length > 0 &&!swich "   class="flex cls-55 items-center justify-center " v-for="item in reservaciones" :key="item.id">
@@ -96,6 +113,7 @@
             <p class="text-gray-700 text-lg font-semibold">No hay reservaciones</p>
         </div>
     </div>
+
     <TransitionRoot as="template" :show="open">
         <Dialog as="div" class="relative z-50" @close="open = false">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
@@ -349,6 +367,34 @@
     }
 </script>
 <style scoped>
+.tel-a {
+  display: flex;
+    align-items: flex-start;
+    width: 14%; /* Added width property */
+}
+.tel-d {
+  height: 0vh;
+  width: 100%;
+
+}
+.tel {
+  width: 100%;
+  height: 4vh;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
+  background: #9db9c8;
+  color: #f3f4f6;
+  border-radius: 5px;
+  border: solid 3px #024a71;
+}
+.wtz {
+  position: fixed;
+  right: 14px;
+  bottom: 36px;
+  /* font-size: 7px; */
+  width: 59px;
+  cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
+  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
+}
 .ring-gray-300 {
     --tw-ring-color: oklch(0 0 0);
 }
