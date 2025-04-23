@@ -73,7 +73,7 @@
                     lasname_name: '',
                     email: '',
                     password: '',
-                    tip_usr: 0,
+                    tip_usr: 1,
                 },
                 datosrecuperar: {
                     email: ''
@@ -230,7 +230,14 @@
 
                             // Redirigir después de un tiempo
                             setTimeout(() => {
-                                this.$router.push('/lista-all-reservation');
+                                const currentPath = this.$route.path;
+                                if (currentPath === '/inicio-sesion') {
+                                    // Elimina '/inicio-sesion' y redirige a '/lista-all-reservation'
+                                    this.$router.push('/lista-all-reservation');
+                                } else {
+                                    // Redirige directamente si no estás en '/inicio-sesion'
+                                    this.$router.push('/lista-all-reservation');
+                                }
                             }, 2000);
                         } else {
                             // Si no hay token, mostrar un mensaje de error

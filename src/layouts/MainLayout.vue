@@ -81,7 +81,10 @@
         <button type="button" style="    width: 10%;" class=" -m-2.5 p-2.5 text-white " @click="sidebarOpen = true">
           <span class="sr-only"> </span>
           <Bars3Icon class="h-6 w-6" aria-hidden="true" />
-        </button>  <h1 style="       position: fixed; left: 150px;  font-size: 18px; font-weight: 600; font-family: none;" class="text-white font-bold text-2xl my-2 clsstt-3" :class="{ 'opacity-0 scale-75': !isScrolled, 'opacity-100 scale-100': isScrolled }">luxe reserve</h1>
+        </button>  
+        <h1 style="       position: fixed; left: 150px;  font-size: 18px; font-weight: 600; font-family: none;" class="text-white font-bold text-2xl my-2 clsstt-3" :class="{ 'opacity-0 scale-75': !isScrolled, 'opacity-100 scale-100': isScrolled }">
+          luxe reserve
+        </h1>
 
         <div class="h-6 w-px bg-gray-900/10 lg:hidden" aria-hidden="true" />
       </div>
@@ -153,6 +156,10 @@
                 // { name: 'Inicio de seción', link: 'ReservacionPath', icon: '', url: '/lista-all-reservation', tipo:[0]},
                 // { name: 'hacer reservaciones', link: 'LoginPath', icon: '', url: '/', tipo:[0]},
                 { name: 'Todas las reservaciones', link: 'LoginCompra', icon: '', url: '/lista-all-reservation', tipo:[0]},
+                { name: 'Hoteles', link: 'Hotelcreate', icon: '', url: '/crear-hotel', tipo:[0]},
+
+                { name: 'Reserva', link: 'reservaIndex', icon: '', url: '/reservar', tipo:[1]},
+                { name: 'Mis Reservaciones', link: 'reservacionesIndex', icon: '', url: '/mis-reservaciones', tipo:[1]},
               ],
               open: false,
               tipoUsuario: '',

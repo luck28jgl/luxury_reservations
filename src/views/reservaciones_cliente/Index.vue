@@ -4,10 +4,10 @@
     import { URL_API } from '@/boot/axios'; // Importar la URL base
 
 
-    import ppalogo from '../assets/logoluxereserv.jpg'
-    import ewtz from '../assets/icons8-whatsapp-96.png'
-    // import tel from '../assets/icons8-llamada-saliente.png'
-    import tel from '../assets/icons8-asistente-100.png'
+    import ppalogo from '@/assets/logoluxereserv.jpg'
+    import ewtz from '@/assets/icons8-whatsapp-96.png'
+    // import tel from './assets/icons8-llamada-saliente.png'
+    import tel from '@/assets/icons8-asistente-100.png'
     // import ppalogo from '../assets/hotelbok.png'
     // Función para construir la URL completa de la imagen
     const getImageUrl = (imgPath) => {
@@ -163,13 +163,13 @@
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
 
-                                            <input  type="date"  v-model="resev.desde" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  name="search" />
+                                            <input  type="date"  v-model="resev.desde" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
 
-                                            <input type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"   name="search" />
+                                            <input type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"    />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
@@ -233,12 +233,13 @@
 </template>
 <script>
 
-    import reservacionesservices from '../services/reservacionesservices';
+    import reservacionesservices from '@/services/reservacionesservices';
+    import LoginServices from '@/services/LoginServices';
     import hotelesservices from '@/services/hotelesservices';
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 
     export default {
-        name: 'LoginPage',
+        name: 'reservaIndex',
         components: {
             Dialog,
             DialogPanel,
@@ -256,6 +257,8 @@
                 nomhotl: '',
                 emailusr: '',
                 namesr: '',
+                id_user: '',
+                iduser_activo: 0,
                 vista: 0,
                 check: 0,
                 idhotl: 0,
@@ -278,12 +281,40 @@
             }
         },
         mounted() {
-
+            this.id_user = localStorage.getItem('userPk'); // Obtén el ID del usuario desde localStorage
+            console.log(`ID del usuario obtenido: ${this.id_user}`);
+            if (this.id_user) {
+                this.filtrarNavigation(); // Llama al método si es necesario
+            } else {
+                console.error('No se pudo obtener el ID del usuario desde localStorage.');
+            }
             // this.filteredTes = this.tes;
             this.get_prueb();
             this.get_reserv();
         },
         methods: {
+            filtrarNavigation() {
+                LoginServices.getUType({
+                    username: this.id_user
+                }).then((response) => {
+                    this.tipoUsuario = response.data.tipo
+                    this.iduser_activo = response.data.id
+                    // this.$store.dispatch('user/setUserType', this.tipoUsuario);
+                    // console.log('si se guardo el id del usuario',this.tipoUsuario)
+                    // 
+                    // this.navigation = this.navigation.filter(item => {
+                    // if (item.tipo.includes(this.tipoUsuario)) {
+                    //     return item;
+                    // }
+                    // });
+                }).catch(error => {
+                    console.log(error)
+                    this.$swal({
+                        icon: 'error',
+                        title: 'Error al obtener el tipo de usuario'
+                    });
+                });
+            },
             get_reserv(){
               this.loading = true;
               // const mensaje = "Este es el mensaje que deseas enviar";
@@ -319,12 +350,12 @@
             applyFilter() {
                 const query = this.searchQuery.toLowerCase();
                 this.filteredTes = this.tes.filter(item =>
-                    item.name.toLowerCase().includes(query)
+                    item.Nombre.toLowerCase().includes(query)
                 );
             },
             abrir_mdlserv(item){
                 console.log('id', item);
-                this.nomhotl = item.name
+                this.nomhotl = item.Nombre
                 this.idhotl = item.id
                 this.open = true;
             },
@@ -369,15 +400,6 @@
                 });
                 return;
               }
-              if (!this.nomhotl) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'escrive a nombre de quien reserva',
-                  text: 'Por favor selecciona un hotel.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
               if (!this.resev.desde) {
                 this.$swal({
                   icon: 'error',
@@ -405,42 +427,17 @@
                 });
                 return;
               }
+              console.log('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
 
-              // Si todo está completo, continuar con la lógica
-              // this.$swal({
-              //   icon: 'success',
-              //   title: 'Reservación creada',
-              //   text: 'Tu reservación se ha guardado con éxito.',
-              //   confirmButtonText: 'Aceptar',
-              // });
-              // console.log(this.resev.tipo_habitacion);
-              // console.log(this.resev.vista_habitacion);
-              // console.log(this.resev.check);
-              // console.log( this.nomhotl);
-              // console.log(this.reserv.desde);
-              // console.log(this.this.reserv.hasta);
-              // console.log(this.reserv.numperson);
-                         
-              // this.reservaciones.push({
-              //     hotel: this.nomhotl,
-              //     desde: this.resev.desde,
-              //     hasta: this.resev.hasta,
-              //     cuentas_pesonas: this.resev.numperson,
-              //     usuario_on: false,
-              //     id: this.idhotl,
-              //     plan: this.resev.check,
-              //     tipo_habitacion: this.resev.tipo_habitacion,
-              //     vista_habitacion: this.resev.vista_habitacion,
-              // });
-              // login('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
-              reservacionesservices.createreserv({ 
+              reservacionesservices.createreserv_client({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 
+                usuario_id: this.iduser_activo, 
                 hotel: this.nomhotl, 
                 plan: this.resev.check, 
                 desde: this.resev.desde,
                 hasta: this.resev.hasta,
-                usuario_on: false,
+                usuario_on: true,
                 cuentas_pesonas: this.resev.numperson,
                 tip_hab:  this.resev.tipo_habitacion, 
                 tip_vista: this.resev.vista_habitacion, 
@@ -452,13 +449,7 @@
               .catch(error => {
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
               });
-              console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
-              this.open = false;
-              this.$swal({
-                  icon: 'success',
-                  title: 'se ha Creado su reservacion con exito',
-                  timer: 2000
-              });
+
               
             }
         }

@@ -1,18 +1,10 @@
 <script setup>
     // import imgBg from '../assets/bgstate.jpg'
     import { ref, onMounted, onUnmounted } from 'vue';
-    import { URL_API } from '@/boot/axios'; // Importar la URL base
 
-
-    import ppalogo from '../assets/logoluxereserv.jpg'
-    import ewtz from '../assets/icons8-whatsapp-96.png'
-    // import tel from '../assets/icons8-llamada-saliente.png'
-    import tel from '../assets/icons8-asistente-100.png'
+    import ppalogo from '@/assets/logoluxereserv.jpg'
     // import ppalogo from '../assets/hotelbok.png'
-    // Función para construir la URL completa de la imagen
-    const getImageUrl = (imgPath) => {
-        return `${URL_API}${imgPath}`;
-    };
+
     const isScrolled = ref(false);
 
     const handleScroll = () => {
@@ -34,26 +26,15 @@
         </div>
 
     </div>
-
-    <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
-        <div style="width: 80%;     display: flex;justify-content: center;"  class="flex  items-center p-1   rounded-xl">
-            <p style="font-weight: 600; font-size: 17px;">Solicita tu cotización personalizada!</p>
-        </div>
-    </div>
     <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
         <div style="width: 80%;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
-            <button  style="    border: solid 1px #024a71; background-color: #024a7163;    width: 100%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button>
+            <!-- <button @click="navigation_host(1)" style="    border: solid 1px #024a71; background-color: #024a7163; width: 50%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button> -->
+            <button  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 100%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Reservaciones</button>
         </div>
     </div>
-    <div>
-      <a href="https://api.whatsapp.com/send?phone=5517247751&text=Hola,%20me%20gustartia%20hacer%20una%20reservacion"  target="_blank" rel="noopener noreferrer">
-        <img :src="ewtz" alt="wtz" target="_blank" class="wtz" >
-      </a>
-    </div>
-
     <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;  " >
 
-        <div v-if=" swich " style="display: flex; flex-direction: column; justify-content: center;">
+        <div v-if="swich " style="display: flex; flex-direction: column; justify-content: center;">
           <div style="    width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
               <!-- <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Buscar hotel por nombre</label> -->
 
@@ -68,64 +49,68 @@
               </div>
           </div>
         </div>
-        <div  class="flex items-center justify-center " v-for="item in filteredTes" :key="item.id">
-            <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
-                <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-              
-                    <div class="bg-cover bg-center h-56 p-4 image-container">
-                        <img :src="getImageUrl(item.img)" alt="Imagen del hotel" class="hover-image cls-img22" />
-                    </div>
-                    <div class="p-4">
-                        <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.Nombre }}</p>
+        <div class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
 
-                    </div>
-                    <div>
+          <div  v-if="filteredTes.length > 0 && swich "   class="flex cls-55 items-center justify-center " v-for="item in filteredTes" :key="item.id">
+              <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
+                  <div class="bg-white shadow-xl rounded-lg overflow-hidden">
 
-                    </div>
-                    <div class="px-4 pt-3 pb-4 border-b border-gray-300 bg-gray-100">
-                        <div style="display: flex;     flex-direction: column;" class="flex flex-col justify-center items-center pt-2">
-                          <div class="tel-d">
-                            <a href="tel:+5636549047" class="tel-a"  rel="noopener noreferrer">
-                              <img :src="tel" alt="tel" class="tel" target="_blank"  >
-                            </a>
-                          </div>
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">precio para 1 noche 
-                           </p>
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.price }}
-                           </p>
-                          <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">2 dultos </p> -->
-                          <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{item.precio_inicial}} MXN {{item.precio_dec}}</p> -->
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ MXN 454 de impuestos y cargos </p>
+                      <div class="p-4">
+                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.hotel }}</p>
 
+                      </div>
+                      <div class="p-4" style="    display: flex ;justify-content: space-around;" >
+                        <div @click="open_delete(item)" style="    width: 10%; color: #910000; " >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                          </svg>
                         </div>
-                        <div class="flex justify-center items-center pt-2">
-                            <button class="butonn-reserv" @click="abrir_mdlserv(item)">
-                                hacer reservacion
-                            </button>
+                        <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;" >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                          </svg>
                         </div>
-                    </div>
-                </div>
-            </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div v-else-if=" filteredTes.length === 0" class="flex cls-55 items-center justify-center">
+              <p class="text-gray-700 text-lg font-semibold">No hay reservaciones</p>
+          </div>
         </div>
     </div>
 
-    <div class="max-w-6xl mt-20" style="margin-top: 40px;   height: 56vh;overflow: scroll;" >
+    <TransitionRoot as="template" :show="open_confirm">
+        <Dialog as="div" class="relative z-50" @close="open_confirm = false">
+            <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </TransitionChild>
 
-        <div  v-if="reservaciones.length > 0 &&!swich "   class="flex cls-55 items-center justify-center " v-for="item in reservaciones" :key="item.id">
-            <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
-                <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-                    <div class="p-4">
-                        <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.hotel }}</p>
-
-                    </div>
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center max-sm:items-center  sm:p-0 max-2xl:items-center">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" style="    max-height: 90vh;" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-10/12 sm:max-w-4xl sm:p-6 max-md:w-11/12 scroll" style="height: 25vh;     width: 100%; margin-block: 25px; overflow: scroll;">
+                        <div>
+                            <div class="mt-3 text-center sm:mt-5 ">
+                                <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
+                                <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
+                                  <div class="title">
+                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Estas  deacuerdo de eliminar esta  reservación <br> esta accion no tendra retorno </DialogTitle>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="deltereserv()">Eliminar</button>
+                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="open_confirm = false" ref="cancelButtonRef">Cancelar</button>
+                        </div>
+                    </DialogPanel>
+                </TransitionChild>
                 </div>
             </div>
-        </div>
-        <div v-else-if="!swich && reservaciones.length === 0" class="flex cls-55 items-center justify-center">
-            <p class="text-gray-700 text-lg font-semibold">No hay reservaciones</p>
-        </div>
-    </div>
-
+        </Dialog>
+    </TransitionRoot>
     <TransitionRoot as="template" :show="open">
         <Dialog as="div" class="relative z-50" @close="open = false">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
@@ -145,32 +130,31 @@
                                             <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nueva Reservacion para el  hotel : <br> {{  nomhotl }}</DialogTitle>
 
                                         </div>
-                                        <!-- <input class="input" name="email" placeholder="Email" type="email">
-                                        <input class="input" name="password" placeholder="Password" type="password"> -->
+                                        <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
+
+                                        </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">nombre de quien reserva </label>
 
-                                            <input  v-model="namesr" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de quien reserva" type="search" name="search" />
+                                            <input  v-model="namesr" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de quien reserva" type="search" name="search" disabled/>
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">email de quien reserva </label>
 
-                                            <input  v-model="emailusr" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="email de quien reserva" type="search" name="search" />
+                                            <input  v-model="emailusr" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="email de quien reserva" type="search" name="search" disabled />
 
                                         </div>
-
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.desde) }}</p>
 
-                                            <input  type="date"  v-model="resev.desde" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  name="search" />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
-
-                                            <input type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"   name="search" />
-
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.hasta) }}</p>
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
@@ -180,20 +164,18 @@
                                         </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
-                                            <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" >
+                                            <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" disabled>
                                             <label for="01">Solo alojamiento</label>
-                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="check">
+                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="check" disabled>
                                             <label for="02">Desayuno bufet</label>
-                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="check">
+                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="check" disabled>
                                             <label for="03">Todo incluido</label>
                                         </div>
-
-                                        <!-- <span>Selecciona la vista de la habitación</span> -->
                                         <div >
                                           <div class="w-full">
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Tipo de habitacion</label>
-                                                  <select v-model="resev.tipo_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
+                                                  <select v-model="resev.tipo_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6"  disabled>
                                                       <option value="King Size" >King Size</option>
                                                       <option value="Estandar" >Estandar</option>
                                                   </select>
@@ -204,7 +186,7 @@
                                           <div class="w-full">
                                               <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
                                                   <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Selecciona la vista de la habitación</label>
-                                                  <select v-model="resev.vista_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
+                                                  <select v-model="resev.vista_habitacion" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6"  disabled>
                                                       <option value="vista a la montaña" >vista a la montaña</option>
                                                       <option value="vista al mar" >vista al mar</option>
                                                   </select>
@@ -221,7 +203,7 @@
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="guardarDatos()">Guardar</button>
+                            <!-- <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="guardarDatos()">Guardar</button> -->
                             <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="open = false" ref="cancelButtonRef">Cancelar</button>
                         </div>
                     </DialogPanel>
@@ -232,13 +214,18 @@
     </TransitionRoot>
 </template>
 <script>
+    import reservacionesservices from '@/services/reservacionesservices';
+    import LoginServices from '@/services/LoginServices';
 
-    import reservacionesservices from '../services/reservacionesservices';
-    import hotelesservices from '@/services/hotelesservices';
+    // import { defineComponent } from "vue";
+    // import { RecaptchaV2, useRecaptcha } from "vue3-recaptcha-v2";
+    // const { handleGetResponse } = useRecaptcha();
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-
+    import hotel1 from '@/assets/hotel1.jpg';
+    import hotel2 from '@/assets/hotel2.jpg';
+    import hotel3 from '@/assets/hotel3.jpg';
     export default {
-        name: 'LoginPage',
+        name: 'reservacionesIndex',
         components: {
             Dialog,
             DialogPanel,
@@ -248,7 +235,7 @@
         },
         data() {
             return {
-                tes: [],
+
                 searchQuery: '',
                 filteredTes: [],
                 reservaciones: [],
@@ -256,20 +243,27 @@
                 nomhotl: '',
                 emailusr: '',
                 namesr: '',
-                vista: 0,
+                vistasmash: 0,
+                vistasmash: 0,
                 check: 0,
                 idhotl: 0,
+                iduser_activo: 0,
+                id_user: 0,
                 swich: true,
+                open_confirm: false,
                 open: false,
                 resev: {
-                  check: 'Solo alojamiento',
+                  check: '',
                   tipo_habitacion: '',
+                  fech_creacion: '',
+                  desde: '',
+                  hasta: '',
+                  numperson: '',
                   vista_habitacion: '',
                 },
                 userAdd: {
                     first_name: '',
                     tipo_usuario: 0,
-                    numperson: 0,
                     last_name: '',
                     email: '',
                     password: '',
@@ -278,28 +272,70 @@
             }
         },
         mounted() {
-
+            this.id_user = localStorage.getItem('userPk'); // Obtén el ID del usuario desde localStorage
+            console.log(`ID del usuario obtenido: ${this.id_user}`);
+            if (this.id_user) {
+                this.filtrarNavigation(); // Llama al método si es necesario
+            } else {
+                console.error('No se pudo obtener el ID del usuario desde localStorage.');
+            }
             // this.filteredTes = this.tes;
             this.get_prueb();
-            this.get_reserv();
+            // this.get_reserv();
         },
         methods: {
-            get_reserv(){
-              this.loading = true;
-              // const mensaje = "Este es el mensaje que deseas enviar";
-              hotelesservices.get_hoteles({ 
-                filt: '' ,
-              })
-              .then(response => {
+            filtrarNavigation() {
+                LoginServices.getUType({
+                    username: this.id_user
+                }).then((response) => {
+                    this.iduser_activo = response.data.id
+                    this.get_reserv();
+                }).catch(error => {
+                    console.log(error)
+                    this.$swal({
+                        icon: 'error',
+                        title: 'Error al obtener el tipo de usuario'
+                    });
+                });
+            },
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            },
+            deltereserv(){
+                reservacionesservices.Deletereserv({ id: this.idhotl })
+                .then(response => {
+                    console.log('Success:', response.data);
+                    this.open_confirm = false;
+                    this.get_reserv();
+                })
+                .catch(error => {
+                    console.error('Error:', error.response.data);
+                });
+            },
+            open_delete(item){
+                console.log('ver_info', item);
+                this.idhotl = item.id
+                this.open_confirm = true;
+            },
+            ver_info(item){
+                console.log('ver_info', item);
+                this.nomhotl = item.hotel
+                this.namesr = item.uduario
+                this.emailusr = item.email
+                this.resev.tipo_habitacion = item.tip_hab
 
-                console.log('Success:', response.data);
-                this.reservaciones = response.data;
-                this.filteredTes = this.reservaciones
-              })
-              .catch(error => {
-                console.error('Error:', error.response.data); // Inspecciona los errores aquí
-              });
-
+                this.resev.vista_habitacion = item.tip_vista
+                this.resev.desde = item.desde;
+                this.resev.hasta = item.hasta;
+                this.resev.fech_creacion = item.fecha_de_creacion;
+                this.resev.numperson = item.cuentas_pesonas
+                this.idhotl = item.id
+                this.open = true;
+                this.check = item.check
             },
             navigation_host(id) {
                 if (id === 1) {
@@ -318,8 +354,8 @@
             },
             applyFilter() {
                 const query = this.searchQuery.toLowerCase();
-                this.filteredTes = this.tes.filter(item =>
-                    item.name.toLowerCase().includes(query)
+                this.filteredTes = this.reservaciones.filter(item =>
+                    item.hotel.toLowerCase().includes(query)
                 );
             },
             abrir_mdlserv(item){
@@ -339,94 +375,26 @@
               });
 
             },
+            get_reserv(){
+              this.loading = true;
+              // const mensaje = "Este es el mensaje que deseas enviar";
+              reservacionesservices.list_reserv_client({ 
+                usuario_id: this.iduser_activo ,
+              })
+              .then(response => {
 
-            guardarDatos(){   
-                // Validar campos requeridos
-              if (!this.resev.tipo_habitacion) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'Selecciona un tipo de habitación',
-                  text: 'Por favor selecciona el tipo de habitación.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
-              if (!this.resev.vista_habitacion) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'Selecciona una vista de habitación',
-                  text: 'Por favor selecciona la vista de la habitación.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
-              if (!this.resev.check) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'Selecciona un plan',
-                  text: 'Por favor selecciona un plan.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
-              if (!this.nomhotl) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'escrive a nombre de quien reserva',
-                  text: 'Por favor selecciona un hotel.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
-              if (!this.resev.desde) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'Selecciona un desde cuando ocupas la habitación',
-                  text: 'Por favor selecciona la fecha de inicio (desde).',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
-              if (!this.resev.hasta) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'Selecciona hasta cuando ocupas la habitación',
-                  text: 'Por favor selecciona la fecha de fin (hasta).',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
-              if (!this.resev.numperson || this.resev.numperson <= 0) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'Selecciona un número de personas',
-                  text: 'Por favor ingresa un número válido de personas.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
+                console.log('Success:', response.data);
+                this.reservaciones = response.data.reservations;
+                this.filteredTes = this.reservaciones
+              })
+              .catch(error => {
+                console.error('Error:', error.response.data); // Inspecciona los errores aquí
+              });
 
-              // Si todo está completo, continuar con la lógica
-              // this.$swal({
-              //   icon: 'success',
-              //   title: 'Reservación creada',
-              //   text: 'Tu reservación se ha guardado con éxito.',
-              //   confirmButtonText: 'Aceptar',
-              // });
-              // console.log(this.resev.tipo_habitacion);
-              // console.log(this.resev.vista_habitacion);
-              // console.log(this.resev.check);
-              // console.log( this.nomhotl);
-              // console.log(this.reserv.desde);
-              // console.log(this.this.reserv.hasta);
-              // console.log(this.reserv.numperson);
-                         
+            },
+            guardarDatos(){              
               // this.reservaciones.push({
               //     hotel: this.nomhotl,
-              //     desde: this.resev.desde,
-              //     hasta: this.resev.hasta,
-              //     cuentas_pesonas: this.resev.numperson,
-              //     usuario_on: false,
               //     id: this.idhotl,
               //     plan: this.resev.check,
               //     tipo_habitacion: this.resev.tipo_habitacion,
@@ -438,10 +406,6 @@
                 uduario: this.namesr, 
                 hotel: this.nomhotl, 
                 plan: this.resev.check, 
-                desde: this.resev.desde,
-                hasta: this.resev.hasta,
-                usuario_on: false,
-                cuentas_pesonas: this.resev.numperson,
                 tip_hab:  this.resev.tipo_habitacion, 
                 tip_vista: this.resev.vista_habitacion, 
               })
@@ -465,34 +429,6 @@
     }
 </script>
 <style scoped>
-.tel-a {
-  display: flex;
-    align-items: flex-start;
-    width: 14%; /* Added width property */
-}
-.tel-d {
-  height: 0vh;
-  width: 100%;
-
-}
-.tel {
-  width: 100%;
-  height: 4vh;
-  cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
-  background: #9db9c8;
-  color: #f3f4f6;
-  border-radius: 5px;
-  border: solid 3px #024a71;
-}
-.wtz {
-  position: fixed;
-  right: 14px;
-  bottom: 36px;
-  /* font-size: 7px; */
-  width: 59px;
-  cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
-  z-index: 1000; /* Asegúrate de que esté por encima de otros elementos */
-}
 .ring-gray-300 {
     --tw-ring-color: oklch(0 0 0);
 }
