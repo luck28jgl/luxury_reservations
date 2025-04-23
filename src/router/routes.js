@@ -23,6 +23,10 @@ const routes = [
         meta: { requiresAuth: true },
         children: [
             {
+                path: '',
+                redirect: '/crear-reservacion', // Redirige la raíz al componente de LoginPage
+            },
+            {
                 path: '/crear-reservacion',
                 name: 'LoginPath',
                 component: LoginPage,
