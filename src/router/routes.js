@@ -12,9 +12,10 @@ import Store from '@/store';
 import { axiosInstance } from '@/boot/axios';
 
 const routes = [
+    // ...otras rutas...
     {
-        path: '/',
-        redirect: '/crear-reservacion', // Redirige automáticamente a /crear-reservacion
+        path: '/:catchAll(.*)',
+        redirect: '/crear-reservacion', // Redirige cualquier ruta no encontrada
     },
     {
         path: '/',
