@@ -71,7 +71,7 @@
                             <img :src="getImageUrl(item.img)" alt="Imagen del hotel" class="hover-image cls-img22" />
                         </div>
                         <div class="p-4">
-                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.name }}</p>
+                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.Nombre }}</p>
 
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{ item.price }}</p>
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ MXN 454 de impuestos y cargos </p>
@@ -292,7 +292,7 @@
             }
         },
         mounted() {
-            this.filteredTes = this.tes;
+            // this.filteredTes = this.tes;
             this.get_prueb();
             this.get_reserv();
         },
