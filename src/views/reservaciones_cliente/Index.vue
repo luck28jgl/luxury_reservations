@@ -259,6 +259,7 @@
                 emailusr: '',
                 namesr: '',
                 id_user: '',
+                price: '',
                 iduser_activo: 0,
                 vista: 0,
                 check: 0,
@@ -358,6 +359,7 @@
             abrir_mdlserv(item){
                 console.log('id', item);
                 this.nomhotl = item.Nombre
+                this.price = item.price
                 this.idhotl = item.id
                 this.open = true;
             },
@@ -435,6 +437,7 @@
               reservacionesservices.createreserv_client({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 
+                price: this.price, 
                 usuario_id: this.iduser_activo, 
                 hotel: this.nomhotl, 
                 plan: this.resev.check, 

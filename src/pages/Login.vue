@@ -182,9 +182,9 @@
                                         <div id="checklist">
                                             <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" >
                                             <label for="01">Solo alojamiento</label>
-                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="check">
+                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="resev.check">
                                             <label for="02">Desayuno bufet</label>
-                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="check">
+                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="resev.check">
                                             <label for="03">Todo incluido</label>
                                         </div>
 
@@ -256,6 +256,7 @@
                 nomhotl: '',
                 emailusr: '',
                 namesr: '',
+                price: '',
                 vista: 0,
                 check: 0,
                 idhotl: 0,
@@ -325,6 +326,7 @@
             abrir_mdlserv(item){
                 console.log('id', item);
                 this.nomhotl = item.name
+                this.price = item.price
                 this.idhotl = item.id
                 this.open = true;
             },
@@ -436,6 +438,7 @@
               reservacionesservices.createreserv({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 
+                price: this.price, 
                 hotel: this.nomhotl, 
                 plan: this.resev.check, 
                 desde: this.resev.desde,

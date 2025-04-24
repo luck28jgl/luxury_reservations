@@ -203,9 +203,9 @@
                                         <div id="checklist">
                                             <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" disabled>
                                             <label for="01">Solo alojamiento</label>
-                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="check" disabled>
+                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="resev.check" disabled>
                                             <label for="02">Desayuno bufet</label>
-                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="check" disabled>
+                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="resev.check" disabled>
                                             <label for="03">Todo incluido</label>
                                         </div>
                                         <div >
@@ -368,7 +368,6 @@
                 this.namesr = item.uduario
                 this.emailusr = item.email
                 this.resev.tipo_habitacion = item.tip_hab
-
                 this.resev.vista_habitacion = item.tip_vista
                 this.resev.desde = item.desde;
                 this.resev.hasta = item.hasta;
@@ -376,7 +375,7 @@
                 this.resev.numperson = item.cuentas_pesonas
                 this.idhotl = item.id
                 this.open = true;
-                this.check = item.check
+                this.resev.check = item.plan
             },
             navigation_host(id) {
                 if (id === 1) {
