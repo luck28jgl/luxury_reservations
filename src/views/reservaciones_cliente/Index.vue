@@ -37,7 +37,7 @@
 
     <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
         <div style="width: 80%;     display: flex;justify-content: center;"  class="flex  items-center p-1   rounded-xl">
-            <p style="font-weight: 600; font-size: 17px;">Solicita tu cotización personalizada!</p>
+            <p style="font-weight: 700; font-size: 17px;"> ! Hola {{ usuario_act }} Solicita tu cotización personalizada!</p>
         </div>
     </div>
     <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
@@ -154,20 +154,20 @@
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">email de quien reserva </label>
+                                            <label for="email" class="block text-sm font-medium leading-6 text-gray-900  text-left">email de quien reserva </label>
 
                                             <input  v-model="emailusr" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="email de quien reserva" type="search" name="search" />
 
                                         </div>
 
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
+                                            <label for="desde" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
 
-                                            <input  type="date"  v-model="resev.desde" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  />
+                                            <input  type="date"  v-model="resev.desde" id="desde" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
+                                            <label for="hasta" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
 
                                             <input type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"    />
 
@@ -180,11 +180,11 @@
                                         </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
-                                            <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" >
+                                            <input value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check">
                                             <label for="01">Solo alojamiento</label>
-                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="check">
+                                            <input value="Desayuno bufet" name="r" type="radio" id="02" v-model="resev.check">
                                             <label for="02">Desayuno bufet</label>
-                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="check">
+                                            <input value="Todo incluido" name="r" type="radio" id="03" v-model="resev.check">
                                             <label for="03">Todo incluido</label>
                                         </div>
 
@@ -251,6 +251,7 @@
             return {
                 tes: [],
                 searchQuery: '',
+                usuario_act: '',
                 filteredTes: [],
                 reservaciones: [],
                 debounceTimeout: null,
@@ -297,6 +298,7 @@
                 LoginServices.getUType({
                     username: this.id_user
                 }).then((response) => {
+                    this.usuario_act = response.data.nombre
                     this.tipoUsuario = response.data.tipo
                     this.iduser_activo = response.data.id
                     // this.$store.dispatch('user/setUserType', this.tipoUsuario);
@@ -428,6 +430,7 @@
                 return;
               }
               console.log('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
+              console.log('guardarDatos2', this.resev.desde, this.resev.hasta , this.resev.check);
 
               reservacionesservices.createreserv_client({ 
                 email: this.emailusr, 
