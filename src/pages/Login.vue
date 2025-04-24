@@ -42,7 +42,7 @@
     </div>
     <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
         <div style="width: 80%;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
-            <button  style="    border: solid 1px #024a71; background-color: #024a7163;    width: 100%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button>
+            <button style="border: solid 1px #024a71; background-color: #024a7163; width: 100%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button>
         </div>
     </div>
     <div>
@@ -325,7 +325,7 @@
             },
             abrir_mdlserv(item){
                 console.log('id', item);
-                this.nomhotl = item.name
+                this.nomhotl = item.Nombre
                 this.price = item.price
                 this.idhotl = item.id
                 this.open = true;
