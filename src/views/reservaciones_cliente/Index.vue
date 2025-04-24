@@ -450,6 +450,7 @@
               })
               .then(response => {
                 console.log('Success:', response.data);
+                this.open = false; // Cerrar el modal después de guardar los datos
                 
               })
               .catch(error => {
