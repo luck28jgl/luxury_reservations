@@ -451,7 +451,8 @@
               .then(response => {
                 console.log('Success:', response.data);
                 this.open = false; // Cerrar el modal después de guardar los datos
-                
+                this.get_prueb();
+                this.get_reserv();
               })
               .catch(error => {
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
