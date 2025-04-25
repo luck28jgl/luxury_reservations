@@ -73,7 +73,7 @@
                 <div class="bg-white shadow-xl rounded-lg overflow-hidden">
               
                     <div class="bg-cover bg-center h-56 p-4 image-container">
-                        <img :src="getImageUrl(item.img)" alt="Imagen del hotel" class="hover-image cls-img22" />
+                        <img :src="'https://luxury-reservations-bk.onrender.com' + item.img" alt="Imagen del hotel" class="hover-image cls-img22" />
                     </div>
                     <div class="p-4">
                         <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.Nombre }}</p>
