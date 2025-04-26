@@ -38,7 +38,7 @@
           <div style="    width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
               <!-- <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Buscar hotel por nombre</label> -->
 
-              <input @input="debounceFilter()" v-model="searchQuery" id="search-field" style="width: 80%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Buscar hotel por nombre" type="search" name="search" />
+              <input  v-model="searchQuery" id="search-field" style="width: 80%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Buscar hotel por nombre" type="search" name="search" />
 
           </div>
           <div  class="w-[25%] mx-3  flex justify-center items-end gap-[15px]">
@@ -66,9 +66,18 @@
                           </svg>
                         </div>
                         <div  style="    width: 55%; color: green; " >
-                          <div style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                          <div v-if="item.clent_envie_img === 'True'" style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
                               <button  @click="ir_apasarela(item)" style="width: 100%;     height: 6vh;     font-size: 13px;"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"> Adjuntar comprobante de pago </button>
                           </div>
+                          <div v-if="item.clent_envie_img && !item.pagado" style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                            <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-yellow-600/20 ring-inset">Pendiente</span>
+
+                          </div>
+                          <div v-if="item.clent_envie_img && item.pagado" style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                            <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">Reservacion fonfirmada </span>
+
+                          </div>
+
                         </div>
                         <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;   display: flex ; align-items: center; " >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -339,7 +348,8 @@
               reservacionesservices.Actualizar_camp_img(formData)
               .then(response => {
                 console.log('Success:', response.data);
-                this.open_confirm = false;
+                this.modal_pasarele = false;
+                this.filtrarNavigation(); 
                 this.get_prueb();
                 this.$swal({
                     icon: 'success',
@@ -425,17 +435,15 @@
                 console.log('id', id);
                 
             },
-            debounceFilter() {
-                clearTimeout(this.debounceTimeout);
-                this.debounceTimeout = setTimeout(() => {
-                    this.applyFilter();
-                }, 2000);
-            },
+            // debounceFilter() {
+            //     clearTimeout(this.debounceTimeout);
+            //     this.debounceTimeout = setTimeout(() => {
+            //         this.applyFilter();
+            //     }, 2000);
+            // },
             applyFilter() {
-                const query = this.searchQuery.toLowerCase();
-                this.filteredTes = this.reservaciones.filter(item =>
-                    item.hotel.toLowerCase().includes(query)
-                );
+              this.filtrarNavigation(); 
+              this.get_prueb();
             },
             abrir_mdlserv(item){
                 console.log('id', item);
