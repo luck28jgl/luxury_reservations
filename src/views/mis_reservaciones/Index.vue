@@ -66,15 +66,16 @@
                           </svg>
                         </div>
                         <div  style="    width: 55%; color: green; " >
-                          <div v-if="item.clent_envie_img === 'True'" style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                          <div v-if="!item.clent_envie_img" style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
                               <button  @click="ir_apasarela(item)" style="width: 100%;     height: 6vh;     font-size: 13px;"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"> Adjuntar comprobante de pago </button>
                           </div>
                           <div v-if="item.clent_envie_img && !item.pagado" style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
-                            <span class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-yellow-600/20 ring-inset">Pendiente</span>
+                            <span style="     background: rgb(240 255 160); border: 1px solid #c69107; color: #c69107; font-weight: 700; padding: 1px;"  class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-yellow-600/20 ring-inset">Pendiente</span>
 
                           </div>
                           <div v-if="item.clent_envie_img && item.pagado" style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
-                            <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">Reservacion fonfirmada </span>
+                            <!-- <span class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">Reservacion fonfirmada </span> -->
+                            <span  style="    width: 80%;height: 5vh; display: flex ; justify-content: center; background: rgb(166 255 160); border: 1px solid #21c607; color: #1ac607; font-weight: 900; font-size: 12px; padding: 1px;"  class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">Reservacion confirmada </span>
 
                           </div>
 

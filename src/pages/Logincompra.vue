@@ -4,6 +4,7 @@
 
     import ppalogo from '../assets/logoluxereserv.jpg'
     // import ppalogo from '../assets/hotelbok.png'
+    import { URL_API } from '@/boot/axios'; // Importar la URL base
 
     const isScrolled = ref(false);
 
@@ -71,12 +72,22 @@
                       </div>
 
                       <div class="p-4" style="    display: flex ;justify-content: space-around;" >
-                        <div @click="open_delete(item)" style="    width: 10%; color: #910000; " >
+                        <div @click="open_delete(item)" style="    width: 10%; color: #910000;  display: flex ; align-items: center; " >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                           </svg>
                         </div>
-                        <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;" >
+                        <!-- <div @click="open_verifi_img(item)" style="    width: 10%; color: #910000; " >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                          </svg>
+                        </div> -->
+                        <div  v-if="item.clent_envie_img"  style="    width: 55%; color: green; " >
+                          <div style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                              <button  @click="open_verifi_img(item)" style="width: 100%;     height: 6vh;     font-size: 13px;"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Vefificar comprobante de pago</button>
+                          </div>
+                        </div>
+                        <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;  display: flex ; align-items: center; " >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
                           </svg>
@@ -133,6 +144,39 @@
         </div>
     </div>
 
+    <TransitionRoot as="template" :show="open_verifi">
+        <Dialog as="div" class="relative z-50" @close="open_verifi = false">
+            <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </TransitionChild>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center max-sm:items-center  sm:p-0 max-2xl:items-center">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" style="    max-height: 90vh;" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-10/12 sm:max-w-4xl sm:p-6 max-md:w-11/12 scroll" style="height: 25vh;     width: 100%; margin-block: 25px; overflow: scroll;">
+                        <div>
+                            <div class="mt-3 text-center sm:mt-5 ">
+                                <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
+                                <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
+                                  <div class="title">
+                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Estas  deacuerdo de eliminar esta  reservación <br> esta accion no tendra retorno </DialogTitle>
+                                    </div>
+                                </div>
+                                <div>
+                                  <img :src="`https://luxury-reservations-bk.onrender.com/${urlimg}`" alt="imgalt">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="deltereserv()">Eliminar</button>
+                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="open_verifi = false" ref="cancelButtonRef">Cancelar</button>
+                        </div>
+                    </DialogPanel>
+                </TransitionChild>
+                </div>
+            </div>
+        </Dialog>
+    </TransitionRoot>
     <TransitionRoot as="template" :show="open_confirm">
         <Dialog as="div" class="relative z-50" @close="open_confirm = false">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
@@ -274,6 +318,7 @@
     import hotel1 from '@/assets/hotel1.jpg';
     import hotel2 from '@/assets/hotel2.jpg';
     import hotel3 from '@/assets/hotel3.jpg';
+import { URL_API } from '@/boot/axios';
     export default {
         name: 'LoginPage',
         components: {
@@ -312,6 +357,7 @@
                 reserv_priv: [],
                 filteredTes: [],
                 reservaciones: [],
+                urlimg: '',
                 debounceTimeout: null,
                 nomhotl: '',
                 emailusr: '',
@@ -319,6 +365,7 @@
                 check: 0,
                 idhotl: 0,
                 swich: true,
+                open_verifi: false,
                 open_confirm: false,
                 open: false,
                 resev: {
@@ -347,7 +394,10 @@
             this.get_reserv();
         },
         methods: {
-              
+            open_verifi_img(item){
+              this.open_verifi = true;
+              this.urlimg = item.img_enviada
+            },
             formatDate(dateString) {
                 const date = new Date(dateString);
                 const day = String(date.getDate()).padStart(2, '0');
