@@ -60,23 +60,27 @@
 
                       </div>
                       <div class="p-4" style="    display: flex ;justify-content: space-around;" >
-                        <div @click="open_delete(item)" style="    width: 10%; color: #910000; " >
+                        <div @click="open_delete(item)" style="    width: 10%; color: #910000;     display: flex ; align-items: center; " >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
                           </svg>
                         </div>
-
-                        <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;" >
+                        <div  style="    width: 55%; color: green; " >
+                          <div style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                              <button  @click="ir_apasarela(item)" style="width: 100%;     height: 6vh;     font-size: 13px;"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"> Adjuntar comprobante de pago </button>
+                          </div>
+                        </div>
+                        <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;   display: flex ; align-items: center; " >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                           </svg>
                         </div>
-                        <div @click="ir_apasarela(item)"  style="    width: 10%; color: green; " >
+                        <!-- <div @click="ir_apasarela(item)"  style="    width: 10%; color: green; " >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 0 1 3 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 0 0-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 0 1-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 0 0 3 15h-.75M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm3 0h.008v.008H18V10.5Zm-12 0h.008v.008H6V10.5Z" />
                           </svg>
-                        </div>
+                        </div> -->
                       </div>
                   </div>
               </div>
@@ -96,19 +100,24 @@
             <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
                 <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center max-sm:items-center  sm:p-0 max-2xl:items-center">
                 <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" style="    max-height: 90vh;" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-10/12 sm:max-w-4xl sm:p-6 max-md:w-11/12 scroll" style="height: 25vh;     width: 100%; margin-block: 25px; overflow: scroll;">
+                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-10/12 sm:max-w-4xl sm:p-6 max-md:w-11/12 scroll" style="    height: 40vh;     width: 100%; margin-block: 25px; overflow: scroll;">
                         <div>
                             <div class="mt-3 text-center sm:mt-5 ">
                                 <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
                                 <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
                                   <div class="title">
-                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Pazarela de pago </DialogTitle>
+                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Comprobante de pago </DialogTitle>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="mt-5">
+                            <label for="file-upload" class="block text-sm font-medium text-gray-700">Adjuntar archivo</label>
+                            <input style=" height: 10vh;   background: aliceblue;" id="file-upload" type="file" accept="image/*,application/pdf" class="mt-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" @change="handleFileUpload">
+                            <p class="mt-1 text-sm text-gray-500">Formatos permitidos: imágenes y PDF.</p>
+                        </div>
                         <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                            <!-- <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="deltereserv()">Eliminar</button> -->
+                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="Actualizar_img()">Adjuntar comprobante de pago</button>
                             <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="modal_pasarele = false" ref="cancelButtonRef">Cancelar</button>
                         </div>
                     </DialogPanel>
@@ -276,11 +285,12 @@
                 searchQuery: '',
                 filteredTes: [],
                 reservaciones: [],
+                archivo_enviar: null,
                 debounceTimeout: null,
                 nomhotl: '',
                 emailusr: '',
                 namesr: '',
-                vistasmash: 0,
+                id_reservation: 0,
                 vistasmash: 0,
                 check: 0,
                 idhotl: 0,
@@ -322,7 +332,36 @@
             // this.get_reserv();
         },
         methods: {
+            Actualizar_img() {
+              const formData = new FormData();
+              formData.append('id', this.id_reservation);
+              formData.append('archivo', this.archivo_enviar);
+              reservacionesservices.Actualizar_camp_img(formData)
+              .then(response => {
+                console.log('Success:', response.data);
+                this.open_confirm = false;
+                this.get_prueb();
+                this.$swal({
+                    icon: 'success',
+                    title: 'Se ha enviado el comprobante con exito',
+                    timer: 2000
+                });
+              })
+              .catch(error => {
+                console.error('Error:', error.response?.data || error.message); // Inspecciona los errores aquí
+
+              });
+
+            },
+            handleFileUpload(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    console.log('Archivo seleccionado:', file);
+                    this.archivo_enviar = file;
+                }
+            },
             ir_apasarela(item) {
+                this.id_reservation = item.id
                 this.modal_pasarele = true;
             },
             filtrarNavigation() {

@@ -19,6 +19,9 @@ export default {
     createreserv_client (data) {
         return axiosInstance.post('/reservaciones/create-for-user/', data);
     },
+    Actualizar_camp_img (data) {
+        return axiosInstance.post('/reservaciones/enviar-comprovante/', data);
+    },
     list_reserv_client (data) {
         return axiosInstance.get('/reservaciones/user-reservations/',  {
             params: data
