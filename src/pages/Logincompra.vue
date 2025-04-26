@@ -27,18 +27,19 @@
 
     </div>
     <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
-        <div style="width: 80%;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
-            <!-- <button @click="navigation_host(1)" style="    border: solid 1px #024a71; background-color: #024a7163; width: 50%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button> -->
-            <button  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 100%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Reservaciones</button>
+        <div style="width: 90%;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
+            <button  @click="navigation_host(1)"  style="      white-space: nowrap;   border: solid 1px #024a71;  background-color: #024a7163; width: 50%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Usuarios con cuenta</button>
+            <button @click="navigation_host(2)" style="      white-space: nowrap;   border: solid 1px #024a71; background-color: #024a7163; width: 50%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Usuarios de plataforma</button>
+
         </div>
     </div>
-    <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;  " >
+    <div class="max-w-6xl mt-20" style="margin-top: 40px;  " >
 
-        <div v-if="swich " style="display: flex; flex-direction: column; justify-content: center;">
+        <div  style="display: flex; flex-direction: column; justify-content: center;">
           <div style="    width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
               <!-- <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Buscar hotel por nombre</label> -->
 
-              <input @input="debounceFilter()" v-model="searchQuery" id="search-field" style="width: 80%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Buscar hotel por nombre" type="search" name="search" />
+              <input v-model="searchQuery" id="search-field" style="width: 80%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Buscar hotel por nombre" type="search" name="search" />
 
           </div>
           <div  class="w-[25%] mx-3  flex justify-center items-end gap-[15px]">
@@ -49,16 +50,26 @@
               </div>
           </div>
         </div>
-        <div class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
-
-          <div  v-if="reservaciones.length > 0 && swich "   class="flex cls-55 items-center justify-center " v-for="item in filteredTes" :key="item.id">
+        <div   v-if="reservaciones.length > 0 && swich "  class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
+          <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
+            <div style="width: 80%;     display: flex;justify-content: center;"  class="flex  items-center p-1   rounded-xl">
+                <p style="color: #000000; font-size: 20px; font-weight: 700;">reservaciónes  de usuarios de la plataforma </p>
+            </div>
+          </div>
+          <div  v-if="reservaciones.length > 0 && swich "   class="flex cls-55 items-center justify-center " v-for="item in reservaciones" :key="item.id">
               <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
                   <div class="bg-white shadow-xl rounded-lg overflow-hidden">
-
-                      <div class="p-4">
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.hotel }}</p>
-
+                      <div class="flex w-full " >
+                        <div class="p-4">
+                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.hotel }}</p>
+                          
+                        </div>
+                        <div style="    display: flex;align-items: center;">
+                          <span v-if="!item.pagado" style="     background: #ffa0a0; border: 1px solid #a10000; color: #900;font-weight: 700; padding: 1px;"  class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Incompleto</span>
+                          <span v-else style="    background: #bbffa0; border: solid 1px #135900; color: #135900; font-weight: 700; padding: 1px;" class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">Pagado</span>
+                        </div>
                       </div>
+
                       <div class="p-4" style="    display: flex ;justify-content: space-around;" >
                         <div @click="open_delete(item)" style="    width: 10%; color: #910000; " >
                           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -75,7 +86,49 @@
               </div>
           </div>
           <div v-else-if=" swich && reservaciones.length === 0" class="flex cls-55 items-center justify-center">
-              <p class="text-gray-700 text-lg font-semibold">No hay reservaciones</p>
+              <p class="text-gray-700 text-lg font-semibold">No hay reservaciones con usuarios con sesion </p>
+          </div>
+        </div>
+        <div v-if="reserv_priv.length > 0 && !swich "   class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
+          <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
+            <div style="width: 80%;     display: flex;justify-content: center;"  class="flex  items-center p-1   rounded-xl">
+                <p style="color: #900; font-size: 20px; font-weight: 700;">reservaciónes  de externos de la plataforma </p>
+            </div>
+          </div>
+          <div  v-if="reserv_priv.length > 0 && !swich "   class="flex cls-55 items-center justify-center " v-for="item in reserv_priv" :key="item.id">
+              <div class="max-w-sm w-full sm:w-1/2 lg:w-1/3 py-6 px-3">
+                  <div class="bg-white shadow-xl rounded-lg overflow-hidden">
+
+                      <!-- <div class="p-4">
+                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.hotel }}</p>
+
+                      </div> -->
+                      <div class="flex w-full " >
+                        <div class="p-4">
+                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.hotel }}</p>
+                      </div>
+                        <div style="    display: flex;align-items: center;">
+                          <span v-if="!item.pagado" style="     background: #ffa0a0; border: 1px solid #a10000; color: #900;font-weight: 700; padding: 1px;"  class="inline-flex items-center rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-red-600/10 ring-inset">Incompleto</span>
+                          <span v-else style="    background: #bbffa0; border: solid 1px #135900; color: #135900; font-weight: 700; padding: 1px;" class="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-green-600/20 ring-inset">Pagado</span>
+                        </div>
+                      </div>
+                      <div class="p-4" style="    display: flex ;justify-content: space-around;" >
+                        <div @click="open_delete(item)" style="    width: 10%; color: #910000; " >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
+                          </svg>
+                        </div>
+                        <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;" >
+                          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
+                          </svg>
+                        </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div v-else-if=" !swich && reserv_priv.length === 0" class="flex cls-55 items-center justify-center">
+              <p class="text-gray-700 text-lg font-semibold">No hay reservaciones de usuarios sin secion</p>
           </div>
         </div>
     </div>
@@ -256,14 +309,13 @@
                     { id: 21, name: 'MAHEKAL - PLAYA DEL CARMEN', telefono: '800 836-8942' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
                 ],
                 searchQuery: '',
+                reserv_priv: [],
                 filteredTes: [],
                 reservaciones: [],
                 debounceTimeout: null,
                 nomhotl: '',
                 emailusr: '',
                 namesr: '',
-                vistasmash: 0,
-                vistasmash: 0,
                 check: 0,
                 idhotl: 0,
                 swich: true,
@@ -289,7 +341,8 @@
             }
         },
         mounted() {
-            this.filteredTes = this.tes;
+            // this.filteredTes = this.tes;
+            this.get_reserv_priv();
             this.get_prueb();
             this.get_reserv();
         },
@@ -343,17 +396,23 @@
                 console.log('id', id);
                 
             },
-            debounceFilter() {
-                clearTimeout(this.debounceTimeout);
-                this.debounceTimeout = setTimeout(() => {
-                    this.applyFilter();
-                }, 2000);
-            },
+            // debounceFilter() {
+            //     clearTimeout(this.debounceTimeout);
+            //     this.debounceTimeout = setTimeout(() => {
+            //         this.applyFilter();
+            //     }, 2000);
+            // },
             applyFilter() {
-                const query = this.searchQuery.toLowerCase();
-                this.filteredTes = this.reservaciones.filter(item =>
-                    item.hotel.toLowerCase().includes(query)
-                );
+              this.reserv_priv = [];
+              this.filteredTes = [];
+              this.reservaciones = [];
+              //aqui quiero poner un set time out para que no se ejecute tan rapido
+              clearTimeout(this.debounceTimeout);
+              this.debounceTimeout = setTimeout(() => {
+                this.get_reserv_priv();
+                this.get_reserv();
+              }, 2000);
+
             },
             abrir_mdlserv(item){
                 console.log('id', item);
@@ -382,7 +441,26 @@
 
                 console.log('Success:', response.data);
                 this.reservaciones = response.data;
-                this.filteredTes = this.reservaciones
+                // this.filteredTes = this.reservaciones
+              })
+              .catch(error => {
+                console.error('Error:', error.response.data); // Inspecciona los errores aquí
+              });
+
+            },
+            get_reserv_priv(){
+              this.loading = true;
+              // const mensaje = "Este es el mensaje que deseas enviar";
+              reservacionesservices.getReservaciones_priv({ 
+                filt:  this.searchQuery,
+              })
+              .then(response => {
+
+                // console.log('Success:', response.data);
+                this.reserv_priv = response.data;
+                console.log('reserv_priv:', response.data);
+
+                // this.filteredTes = this.reservaciones
               })
               .catch(error => {
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí

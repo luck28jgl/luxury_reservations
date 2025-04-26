@@ -11,6 +11,11 @@ export default {
             params: data
         });
     },
+    getReservaciones_priv (data) {
+        return axiosInstance.get('/reservaciones/priv/', {
+            params: data
+        });
+    },
     createreserv_client (data) {
         return axiosInstance.post('/reservaciones/create-for-user/', data);
     },
