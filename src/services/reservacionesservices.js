@@ -22,6 +22,9 @@ export default {
     Actualizar_camp_img (data) {
         return axiosInstance.post('/reservaciones/enviar-comprovante/', data);
     },
+    Vlidate_reserv (data) {
+        return axiosInstance.post('/reservaciones/compra-aprobada/', data);
+    },
     list_reserv_client (data) {
         return axiosInstance.get('/reservaciones/user-reservations/',  {
             params: data
