@@ -491,7 +491,13 @@
               })
               .then(response => {
                 console.log('Success:', response.data);
+
                 this.open = false; // Cerrar el modal después de guardar los datos
+                this.$swal({
+                    icon: 'success',
+                    title: 'se ha Creado su reservacion con exito',
+                    timer: 2000
+                });
                 this.get_prueb();
                 this.get_reserv();
               })
