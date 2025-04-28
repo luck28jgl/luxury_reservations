@@ -42,6 +42,9 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
         </div> -->
+        <div style="       width: 15%; display: flex;   justify-content: center; " class=" sm:mt-0 sm:flex-none">
+            <button @click="abrir_mdl()"  style="    font-size: 20px; font-weight: 600;" type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">+</button>
+        </div>
     </div>
     <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;  " >
 
@@ -54,7 +57,10 @@
           </div>
           <div  class="w-[25%] mx-3  flex justify-center items-end gap-[15px]">
               <div style=" width: 70%;  display: flex; justify-content: center; align-items: flex-end;">
-                  <div style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                  <div style=" font-size: 13px;    width: 88%;    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
+                      <button @click="get_reserv()"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Buscar</button>
+                  </div>
+                  <div style="   font-size: 13px;   width: 88%;  display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
                       <button @click="get_reserv()"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Recargar</button>
                   </div>
               </div>
@@ -80,16 +86,22 @@
                         </div>
                         <div class="px-4 pt-3 pb-4 border-b border-gray-300 bg-gray-100">
                             <div class="p-4" style="    display: flex ;justify-content: space-around;" >
-                                <div @click="open_delete(item)" style="    width: 10%; color: #910000; " >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <div @click="open_delete(item)" style="    width: 50%; color: #910000; " >
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-                                    </svg>
+                                    </svg> -->
+                                    <div style="       width: 90%; display: flex;   justify-content: center; " class=" sm:mt-0 sm:flex-none">
+                                        <button  style="  font-weight: 600; background-color: red;" type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Eliminar</button>
+                                    </div>
                                 </div>
-                                <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <div @click="ver_info(item)"  style="    width: 50%;     color: #024a71;" >
+                                    <!-- <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 0 1 1.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.559.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.894.149c-.424.07-.764.383-.929.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 0 1-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.398.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 0 1-.12-1.45l.527-.737c.25-.35.272-.806.108-1.204-.165-.397-.506-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 0 1 .12-1.45l.773-.773a1.125 1.125 0 0 1 1.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894Z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                                    </svg>
+                                    </svg> -->
+                                    <div style="       width: 90%; display: flex;   justify-content: center; " class=" sm:mt-0 sm:flex-none">
+                                        <button  style="    font-weight: 600; background-color: olivedrab;" type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Info</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -169,7 +181,7 @@
                                           <div class="mt-3 text-center sm:mt-5 ">
                                            
                                               <div>
-                                                <img style="    width: 100%; height: 100%;" :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`" alt="imgalt">
+                                                <img style="        width: 71%; height: 71%;" :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`" alt="imgalt">
                                               </div>
                                           </div>
                                         </div>
@@ -224,6 +236,11 @@
                                             <input  v-model="hotel.price" id="price" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Precio por noche" type="search" name="search"  />
 
                                         </div>
+                                        <!-- <div class="mt-5">
+                                            <label for="file-upload" class="block text-sm font-medium text-gray-700">Adjuntar archivo</label>
+                                            <input style=" height: 10vh;   background: aliceblue;" id="file-upload" type="file" accept="image/*,application/pdf" class="mt-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" @change="handleFileUpload">
+                                            <p class="mt-1 text-sm text-gray-500">Formatos permitidos: imágenes y PDF.</p>
+                                        </div> -->
                                         <div class="container"> 
                                             <div for="file" class="header"> 
                                                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> 
@@ -274,9 +291,8 @@
     // import { RecaptchaV2, useRecaptcha } from "vue3-recaptcha-v2";
     // const { handleGetResponse } = useRecaptcha();
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-    import hotel1 from '@/assets/hotel1.jpg';
-    import hotel2 from '@/assets/hotel2.jpg';
-    import hotel3 from '@/assets/hotel3.jpg';
+    import { useLoading } from 'vue-loading-overlay';
+
     export default {
         name: 'LoginPage',
         components: {
@@ -288,29 +304,6 @@
         },
         data() {
             return {
-                tes: [
-                    { id: 1, name: 'KRYSTAL GRAND PUNTA CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 891-5555', url:hotel1 , precio_inicial: 400 , precio_dec: 2268 },
-                    { id: 2, name: 'KRYSTAL GRAND LOS CABOS - SAN JOSÉ DEL CABO, BCS', telefono: '01 (624) 163-4750', url:hotel2  , precio_inicial: 400 , precio_dec: 2268 },
-                    { id: 3, name: 'KRYSTAL GRAND SUITES INSURGENTES SUR - CIUDAD DE MÉXICO, CDMX', telefono: '01 (55) 5322-1580', url: hotel3 , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 4, name: 'KRYSTAL GRAND NUEVO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-1050', url:hotel1 , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 5, name: 'KRYSTAL GRAND PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 176-1176' , url:hotel2 , precio_inicial: 400 , precio_dec: 2268   },
-                    { id: 6, name: 'KRYSTAL GRAND RESIDENCES & VILLAS SAN MIGUEL DE ALLENDE', telefono: '01 (415) 148-2000', url:hotel3   , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 7, name: 'KRYSTAL CANCÚN - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-9800' , url:hotel1  },
-                    { id: 8, name: 'KRYSTAL PUERTO VALLARTA - PUERTO VALLARTA, JALISCO', telefono: '01 (322) 226-0700' , url:hotel2 , precio_inicial: 400 , precio_dec: 2268   },
-                    { id: 9, name: 'KRYSTAL IXTAPA - IXTAPA ZIHUATANEJO, GUERRERO', telefono: '01 (755) 555-0510' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 10, name: 'PLAYA KRYSTAL ACAPULCO - ACAPULCO, GUERRERO', telefono: '01 (744) 485-5050' , url:hotel1  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 11, name: 'KRYSTAL SATÉLITE MARIA BARBARA - TLALNEPANTLA, MÉXICO', telefono: '01 (55) 5366-9924' , url:hotel2   , precio_inicial: 400 , precio_dec: 2268 },
-                    { id: 12, name: 'KRYSTAL MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8319-0900' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 13, name: 'KRYSTAL URBAN CANCUN CENTRO - CANCÚN, QUINTANA ROO', telefono: '01 (998) 848-8000' , url:hotel1  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 14, name: 'KRYSTAL URBAN CIUDAD JUAREZ - CIUDAD JUAREZ, CHIHUAHUA', telefono: '01 (656) 629-0995' , url:hotel2  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 15, name: 'KRYSTAL URBANO GUADALAJARA - GUADALAJARA, JALISCO', telefono: '01 (33) 3679-3780' , url:hotel3 , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 16, name: 'KRYSTAL URBAN / MONTERREY - MONTERREY, NUEVO LEÓN', telefono: '01 (81) 8122-8000' , url:hotel1, precio_inicial: 400 , precio_dec: 2268   },
-                    { id: 17, name: 'HAMPTON INN & SUITES PARAISO TABASCO - PARAISO, TABASCO', telefono: '01 (933) 333-6092' , url:hotel2  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 18, name: 'HYATT PLACE AGUASCALIENTES', telefono: '(449) 800-1234' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 19, name: 'HYATT CENTRIC LEON', telefono: '01 (477) 344-1100' , url:hotel1  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 20, name: 'HYATT REGENCY MÉXICO CITY INSURGENTES', telefono: '01 (55) 57247700' , url:hotel2  , precio_inicial: 400 , precio_dec: 2268  },
-                    { id: 21, name: 'MAHEKAL - PLAYA DEL CARMEN', telefono: '800 836-8942' , url:hotel3  , precio_inicial: 400 , precio_dec: 2268  },
-                ],
                 Archivo_recibido: '',
                 searchQuery: '',
                 filteredTes: [],
@@ -359,10 +352,17 @@
         },
         mounted() {
             // this.filteredTes = this.tes;
-            this.get_prueb();
+            // this.get_prueb();
             this.get_reserv();
         },
         methods: {
+            handleFileUpload(event) {
+                  const file = event.target.files[0];
+                if (file) {
+                    console.log('Archivo seleccionado:', file);
+                    this.archivo_enviar = file;
+                }
+            },
             agregar_file(event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -382,7 +382,7 @@
                 return `${day}/${month}/${year}`;
             },
             deltereserv(){
-                reservacionesservices.Deletereserv({ id: this.idhotl })
+                hotelesservices.Deletehotel({ id: this.idhotl })
                 .then(response => {
                     console.log('Success:', response.data);
                     this.open_confirm = false;
@@ -433,9 +433,14 @@
                 this.open = true;
             },
             get_prueb(){
-              this.loading = true;
+              // this.loading = true;
+              let loader = useLoading().show({
+                  canCancel: false,
+                  loader: 'bars'
+              });
               reservacionesservices.getNot({ mensaje: 'Test message' })
               .then(response => {
+                loader.hide();
                 console.log('Success:', response.data);
               })
               .catch(error => {
@@ -444,18 +449,23 @@
 
             },
             get_reserv(){
-              this.loading = true;
+              // this.loading = true;
+              let loader = useLoading().show({
+                  canCancel: false,
+                  loader: 'bars'
+              });
               // const mensaje = "Este es el mensaje que deseas enviar";
               hotelesservices.get_hoteles({ 
-                filt: '' ,
+                filt: this.searchQuery ,
               })
               .then(response => {
-
+                loader.hide();
                 console.log('Success:', response.data);
                 this.reservaciones = response.data;
                 this.filteredTes = this.reservaciones
               })
               .catch(error => {
+                loader.hide();
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
               });
 
@@ -488,7 +498,11 @@
                   });
                   return;
                 }   
-
+                
+                let loader = useLoading().show({
+                    canCancel: false,
+                    loader: 'bars'
+                });
                 hotelesservices.editCotizacion({
                     id: this.hote_select.id,
                     nombre: this.hote_select.nombre,
@@ -505,9 +519,11 @@
                         this.get_reserv();
                         this.get_prueb();
 
+                        loader.hide();
                     })
                     .catch(error => {
                         console.error('Error:', error.response.data); // Inspecciona los errores aquí
+                        loader.hide();
                     });
                 this.openedit = false;
             },
@@ -539,7 +555,10 @@
                   });
                   return;
                 }    
-
+                let loader = useLoading().show({
+                    canCancel: false,
+                    loader: 'bars'
+                });
                 console.log('guardarDatos', this.hotel.nombre, this.hotel.price, this.hotel.archivo);
 
                 // Crear un objeto FormData
@@ -553,13 +572,17 @@
                         console.log('Success:', response.data);
                         
                         this.open = false;
+                        this.get_prueb();
+                        this.get_reserv();
                         this.$swal({
                             icon: 'success',
                             title: 'Se ha creado su hotel con éxito',
                             timer: 2000
                         });
+                        loader.hide();
                     })
                     .catch(error => {
+                      loader.hide();
                         console.error('Error:', error.response.data); // Inspecciona los errores aquí
                     });
   
@@ -1000,7 +1023,7 @@
     color: white;
     border-radius: 9px;
     height: 5vh;
-    font-size: 17px;
+    font-size: 13px;
 }
 /* .hover-image {
     transition: transform 0.3s ease-in-out;

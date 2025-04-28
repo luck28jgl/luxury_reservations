@@ -327,7 +327,7 @@
     import hotel1 from '@/assets/hotel1.jpg';
     import hotel2 from '@/assets/hotel2.jpg';
     import hotel3 from '@/assets/hotel3.jpg';
-import { URL_API } from '@/boot/axios';
+    import { URL_API } from '@/boot/axios';
     export default {
         name: 'LoginPage',
         components: {
