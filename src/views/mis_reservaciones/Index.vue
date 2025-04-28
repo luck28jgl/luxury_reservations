@@ -272,14 +272,14 @@
 <script>
     import reservacionesservices from '@/services/reservacionesservices';
     import LoginServices from '@/services/LoginServices';
-
+    import { useLoading } from 'vue-loading-overlay';
     // import { defineComponent } from "vue";
     // import { RecaptchaV2, useRecaptcha } from "vue3-recaptcha-v2";
     // const { handleGetResponse } = useRecaptcha();
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-    import hotel1 from '@/assets/hotel1.jpg';
-    import hotel2 from '@/assets/hotel2.jpg';
-    import hotel3 from '@/assets/hotel3.jpg';
+    // import hotel1 from '@/assets/hotel1.jpg';
+    // import hotel2 from '@/assets/hotel2.jpg';
+    // import hotel3 from '@/assets/hotel3.jpg';
     export default {
         name: 'reservacionesIndex',
         components: {
