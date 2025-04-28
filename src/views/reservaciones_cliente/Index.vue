@@ -267,7 +267,7 @@
                 emailusr: '',
                 namesr: '',
                 id_user: '',
-                pricemultiplicado: 0,
+                pricemultiplicado: '',
                 price: '',
                 iduser_activo: 0,
                 vista: 0,
@@ -387,6 +387,7 @@
                 console.log('id', item);
                 this.nomhotl = item.Nombre
                 this.price = item.price
+                this.pricemultiplicado = item.price
                 this.idhotl = item.id
                 this.open = true;
                 // Establecer valores predeterminados para "desde" y "hasta" con la fecha actual
