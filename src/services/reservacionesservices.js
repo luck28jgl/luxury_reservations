@@ -23,7 +23,7 @@ export default {
         return axiosInstance.post('/reservaciones/enviar-comprovante/', data);
     },
     Vlidate_reserv (data) {
-        return axiosInstance.post('/reservaciones/compra-aprobada/', data);
+        return axiosInstance.post('/reservaciones/compra-aprobada/', { id: data });
     },
     list_reserv_client (data) {
         return axiosInstance.get('/reservaciones/user-reservations/',  {
