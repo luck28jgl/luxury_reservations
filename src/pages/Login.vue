@@ -93,7 +93,7 @@
                           </div>
                           <p class="uppercase tracking-wide text-sm font-bold text-gray-700">precio para 1 noche 
                            </p>
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.price }}
+                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">${{ item.price }}
                            </p>
                           <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">2 dultos </p> -->
                           <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{item.precio_inicial}} MXN {{item.precio_dec}}</p> -->
