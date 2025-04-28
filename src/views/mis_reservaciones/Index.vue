@@ -127,7 +127,7 @@
                             <p class="mt-1 text-sm text-gray-500">Formatos permitidos: imágenes y PDF.</p>
                         </div>
                         <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="Actualizar_img()">Adjuntar comprobante de pago</button>
+                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="Actualizar_img()"> Enviar comprobante de pago</button>
                             <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="modal_pasarele = false" ref="cancelButtonRef">Cancelar</button>
                         </div>
                     </DialogPanel>
@@ -351,24 +351,23 @@
                   loader: 'bars'
               });
               reservacionesservices.Actualizar_camp_img(formData)
-              .then(response => {
+                .then(response => {
+                  console.log('Success:', response.data);
+                  this.modal_pasarele = false;
+                  loader.hide();
+                  this.filtrarNavigation(); 
+                  this.get_prueb();
+                  this.$swal({
+                      icon: 'success',
+                      title: 'Se ha enviado el comprobante con exito',
+                      timer: 2000
+                  });
+                })
+                .catch(error => {
+                  loader.hide();
+                  console.error('Error:', error.response?.data || error.message); // Inspecciona los errores aquí
 
-                console.log('Success:', response.data);
-                this.modal_pasarele = false;
-                loader.hide();
-                this.filtrarNavigation(); 
-                this.get_prueb();
-                this.$swal({
-                    icon: 'success',
-                    title: 'Se ha enviado el comprobante con exito',
-                    timer: 2000
                 });
-              })
-              .catch(error => {
-                loader.hide();
-                console.error('Error:', error.response?.data || error.message); // Inspecciona los errores aquí
-
-              });
 
             },
             handleFileUpload(event) {
