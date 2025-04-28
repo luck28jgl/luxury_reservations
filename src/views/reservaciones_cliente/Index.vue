@@ -386,8 +386,9 @@
             abrir_mdlserv(item){
                 console.log('id', item);
                 this.nomhotl = item.Nombre
+                const priceNumber = parseFloat(item.price.replace(/,/g, ''));
                 this.price = item.price
-                this.pricemultiplicado = item.price
+                this.pricemultiplicado = priceNumber;
                 this.idhotl = item.id
                 this.open = true;
                 // Establecer valores predeterminados para "desde" y "hasta" con la fecha actual

@@ -356,9 +356,10 @@
             },
             abrir_mdlserv(item){
                 console.log('id', item);
+                const priceNumber = parseFloat(item.price.replace(/,/g, ''));
                 this.nomhotl = item.Nombre
                 this.price = item.price
-                this.pricemultiplicado = item.price
+                this.pricemultiplicado = priceNumber;
                 this.idhotl = item.id
                 this.open = true;
 
