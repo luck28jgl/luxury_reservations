@@ -51,7 +51,7 @@
       </a>
     </div>
 
-    <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;  " >
+    <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;" >
 
         <div v-if=" swich " style="display: flex; flex-direction: column; justify-content: center;">
           <div style="    width: 100%; display: flex; justify-content: center; align-items: center; flex-direction: column;">
@@ -74,7 +74,7 @@
               
                     <div class="bg-cover bg-center h-56 p-4 image-container">
                         <!-- <img :src="getImageUrl(item.img)" alt="Imagen del hotel" class="hover-image cls-img22" /> -->
-                        <img :src="'https://luxury-reservations-bk.onrender.com' + item.img" alt="Imagen del hotel" class="hover-image cls-img22" />
+                        <img :src="'https://mi-api-imagenes.s3.us-east-2.amazonaws.com' + item.img" alt="Imagen del hotel" class="hover-image cls-img22" />
 
                     </div>
                     <div class="p-4">
@@ -143,41 +143,49 @@
                                 <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
                                 <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
                                     <form class="form">
-                                        <div class="title">
+                                        <div class="title w-full">
                                             <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nueva Reservacion para el  hotel : <br> {{  nomhotl }}</DialogTitle>
 
+                                        </div>
+                                        <div class=" w-full">
+                                            <p style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 20px;" class="text-gray-900">
+                                              precio por noche: {{ pricemultiplicado }} MXN
+                                            </p>
+                                            <p v-if="price != pricemultiplicado " style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 20px;" class="text-gray-900">
+                                              precio de toda la reservacion: {{ price }} MXN
+                                            </p>
                                         </div>
                                         <!-- <input class="input" name="email" placeholder="Email" type="email">
                                         <input class="input" name="password" placeholder="Password" type="password"> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">nombre de quien reserva </label>
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Nombre de quien reserva </label>
 
                                             <input  v-model="namesr" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de quien reserva" type="search" name="search" />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">email de quien reserva </label>
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Correo de quien reserva </label>
 
                                             <input  v-model="emailusr" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="email de quien reserva" type="search" name="search" />
 
                                         </div>
 
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Desde</label>
 
-                                            <input  type="date"  v-model="resev.desde" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  name="search" />
+                                            <input  type="date"  :min="currentDate"    @change="calcularTotal"  v-model="resev.desde" id="name" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  name="search" />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Hasta</label>
 
-                                            <input type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"   name="search" />
+                                            <input type="date"   :min="currentDate"  @change="calcularTotal"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"   name="search" />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
 
-                                            <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" />
+                                            <input   v-model="resev.numperson"  placeholder="ingresa el número de perosas para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" />
 
                                         </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
@@ -250,6 +258,7 @@
         },
         data() {
             return {
+                currentDate: new Date().toISOString().split('T')[0], 
                 tes: [],
                 searchQuery: '',
                 filteredTes: [],
@@ -259,6 +268,7 @@
                 emailusr: '',
                 namesr: '',
                 price: '',
+                pricemultiplicado: '',
                 vista: 0,
                 check: 0,
                 idhotl: 0,
@@ -287,6 +297,24 @@
             this.get_reserv();
         },
         methods: {
+          calcularTotal() {
+            if (this.resev.desde && this.resev.hasta) {
+                const desde = new Date(this.resev.desde);
+                const hasta = new Date(this.resev.hasta);
+
+                // Calcular la cantidad de días
+                const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+
+                // Validar que las fechas sean correctas
+                if (days > 0) {
+                    const totalPrice = days * this.pricemultiplicado;
+                    this.price = totalPrice; // Actualizar el precio total
+                    console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
+                } else {
+                    console.error('La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".');
+                }
+            }
+          },
             get_reserv(){
               this.loading = true;
               // const mensaje = "Este es el mensaje que deseas enviar";
@@ -329,8 +357,23 @@
                 console.log('id', item);
                 this.nomhotl = item.Nombre
                 this.price = item.price
+                this.pricemultiplicado = item.price
                 this.idhotl = item.id
                 this.open = true;
+
+                
+                // Establecer valores predeterminados para "desde" y "hasta" con la fecha actual
+                const today = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+                this.resev.desde = today;
+                this.resev.hasta = today;
+
+                // Calcular la cantidad de días y el precio total
+                const desde = new Date(this.resev.desde);
+                const hasta = new Date(this.resev.hasta);
+                const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+                const totalPrice = days * this.pricemultiplicado;
+
+                console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
             },
             get_prueb(){
               this.loading = true;
@@ -345,7 +388,27 @@
             },
 
             guardarDatos(){   
-                // Validar campos requeridos
+                // valida el campo emailusr tenga un formato de correo electronico
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!emailRegex.test(this.emailusr)) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'Formato de correo inválido',
+                  text: 'Por favor ingresa un correo electrónico válido.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.emailusr) {
+
+                this.$swal({
+                  icon: 'error',
+                  title: 'Por favor ingresa tu email',
+                  text: 'Por favor ingresa un email válido.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
               if (!this.resev.tipo_habitacion) {
                 this.$swal({
                   icon: 'error',
@@ -410,33 +473,6 @@
                 return;
               }
 
-              // Si todo está completo, continuar con la lógica
-              // this.$swal({
-              //   icon: 'success',
-              //   title: 'Reservación creada',
-              //   text: 'Tu reservación se ha guardado con éxito.',
-              //   confirmButtonText: 'Aceptar',
-              // });
-              // console.log(this.resev.tipo_habitacion);
-              // console.log(this.resev.vista_habitacion);
-              // console.log(this.resev.check);
-              // console.log( this.nomhotl);
-              // console.log(this.reserv.desde);
-              // console.log(this.this.reserv.hasta);
-              // console.log(this.reserv.numperson);
-                         
-              // this.reservaciones.push({
-              //     hotel: this.nomhotl,
-              //     desde: this.resev.desde,
-              //     hasta: this.resev.hasta,
-              //     cuentas_pesonas: this.resev.numperson,
-              //     usuario_on: false,
-              //     id: this.idhotl,
-              //     plan: this.resev.check,
-              //     tipo_habitacion: this.resev.tipo_habitacion,
-              //     vista_habitacion: this.resev.vista_habitacion,
-              // });
-              // login('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
               reservacionesservices.createreserv({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 
@@ -451,20 +487,33 @@
                 tip_vista: this.resev.vista_habitacion, 
               })
               .then(response => {
-                console.log('Success:', response.data);
-                
+                // console.log('Success:', response.data);
+                // console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
+                  this.open = false;
+                  this.$swal({
+                      icon: 'success',
+                      title: 'se ha Creado su reservacion con exito',
+                      timer: 2000
+                  });
+              
+
+                  this.resev = {
+                    tipo_habitacion: '',
+                    vista_habitacion: '',
+                    check: null,
+                    desde: null,
+                    hasta: null,
+                    numperson: 0
+                  };
+                  this.nomhotl = '';
+                  this.price = 0;
+                  this.emailusr = '';
+                  this.namesr = '';
               })
               .catch(error => {
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
               });
-              console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
-              this.open = false;
-              this.$swal({
-                  icon: 'success',
-                  title: 'se ha Creado su reservacion con exito',
-                  timer: 2000
-              });
-              
+
             }
         }
     }

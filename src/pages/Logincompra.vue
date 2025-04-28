@@ -51,8 +51,8 @@
               </div>
           </div>
         </div>
-        <div   v-if="reservaciones.length > 0 && swich "  class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
-          <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
+        <div  v-if="swich "    class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
+          <div   v-if="reservaciones.length > 0 && swich "   class="flex items-center justify-center"  style="margin-top: 20px;" >
             <div style="width: 80%;     display: flex;justify-content: center;"  class="flex  items-center p-1   rounded-xl">
                 <p style="color: #000000; font-size: 20px; font-weight: 700;">reservaciónes  de usuarios de la plataforma </p>
             </div>
@@ -232,6 +232,10 @@
 
                                         </div>
                                         <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <p class="text-base font-semibold leading-6 text-gray-900">Precio :{{ resev.price }}</p>
+
+                                        </div>
+                                        <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
 
                                         </div>
@@ -375,6 +379,7 @@ import { URL_API } from '@/boot/axios';
                 open_confirm: false,
                 open: false,
                 resev: {
+                  price: '',
                   check: '',
                   tipo_habitacion: '',
                   fech_creacion: '',
@@ -483,6 +488,7 @@ import { URL_API } from '@/boot/axios';
                 this.namesr = item.uduario
                 this.emailusr = item.email
                 this.resev.tipo_habitacion = item.tip_hab
+                this.resev.price = item.price
 
                 this.resev.vista_habitacion = item.tip_vista
                 this.resev.desde = item.desde;

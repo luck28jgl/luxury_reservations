@@ -37,12 +37,11 @@
             <!-- <button @click="navigation_host(1)" style="    border: solid 1px #024a71; background-color: #024a7163; width: 50%; " class="px-4 bg-[#024a7163] py-2 text-sm font-medium text-[#024a71] capitalize  md:py-3 rounded-xl md:px-12">Hoteles</button> -->
             <button  style="    border: solid 1px #024a71;  background-color: #024a7163; width: 100%;" class="px-4 bg-[#024a7163] py-2 mx-4 text-sm font-medium text-[#024a71] capitalize transition-colors duration-300 md:py-3 dark:text-blue-400 dark:hover:text-white focus:outline-none hover:bg-blue-600 hover:text-white rounded-xl md:mx-8 md:px-12">Hoteles</button>
         </div>
-        <div @click="abrir_mdl()" style="    width: 11%; border: solid 0px;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
+        <!-- <div @click="abrir_mdl()" style="    width: 11%; border: solid 0px;"  class="flex  items-center p-1 border border-blue-600 dark:border-blue-400 rounded-xl">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
             </svg>
-
-        </div>
+        </div> -->
     </div>
     <div  v-if="swich " class="max-w-6xl mt-20" style="margin-top: 40px;  " >
 
@@ -68,7 +67,7 @@
                     <div class="bg-white shadow-xl rounded-lg overflow-hidden">
                 
                         <div class="bg-cover bg-center h-56 p-4 image-container">
-                            <img :src="getImageUrl(item.img)" alt="Imagen del hotel" class="hover-image cls-img22" />
+                            <img :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${item.img}`" alt="Imagen del hotel" class="hover-image cls-img22" />
                         </div>
                         <div class="p-4">
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.Nombre }}</p>
@@ -130,6 +129,66 @@
             </div>
         </Dialog>
     </TransitionRoot>
+    <TransitionRoot as="template" :show="openedit">
+        <Dialog as="div" class="relative z-50" @close="openedit = false">
+            <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            </TransitionChild>
+
+            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center max-sm:items-center  sm:p-0 max-2xl:items-center">
+                <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" enter-to="opacity-100 translate-y-0 sm:scale-100" style="    max-height: 90vh;" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 sm:scale-100" leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+                    <DialogPanel class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-10/12 sm:max-w-4xl sm:p-6 max-md:w-11/12 scroll" style="height: 90vh;     width: 100%; margin-block: 25px; overflow: scroll;">
+                        <div>
+                            <div class="mt-3 text-center sm:mt-5 ">
+                                <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
+                                <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
+                                    <form class="form">
+                                        <div class="title">
+                                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nuevo hotel</DialogTitle>
+
+                                        </div>
+                                        <!-- <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
+
+                                        </div> -->
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">nombre </label>
+
+                                            <input  v-model="hote_select.nombre" id="nombre" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de hotel" type="search" name="search" />
+
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">precio por noche</label>
+
+                                            <input  v-model="hote_select.price" id="price" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Precio por noche" type="search" name="search"  />
+
+                                        </div>
+                                    
+                                        <div style="width: 100%; height: 30vh;">
+                                          <div class="mt-3 text-center sm:mt-5 ">
+                                           
+                                              <div>
+                                                <img style="    width: 100%; height: 100%;" :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`" alt="imgalt">
+                                              </div>
+                                          </div>
+                                        </div>
+                                        <!-- <button class="button-confirm">Let`s go →</button> -->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="edit_hotel()">Guardar</button>
+                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="openedit = false" ref="cancelButtonRef">Cancelar</button>
+                        </div>
+                    </DialogPanel>
+                </TransitionChild>
+                </div>
+            </div>
+        </Dialog>
+    </TransitionRoot>
+  
     <TransitionRoot as="template" :show="open">
         <Dialog as="div" class="relative z-50" @close="open = false">
             <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
@@ -265,6 +324,7 @@
                 check: 0,
                 idhotl: 0,
                 swich: true,
+                openedit: false,
                 open_confirm: false,
                 open: false,
                 resev: {
@@ -275,6 +335,12 @@
                   hasta: '',
                   numperson: '',
                   vista_habitacion: '',
+                },
+                hote_select: {
+                  id: 0,
+                  nombre: '',
+                  img: '',
+                  price: '',
                 },
                 hotel: {
                   nombre: '',
@@ -333,6 +399,7 @@
             },
             ver_info(item){
                 console.log('ver_info', item);
+                this.openedit = true;
                 this.hote_select.nombre = item.Nombre
                 this.hote_select.img = item.img
                 this.hote_select.price = item.price
@@ -392,6 +459,57 @@
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
               });
 
+            },
+            edit_hotel(){
+                if (!this.hote_select.nombre) {
+                  this.$swal({
+                    icon: 'error',
+                    title: 'Selecciona un nombre',
+                    text: 'Por favor selecciona un nombre.',
+                    confirmButtonText: 'Entendido',
+                  });
+                  return;
+                }
+                if (this.hote_select.img == '') {
+                  this.$swal({
+                    icon: 'error',
+                    title: 'Selecciona una imagen',
+                    text: 'Por favor selecciona una imagen.',
+                    confirmButtonText: 'Entendido',
+                  });
+                  return;
+                }        
+                if (this.hote_select.price == '') {
+                  this.$swal({
+                    icon: 'error',
+                    title: 'Selecciona un precio',
+                    text: 'Por favor selecciona un precio.',
+                    confirmButtonText: 'Entendido',
+                  });
+                  return;
+                }   
+
+                hotelesservices.editCotizacion({
+                    id: this.hote_select.id,
+                    nombre: this.hote_select.nombre,
+                    price: this.hote_select.price,
+                })
+                    .then(response => {
+                        console.log('Success:', response.data);
+                        this.openedit = false;
+                        this.$swal({
+                            icon: 'success',
+                            title: 'Se ha editado su hotel con éxito',
+                            timer: 2000
+                        });
+                        this.get_reserv();
+                        this.get_prueb();
+
+                    })
+                    .catch(error => {
+                        console.error('Error:', error.response.data); // Inspecciona los errores aquí
+                    });
+                this.openedit = false;
             },
             crear_hot(){
                 if (!this.hotel.archivo) {

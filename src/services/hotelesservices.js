@@ -17,5 +17,7 @@ export default {
     Deletehotel (data) {
         return axiosInstance.delete(`/hoteles/${data.id}/delete-reservation/`);
     },
-
+    editCotizacion (data) {
+        return axiosInstance.put(`/hoteles/${data.id}/`, data);
+    },
 };
