@@ -389,7 +389,7 @@
 
             guardarDatos(){   
                 // valida el campo emailusr tenga un formato de correo electronico
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
               if (!emailRegex.test(this.emailusr)) {
                 this.$swal({
                   icon: 'error',
@@ -400,7 +400,6 @@
                 return;
               }
               if (!this.emailusr) {
-
                 this.$swal({
                   icon: 'error',
                   title: 'Por favor ingresa tu email',
@@ -472,7 +471,10 @@
                 });
                 return;
               }
-
+              let loader = useLoading().show({
+                  canCancel: false,
+                  loader: 'bars'
+              });
               reservacionesservices.createreserv({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 
@@ -490,6 +492,7 @@
                 // console.log('Success:', response.data);
                 // console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
                   this.open = false;
+                  loader.hide();
                   this.$swal({
                       icon: 'success',
                       title: 'se ha Creado su reservacion con exito',
@@ -511,6 +514,7 @@
                   this.namesr = '';
               })
               .catch(error => {
+                loader.hide();
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
               });
 
