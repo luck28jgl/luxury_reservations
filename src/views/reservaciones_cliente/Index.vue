@@ -145,6 +145,14 @@
                                             <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nueva Reservacion para el  hotel : <br> {{  nomhotl }}</DialogTitle>
 
                                         </div>
+                                        <div class=" w-full">
+                                            <p style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 20px;" class="text-gray-900">
+                                              precio por noche: {{ pricemultiplicado }} MXN
+                                            </p>
+                                            <p v-if="price != pricemultiplicado " style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 20px;" class="text-gray-900">
+                                              precio de toda la reservacion: {{ price }} MXN
+                                            </p>
+                                        </div>
                                         <!-- <input class="input" name="email" placeholder="Email" type="email">
                                         <input class="input" name="password" placeholder="Password" type="password"> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
@@ -163,13 +171,13 @@
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="desde" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
 
-                                            <input  type="date"  v-model="resev.desde" id="desde" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  />
+                                            <input @change="calcularTotal" type="date"  v-model="resev.desde" id="desde" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="hasta" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
 
-                                            <input type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"    />
+                                            <input @change="calcularTotal" type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"    />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
@@ -259,6 +267,7 @@
                 emailusr: '',
                 namesr: '',
                 id_user: '',
+                pricemultiplicado: 0,
                 price: '',
                 iduser_activo: 0,
                 vista: 0,
@@ -295,6 +304,24 @@
             this.get_reserv();
         },
         methods: {
+            calcularTotal() {
+              if (this.resev.desde && this.resev.hasta) {
+                  const desde = new Date(this.resev.desde);
+                  const hasta = new Date(this.resev.hasta);
+
+                  // Calcular la cantidad de días
+                  const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+
+                  // Validar que las fechas sean correctas
+                  if (days > 0) {
+                      const totalPrice = days * this.pricemultiplicado;
+                      this.price = totalPrice; // Actualizar el precio total
+                      console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
+                  } else {
+                      console.error('La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".');
+                  }
+              }
+            },
             filtrarNavigation() {
                 LoginServices.getUType({
                     username: this.id_user
@@ -362,6 +389,18 @@
                 this.price = item.price
                 this.idhotl = item.id
                 this.open = true;
+                // Establecer valores predeterminados para "desde" y "hasta" con la fecha actual
+                const today = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
+                this.resev.desde = today;
+                this.resev.hasta = today;
+
+                // Calcular la cantidad de días y el precio total
+                const desde = new Date(this.resev.desde);
+                const hasta = new Date(this.resev.hasta);
+                const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+                const totalPrice = days * this.pricemultiplicado;
+
+                console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
             },
             get_prueb(){
               this.loading = true;
