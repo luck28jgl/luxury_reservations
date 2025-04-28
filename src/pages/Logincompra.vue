@@ -84,7 +84,7 @@
                         </div> -->
                         <div  v-if="item.clent_envie_img && !item.pagado"  style="    width: 55%; color: green; " >
                           <div style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
-                              <button  @click="open_verifi_img(item)" style="width: 100%;     height: 6vh;     font-size: 13px;"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Vefificar comprobante de pago</button>
+                              <button  @click="open_verifi_img(item)" style="width: 100%;     height: 6vh;     font-size: 13px;"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Verificar comprobante de pago</button>
                           </div>
                         </div>
                         <div @click="ver_info(item)"  style="    width: 10%;     color: #024a71;  display: flex ; align-items: center; " >
@@ -164,7 +164,7 @@
                                 <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
                                 <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
                                   <div class="title">
-                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Estas  deacuerdo de eliminar esta  reservación <br> esta accion no tendra retorno </DialogTitle>
+                                        <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Estas  deacuerdo de marcarar como pagada  esta eservacion <br> esta accion no tendra retorno </DialogTitle>
                                     </div>
                                 </div>
                                 <div>
@@ -173,7 +173,7 @@
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                            <button @click="validar_reserva()" type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" >verificar paso</button>
+                            <button @click="validar_reserva()" type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" >Marcar como pagado</button>
                             <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="open_verifi = false" ref="cancelButtonRef">Cancelar</button>
                         </div>
                     </DialogPanel>
