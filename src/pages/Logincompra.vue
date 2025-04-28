@@ -580,14 +580,7 @@ import { URL_API } from '@/boot/axios';
 
             },
             guardarDatos(){              
-              // this.reservaciones.push({
-              //     hotel: this.nomhotl,
-              //     id: this.idhotl,
-              //     plan: this.resev.check,
-              //     tipo_habitacion: this.resev.tipo_habitacion,
-              //     vista_habitacion: this.resev.vista_habitacion,
-              // });
-              // login('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
+
               reservacionesservices.createreserv({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 

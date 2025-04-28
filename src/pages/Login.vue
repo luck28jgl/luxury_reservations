@@ -246,6 +246,7 @@
     import reservacionesservices from '../services/reservacionesservices';
     import hotelesservices from '@/services/hotelesservices';
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+    import { useLoading } from 'vue-loading-overlay';
 
     export default {
         name: 'LoginPage',
