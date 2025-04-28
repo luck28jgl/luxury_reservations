@@ -346,10 +346,16 @@
               const formData = new FormData();
               formData.append('id', this.id_reservation);
               formData.append('archivo', this.archivo_enviar);
+              let loader = useLoading().show({
+                  canCancel: false,
+                  loader: 'bars'
+              });
               reservacionesservices.Actualizar_camp_img(formData)
               .then(response => {
+
                 console.log('Success:', response.data);
                 this.modal_pasarele = false;
+                loader.hide();
                 this.filtrarNavigation(); 
                 this.get_prueb();
                 this.$swal({
@@ -359,6 +365,7 @@
                 });
               })
               .catch(error => {
+                loader.hide();
                 console.error('Error:', error.response?.data || error.message); // Inspecciona los errores aquí
 
               });
