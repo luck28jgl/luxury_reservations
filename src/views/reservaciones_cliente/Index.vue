@@ -181,10 +181,17 @@
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
+                                            <!-- <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
 
-                                            <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" />
-
+                                            <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" /> -->
+                                            <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
+                                                <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Para cuantas personas</label>
+                                                <select @change="calcularTotal_Peson"  v-model.number="resev.numperson" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
+                                                    <option value="2" >2</option>
+                                                    <option value="4" >4</option>
+                                                    <option value="6" >6</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
@@ -290,6 +297,8 @@
                     password: '',
                     password_confirmation: '',
                 },
+                price_ultimate: 0,
+
             }
         },
         mounted() {
@@ -317,11 +326,60 @@
                   if (days > 0) {
                       const totalPrice = days * this.pricemultiplicado;
                       this.price = totalPrice; // Actualizar el precio total
+                      this.price_ultimate = totalPrice; // Actualizar el precio total
+
                       console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
                   } else {
                       console.error('La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".');
                   }
               }
+              if (this.resev.numperson ) {
+                if (this.resev.numperson === 2) {
+                  this.price = this.price_ultimate * 1; // Actualizar el precio total
+                } else if (this.resev.numperson === 4) {
+                  this.price = this.price_ultimate * 2; // Actualizar el precio total
+                } else if (this.resev.numperson === 6) {
+                  this.price = this.price_ultimate * 3; // Actualizar el precio total
+                }else {
+                  console.log('Número de personas no válido');
+                  
+                }
+              }
+            },
+            calcularTotal_Peson() {
+              if (this.resev.desde && this.resev.hasta) {
+                  const desde = new Date(this.resev.desde);
+                  const hasta = new Date(this.resev.hasta);
+
+                  // Calcular la cantidad de días
+                  const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+
+                  // Validar que las fechas sean correctas
+                  if (days > 0) {
+                      const totalPrice = days * this.pricemultiplicado;
+                      this.price = totalPrice; // Actualizar el precio total
+                      this.price_ultimate = totalPrice; // Actualizar el precio total
+                      console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
+                  } else {
+                      console.error('La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".');
+                  }
+              }
+              const priceNumber = this.price;
+              if (this.resev.numperson ) {
+                if (this.resev.numperson === 2) {
+                  this.price = this.price_ultimate * 1; 
+                } else if (this.resev.numperson === 4) {
+                  this.price = this.price_ultimate * 2; 
+                } else if (this.resev.numperson === 6) {
+                  this.price = this.price_ultimate * 3; 
+                }else {
+                  console.log('Número de personas no válido');
+                  
+                }
+              }
+              console.log('calcularTotal_Peson', this.resev.numperson);
+              console.log('this.price',this.price);
+
             },
             filtrarNavigation() {
                 LoginServices.getUType({
@@ -389,6 +447,7 @@
                 this.nomhotl = item.Nombre
                 const priceNumber = parseFloat(item.price.replace(/,/g, ''));
                 this.price = item.price
+                this.price_ultimate = priceNumber;
                 this.pricemultiplicado = priceNumber;
                 this.idhotl = item.id
                 this.open = true;

@@ -165,13 +165,13 @@
 
                                         </div> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">nombre </label>
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Nombre </label>
 
                                             <input  v-model="hote_select.nombre" id="nombre" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de hotel" type="search" name="search" />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">precio por noche</label>
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por noche</label>
 
                                             <input  v-model="hote_select.price" id="price" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Precio por noche" type="search" name="search"  />
 

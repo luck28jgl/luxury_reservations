@@ -9,7 +9,7 @@
     const isScrolled = ref(false);
 
     const handleScroll = () => {
-    isScrolled.value = window.scrollY > 50; // Cambia el valor según el umbral deseado
+      isScrolled.value = window.scrollY > 50; // Cambia el valor según el umbral deseado
     };
 
     onMounted(() => {
