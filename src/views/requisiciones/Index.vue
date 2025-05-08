@@ -73,7 +73,7 @@
                     lasname_name: '',
                     email: '',
                     password: '',
-                    tip_usr: 1,
+                    tip_usr: 2,
                 },
                 datosrecuperar: {
                     email: ''
