@@ -31,22 +31,22 @@
           <TransitionChild as="template" enter="transition ease-in-out duration-300 transform" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="-translate-x-full">
             <DialogPanel class="relative mr-16 flex w-full max-w-xs flex-1">
               <TransitionChild as="template" enter="ease-in-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-300" leave-from="opacity-100" leave-to="opacity-0">
-                <div style="       left: 167px;" class="absolute left-full top-0 flex w-16 justify-center pt-5">
+                <div style="    left: 220px; top: 50px; width: 30px;" class="absolute left-full top-0 flex w-16 justify-center pt-5">
                   <button type="button" style="  width: 100%;   color: #000000;" class="-m-2.5 p-2.5 " @click="sidebarOpen = false">
-                    <span class="sr-only">Close</span>
-                    <XMarkIcon class="h-6 w-6 text-black" aria-hidden="true" />
+                    <!-- <span class="sr-only">Close</span> -->
+                    <XMarkIcon class="h-6 w-[44px] text-black" aria-hidden="true" />
                   </button>
                 </div>
               </TransitionChild>
               <!--Sidebar component, swap this element with another sidebar if you like -->
-              <div style="    display: flex ;flex-direction: column; width: 25vh;     border: solid 4px #024a71;  margin-top: 41px;" class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-                <div style="    height: 20vh;" class="flex h-16 shrink-0 items-center mt-6">
+              <div style="display: flex ;flex-direction: column; width: 60%; border: solid 4px #024a71;  margin-top: 41px;" class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
+                <div style="height: 220px;" class="flex h-16 shrink-0 items-center mt-6">
                   <div class="w-11/12 flex justify-center">
                     <img :src="ppalogo" class="w-3/4">
                   </div>
                 </div>
                 <nav class="flex flex-1 flex-col">
-                  <ul style=" display: flex;flex-direction: column;justify-content: space-between;" role="list" class="flex flex-1 flex-col gap-y-7">
+                  <ul style="display: flex; flex-direction: column; justify-content: space-between; width: 100%; padding: 2px;" role="list" class="flex flex-1 flex-col gap-y-7">
                     <li >
                       <ul role="list" class="-mx-2 space-y-1">
                         <li v-for="item in navigation" :key="item.name">
@@ -77,7 +77,7 @@
       </Dialog>
     </TransitionRoot>
     <div>
-      <div style="height: 5vh; margin-bottom:6px; background: #024a71;     position: fixed; display: flex;        justify-content: flex-start;;align-items: center;     z-index: 99; "   class=" bg-[#024a71] w-full h-[5vh] ">
+      <div style="height: 7vh; margin-bottom:6px; background: #024a71;     position: fixed; display: flex;        justify-content: flex-start;;align-items: center;     z-index: 99; "   class=" bg-[#024a71] w-full h-[5vh] ">
         <button type="button" style="    width: 10%;" class=" -m-2.5 p-2.5 text-white " @click="sidebarOpen = true">
           <span class="sr-only"> </span>
           <Bars3Icon class="h-6 w-6" aria-hidden="true" />

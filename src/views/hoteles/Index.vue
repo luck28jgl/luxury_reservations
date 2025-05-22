@@ -155,9 +155,9 @@
                             <div class="mt-3 text-center sm:mt-5 ">
                                 <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
                                 <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
-                                    <form class="form">
+                                    <form v-if="!blockedit" class="form">
                                         <div class="title">
-                                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nuevo hotel</DialogTitle>
+                                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Editar hotel</DialogTitle>
 
                                         </div>
                                         <!-- <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
@@ -165,7 +165,7 @@
 
                                         </div> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Nombre </label>
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Nombre</label>
 
                                             <input  v-model="hote_select.nombre" id="nombre" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de hotel" type="search" name="search" />
 
@@ -176,22 +176,96 @@
                                             <input  v-model="hote_select.price" id="price" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Precio por noche" type="search" name="search"  />
 
                                         </div>
-                                    
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <div style="       width: 100%; display: flex;   justify-content: center; " class=" sm:mt-0 sm:flex-none">
+                                            <button @click="asignar_preciospor_hotel_edit()" style="padding: 15px; width: 200px; height: 40px;" class="bg-black p-[15px] rounded-lg text-sm sm:text-base flex items-center gap-x-3 justify-center text-white hover:bg-black/80 duration-300 transition-colors border border-transparent px-8 py-2.5" >Asignar precios</button>
+                                          </div>
+                                        </div>
                                         <div style="width: 100%; height: 30vh;">
                                           <div class="mt-3 text-center sm:mt-5 ">
                                            
-                                              <div>
-                                                <img style="        width: 71%; height: 71%;" :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`" alt="imgalt">
+                                              <div style="display: flex; justify-content: center;" >
+                                                <img style="width: 71%; height: 71%;" :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`" alt="imgalt">
                                               </div>
                                           </div>
                                         </div>
                                         <!-- <button class="button-confirm">Let`s go →</button> -->
                                     </form>
+                                    <form v-else class="form form2test">
+                                        <div style="gap: 20px;" class="w-full flex justify-between items-center" >
+                                          <div class="return">
+                                            <img :src="imgreturn" alt="return" @click="blockedit = false" style="width: 50px; height: 50px; cursor: pointer;">
+                                          </div>
+                                          <div class="title">
+                                              <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Asignar precio</DialogTitle>
+
+                                          </div>
+
+                                        </div>
+
+                                        <!-- <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
+
+                                        </div> -->
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="impuesto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Impuesto por estado </label>
+
+                                            <input  v-model="hote_select.impuesto_por_hotel" id="impuesto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por estado" type="number" name="impuesto" />
+
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="precio_adulto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto </label>
+
+                                            <input  v-model="hote_select.precio_adult" id="precio_adulto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="precio_adulto" />
+
+                                        </div>
+                                        <!-- filepath: c:\Users\JGL\Documents\repos_practica\luxe\luxury_reservations\src\views\hoteles\Index.vue -->
+                                        <div style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
+                                            <label for="edad" class="block text-sm font-medium leading-6 text-gray-900 text-left">Edad</label>
+                                            <select 
+                                                v-model="edadselectedit" 
+                                                id="price-child" 
+                                                style="width: 100%; height: fit-content; align-items: flex-end;" 
+                                                class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                            >
+                                                <option 
+                                                    v-for="n in hote_select.price_nin_comp" 
+                                                    :key="n.id" 
+                                                    :value="n"
+                                                >
+                                                    edad {{ n.edad }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div v-if="edadselectedit && edadselectedit.precio" style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
+                                            <label for="precio-nino" class="block text-sm font-medium leading-6 text-gray-900 text-left">Precio por niño {{ edadselectedit.edad }}</label>
+                                            <input 
+                                                @input="cambiar_precio_edit" 
+                                                v-model="edadselectedit.precio" 
+                                                id="precio-nino" 
+                                                style="width: 100%; height: fit-content; align-items: flex-end;" 
+                                                class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                                placeholder="Precio por niño del hotel" 
+                                                type="number" 
+                                                name="search" 
+                                            />
+                                        </div>
+
+                                        <div class="login-with">
+      
+                                        </div>
+                                        <div class="flex flex-col justify-center w-full max-w-xs gap-y-5">
+                                          <button type="button"  @click="guardar_info()"  style="padding: 15px;" class="bg-black p-[15px] rounded-lg text-sm sm:text-base flex items-center gap-x-3 justify-center text-white hover:bg-black/80 duration-300 transition-colors border border-transparent px-8 py-2.5">
+                                              <span>Guardar informacion </span>
+                                          </button>
+                                        </div>
+
+                                    </form>
                                 </div>
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
-                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="edit_hotel()">Guardar</button>
+                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black sm:col-start-2" @click="edit_hotel()">Editar</button>
                             <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0" @click="openedit = false" ref="cancelButtonRef">Cancelar</button>
                         </div>
                     </DialogPanel>
@@ -215,7 +289,7 @@
                             <div class="mt-3 text-center sm:mt-5 ">
                                 <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
                                 <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
-                                    <form class="form">
+                                    <form v-if="!busc" class="form">
                                         <div class="title">
                                             <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nuevo hotel</DialogTitle>
 
@@ -235,6 +309,11 @@
 
                                             <input  v-model="hotel.price" id="price" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Precio por noche" type="search" name="search"  />
 
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <div style="       width: 100%; display: flex;   justify-content: center; " class=" sm:mt-0 sm:flex-none">
+                                            <button @click="asignar_preciospor_hotel()" style="padding: 15px;  width: 200px; height: 40px " class="bg-black p-[15px] rounded-lg text-sm sm:text-base flex items-center gap-x-3 justify-center text-white hover:bg-black/80 duration-300 transition-colors border border-transparent px-8 py-2.5">Asignar precios</button>
+                                          </div>
                                         </div>
                                         <!-- <div class="mt-5">
                                             <label for="file-upload" class="block text-sm font-medium text-gray-700">Adjuntar archivo</label>
@@ -270,6 +349,61 @@
                                         </div>
                                         <!-- <button class="button-confirm">Let`s go →</button> -->
                                     </form>
+                                    <form v-else class="form form2test">
+                                        <div class="return">
+                                          <img :src="imgreturn" alt="return" @click="busc = false" style="width: 50px; height: 50px; cursor: pointer;">
+                                        </div>
+                                        <div class="title">
+                                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Asignar precio</DialogTitle>
+
+                                        </div>
+
+                                        <!-- <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
+
+                                        </div> -->
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto </label>
+
+                                            <input  v-model="hotel.precio_adult" id="nombre" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="search" />
+
+                                        </div>
+                                        <!-- filepath: c:\Users\JGL\Documents\repos_practica\luxe\luxury_reservations\src\views\hoteles\Index.vue -->
+                                        <div style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
+                                            <label for="edad" class="block text-sm font-medium leading-6 text-gray-900 text-left">Edad</label>
+                                            <select 
+                                                v-model="edadselect" 
+                                                id="price-child" 
+                                                style="width: 100%; height: fit-content; align-items: flex-end;" 
+                                                class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                                            >
+                                                <option 
+                                                    v-for="n in hotel.price_nin_comp" 
+                                                    :key="n.id" 
+                                                    :value="n"
+                                                >
+                                                    edad {{ n.edad }}
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div v-if="edadselect && edadselect.precio" style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
+                                            <label for="precio-nino" class="block text-sm font-medium leading-6 text-gray-900 text-left">Precio por niño</label>
+                                            <input 
+                                                @input="cambiar_precio" 
+                                                v-model="edadselect.precio" 
+                                                id="precio-nino" 
+                                                style="width: 100%; height: fit-content; align-items: flex-end;" 
+                                                class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                                placeholder="Precio por niño del hotel" 
+                                                type="number" 
+                                                name="search" 
+                                            />
+                                        </div>
+
+                                        <div class="login-with">
+      
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -287,6 +421,7 @@
 <script>
     import reservacionesservices from '@/services/reservacionesservices';
     import hotelesservices from '@/services/hotelesservices';
+    import imgreturn from '@/assets/return.png';
     // import { defineComponent } from "vue";
     // import { RecaptchaV2, useRecaptcha } from "vue3-recaptcha-v2";
     // const { handleGetResponse } = useRecaptcha();
@@ -306,6 +441,8 @@
             return {
                 Archivo_recibido: '',
                 searchQuery: '',
+                edadselect: {},
+                edadselectedit: {},
                 filteredTes: [],
                 reservaciones: [],
                 debounceTimeout: null,
@@ -317,6 +454,8 @@
                 check: 0,
                 idhotl: 0,
                 swich: true,
+                busc: false,
+                blockedit: false,
                 openedit: false,
                 open_confirm: false,
                 open: false,
@@ -333,12 +472,47 @@
                   id: 0,
                   nombre: '',
                   img: '',
-                  price: '',
+                  price: 0,
+                  impuesto_por_hotel: 0,
+                  precio_adult: 0,
+                  iva: 16,
+
+                  price_nin_comp: [
+                    { id: 1, edad: 1, precio: 100},
+                    { id: 2, edad: 2, precio: 200},
+                    { id: 3, edad: 3, precio: 300},
+                    { id: 4, edad: 4, precio: 400},
+                    { id: 5, edad: 5, precio: 500},
+                    { id: 6, edad: 6, precio: 600},
+                    { id: 7, edad: 7, precio: 700},
+                    { id: 8, edad: 8, precio: 800},
+                    { id: 9, edad: 9, precio: 900},
+                    { id: 10, edad: 10, precio: 1000},
+                    { id: 11, edad: 11, precio: 1100},
+                    { id: 12, edad: 12, precio: 1200},
+                    { id: 13, edad: 13, precio: 1300},
+                  ],
                 },
                 hotel: {
                   nombre: '',
                   price: '',
                   archivo: null,
+                  price_nin_comp: [
+                    { id: 1, edad: 1, precio: 100},
+                    { id: 2, edad: 2, precio: 200},
+                    { id: 3, edad: 3, precio: 300},
+                    { id: 4, edad: 4, precio: 400},
+                    { id: 5, edad: 5, precio: 500},
+                    { id: 6, edad: 6, precio: 600},
+                    { id: 7, edad: 7, precio: 700},
+                    { id: 8, edad: 8, precio: 800},
+                    { id: 9, edad: 9, precio: 900},
+                    { id: 10, edad: 10, precio: 1000},
+                    { id: 11, edad: 11, precio: 1100},
+                    { id: 12, edad: 12, precio: 1200},
+                    { id: 13, edad: 13, precio: 1300},
+                  ],
+                  precio_adult: '',
                 },
                 userAdd: {
                     first_name: '',
@@ -356,6 +530,50 @@
             this.get_reserv();
         },
         methods: {
+            guardar_info() {
+              if (!this.hote_select.precio_adult) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'ingresa un precio por adulto',
+                  text: 'Por favor seleccion  a un precio por adulto.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.hote_select.impuesto_por_hotel) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'ingresa un precio por estadoen el que se encuentra el hotel',
+                  text: 'Por favor seleccion  a un precio por impuesto.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              this.blockedit = false;
+
+            },
+            cambiar_precio() {
+              // Actualiza el precio en el array `price_nin_comp` basado en la selección actual
+              const index = this.hotel.price_nin_comp.findIndex(item => item.id === this.edadselect.id);
+              if (index !== -1) {
+                  this.hotel.price_nin_comp[index].precio = this.edadselect.precio;
+                  
+              }
+            },
+            cambiar_precio_edit() {
+              // Actualiza el precio en el array `price_nin_comp` basado en la selección actual
+              const index = this.hote_select.price_nin_comp.findIndex(item => item.id === this.edadselectedit.id);
+              if (index !== -1) {
+                  this.hote_select.price_nin_comp[index].precio = this.edadselectedit.precio;
+                  
+              }
+            },
+            asignar_preciospor_hotel() {
+              this.busc = true;
+            },
+            asignar_preciospor_hotel_edit() {
+              this.blockedit = true;
+            },
             handleFileUpload(event) {
                   const file = event.target.files[0];
                 if (file) {
@@ -403,7 +621,11 @@
                 this.hote_select.nombre = item.Nombre
                 this.hote_select.img = item.img
                 this.hote_select.price = item.price
+                this.hote_select.precio_adult = item.precio_adult
+                this.hote_select.impuesto_por_hotel = item.impuesto_por_hotel
+                this.hote_select.iva = item.iva
                 this.hote_select.id = item.id
+
             },
             navigation_host(id) {
                 if (id === 1) {
@@ -480,15 +702,7 @@
                   });
                   return;
                 }
-                if (this.hote_select.img == '') {
-                  this.$swal({
-                    icon: 'error',
-                    title: 'Selecciona una imagen',
-                    text: 'Por favor selecciona una imagen.',
-                    confirmButtonText: 'Entendido',
-                  });
-                  return;
-                }        
+       
                 if (this.hote_select.price == '') {
                   this.$swal({
                     icon: 'error',
@@ -504,9 +718,13 @@
                     loader: 'bars'
                 });
                 hotelesservices.editCotizacion({
-                    id: this.hote_select.id,
-                    nombre: this.hote_select.nombre,
-                    price: this.hote_select.price,
+                  id: this.hote_select.id,
+                  nombre: this.hote_select.nombre,
+                  price: this.hote_select.price,
+                  iva: this.hote_select.iva,
+                  precio_adult: this.hote_select.precio_adult,
+                  price_nin_comp: this.hote_select.price_nin_comp,
+                  impuesto_por_hotel: this.hote_select.impuesto_por_hotel,
                 })
                     .then(response => {
                         console.log('Success:', response.data);
@@ -592,6 +810,13 @@
     }
 </script>
 <style scoped>
+.form2test {
+  height: 70vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start!important;
+}
 .tel-a {
   display: flex;
     align-items: flex-start;
@@ -936,7 +1161,6 @@
   color: var(--font-color);
   font-weight: 900;
   font-size: 20px;
-  margin-bottom: 25px;
 }
 
 .title span {

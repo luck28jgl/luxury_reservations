@@ -46,7 +46,7 @@
           <div  class="w-[25%] mx-3  flex justify-center items-end gap-[15px]">
               <div style=" width: 70%;  display: flex; justify-content: center; align-items: flex-end;">
                   <div style="    display: flex; align-items: flex-end;  justify-content: center;    width: 100%;  " class=" sm:mt-0 sm:flex-none">
-                      <button @click="applyFilter()"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Buscar</button>
+                      <button @click="get_reserv()"  type="button" class=" butonn-reserv w-full block rounded-md bg-redppa px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-redppahv focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">Buscar</button>
                   </div>
               </div>
           </div>
@@ -579,7 +579,7 @@
               this.loading = true;
               // const mensaje = "Este es el mensaje que deseas enviar";
               reservacionesservices.getReservaciones({ 
-                filt: '' ,
+                filt: this.searchQuery,
               })
               .then(response => {
 
