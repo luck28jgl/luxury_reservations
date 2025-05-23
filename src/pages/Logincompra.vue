@@ -303,13 +303,13 @@
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
-                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.desde) }}</p>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.desde }}</p>
 
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
-                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.hasta) }}</p>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.hasta }}</p>
                                         </div>
                                         <!-- Centering wrapper -->
                                         <div  style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
@@ -610,6 +610,8 @@
                 this.idhotl = item.id
                 this.open = true;
                 this.check = item.plan
+                console.log('reserv,', this.resev);
+                
             },
             navigation_host(id) {
                 if (id === 1) {
