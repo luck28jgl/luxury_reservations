@@ -95,7 +95,7 @@
                            </p>
                           <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">2 dultos </p> -->
                           <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{item.precio_inicial}} MXN {{item.precio_dec}}</p> -->
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ MXN 454 de impuestos y cargos </p>
+                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ 15% IVA</p>
 
                         </div>
                         <div class="flex justify-center items-center pt-2">
@@ -141,7 +141,7 @@
                                 <!-- <dialog as="h3" class="text-base font-semibold leading-6 text-gray-900" > para el hotel {{  nomhotl }}</dialog> -->
                                 <div class="mt-2 mb-2" style="    margin-bottom: 20px;" >
                                     <form class="form">
-                                        <div class="title">
+                                        <div class="title" style="margin-bottom: 2px; width: 100%;">
                                             <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Nueva Reservacion para el  hotel : <br> {{  nomhotl }}</DialogTitle>
 
                                         </div>
@@ -149,12 +149,10 @@
                                             <p style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 20px;" class="text-gray-900">
                                               precio por noche: {{ pricemultiplicado }} MXN
                                             </p>
-                                            <p v-if="price != pricemultiplicado " style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 20px;" class="text-gray-900">
+                                            <!-- <p v-if="price != pricemultiplicado " style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 20px;" class="text-gray-900">
                                               precio de toda la reservacion: {{ price }} MXN
-                                            </p>
+                                            </p> -->
                                         </div>
-                                        <!-- <input class="input" name="email" placeholder="Email" type="email">
-                                        <input class="input" name="password" placeholder="Password" type="password"> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">nombre de quien reserva </label>
 
@@ -180,19 +178,141 @@
                                             <input :min="currentDate" @change="calcularTotal" type="date"  v-model="resev.hasta" id="hasta" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"    />
 
                                         </div>
+                                        <!-- Centering wrapper -->
+                                        <div style="margin: auto;"  class="w-[250px] m-auto max-w-sm relative mt-4">
+                                          <label class="block mb-1 text-sm text-gray-900">Adultos</label>
+                                          <div class="flex items-center border border-gray-900 rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                              <!-- Botón para decrementar -->
+                                              <button
+                                                  style="width: 50px;"
+                                                  @click="decrementAdults"
+                                                  class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-r border-gray-900 rounded-l"
+                                                  type="button"
+                                              >
+                                                  <svg 
+                                                      xmlns="http://www.w3.org/2000/svg" 
+                                                      fill="none" 
+                                                      viewBox="0 0 24 24" 
+                                                      stroke-width="1.5" 
+                                                      stroke="currentColor" 
+                                                      class="w-5 h-5 text-gray-700"
+                                                  >
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                                  </svg>
+                                              </button>
+                                              <!-- Input para mostrar el valor -->
+                                              <input
+                                                 
+                                                  type="number"
+                                                  v-model="resev.person_reservation.adultos"
+                                                  class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
+                                                  placeholder="55"
+                                                  min="0"
+                                              />
+                                              <!-- Botón para incrementar -->
+                                              <button
+                                               style="width: 50px;"
+                                                  @click="incrementAdults"
+                                                  class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-l border-gray-900 rounded-r"
+                                                  type="button"
+                                              >
+                                                  <svg 
+                                                      xmlns="http://www.w3.org/2000/svg" 
+                                                      fill="none" 
+                                                      viewBox="0 0 24 24" 
+                                                      stroke-width="1.5" 
+                                                      stroke="currentColor" 
+                                                      class="w-5 h-5 text-gray-700"
+                                                  >
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                  </svg>
+                                              </button>
+                                          </div>
+                                        </div>
+                                        <!-- Centering wrapper -->
+                                        <div style="margin: auto;" class="w-[250px] m-auto max-w-sm relative mt-4">
+                                          <label class="block mb-1 text-sm text-gray-900">Niños</label>
+                                          <div class="flex items-center border border-gray-900 rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                              <!-- Botón para decrementar -->
+                                              <button
+                                                  style="width: 50px;"
+                                                  @click="decrementChildren"
+                                                  class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-r border-gray-900 rounded-l"
+                                                  type="button"
+                                              >
+                                                  <svg 
+                                                      xmlns="http://www.w3.org/2000/svg" 
+                                                      fill="none" 
+                                                      viewBox="0 0 24 24" 
+                                                      stroke-width="1.5" 
+                                                      stroke="currentColor" 
+                                                      class="w-5 h-5 text-gray-700"
+                                                  >
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
+                                                  </svg>
+                                              </button>
+                                              <!-- Input para mostrar el valor -->
+                                              <input
+                                                 
+                                                  type="number"
+                                                  v-model="resev.person_reservation.ninos_num"
+                                                  class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
+                                                  placeholder="0"
+                                                  min="0"
+                                              />
+                                              <!-- Botón para incrementar -->
+                                              <button
+                                               style="width: 50px;"
+                                                  @click="incrementChildren"
+                                                  class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-l border-gray-900 rounded-r"
+                                                  type="button"
+                                              >
+                                                  <svg 
+                                                      xmlns="http://www.w3.org/2000/svg" 
+                                                      fill="none" 
+                                                      viewBox="0 0 24 24" 
+                                                      stroke-width="1.5" 
+                                                      stroke="currentColor" 
+                                                      class="w-5 h-5 text-gray-700"
+                                                  >
+                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                                                  </svg>
+                                              </button>
+                                          </div>
+                                        </div>
+                                        <!-- Inputs dinámicos para edades -->
+                                         
+                                        <div v-for="(child, index) in resev.person_reservation.ninos_num" :key="index" style="margin: auto;" class="w-[250px] m-auto max-w-sm relative mt-4">
+                                          <label :for="'child-age-' + index" class="block mb-1 text-sm text-gray-900">Edad del niño {{ index + 1 }}</label>
+                                          <input
+                                            type="number"
+                                            v-model="resev.person_reservation.ninosedades[index].edad"
+                                            :id="'child-age-' + index"
+                                            class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                            placeholder="0"
+                                            min="0"
+                                          />
+                                        </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <!-- <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
+                                            <!-- <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label> -->
 
-                                            <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" /> -->
+                                            <!-- <input   v-model="resev.numperson"  placeholder="ingresa el número de perosas para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" /> -->
                                             <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
-                                                <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Para cuantas personas</label>
-                                                <select @change="calcularTotal_Peson"  v-model.number="resev.numperson" id="location" name="location" class="mt-2 block w-full bg-imputs rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-black sm:text-sm sm:leading-6" >
-                                                    <option value="2" >2</option>
-                                                    <option value="4" >4</option>
-                                                    <option value="6" >6</option>
-                                                </select>
+                                                <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-center">Para cuantas personas</label>
+                                                <!-- como ago que este select no intaractue ocn el usuario solo quiero que  -->
+                                                <span class="text-black" style="color: black;" >{{ totalPersonas }}</span>
+
+                                                <!-- <input disabled   :value="totalPersonas" id="totalperson" style="width: 100%; height: fit-content; align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="personas en total" type="text" name="search" /> -->
+
                                             </div>
                                         </div>
+
+                                        <div class=" w-full">
+                                            <p  style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 2px;" class="text-gray-900">
+                                             {{ por_dias }} X <span style="font-size: 10px;" >{{ nomhotl }}</span><br> = <br> {{ precioTotal }} MXN
+                                            </p>
+                                        </div>
+        
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
                                             <input value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check">
@@ -230,6 +350,18 @@
                                         <div class="login-with">
       
                                         </div>
+                                        <div style="margin: auto;" class="w-[250px] m-auto max-w-sm relative mt-4">
+                                          <p class="text-gray-900 text-center font-bold">
+                                            Precio: {{ price_second }} MXN <span class="uppercase tracking-wide text-sm font-bold text-gray-700">+ 16 % IVA </span>
+
+                                          </p>
+                                        </div>
+                                        <div style="margin: auto;" class="w-[250px] m-auto max-w-sm relative mt-4">
+                                          <p class="text-gray-900 text-center font-bold">
+                                            Precio total: {{ precioConImpuestos.total }} MXN
+
+                                          </p>
+                                        </div>
                                         <!-- <button class="button-confirm">Let`s go →</button> -->
                                     </form>
                                 </div>
@@ -252,6 +384,7 @@
     import LoginServices from '@/services/LoginServices';
     import hotelesservices from '@/services/hotelesservices';
     import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+    import { useLoading } from 'vue-loading-overlay';
 
     export default {
         name: 'reservaIndex',
@@ -277,6 +410,9 @@
                 id_user: '',
                 pricemultiplicado: '',
                 price: '',
+                pricemultiplicado: '',
+                price_ultimate: 0,
+
                 iduser_activo: 0,
                 vista: 0,
                 check: 0,
@@ -287,6 +423,11 @@
                   check: 'Solo alojamiento',
                   tipo_habitacion: '',
                   vista_habitacion: '',
+                  person_reservation: {
+                    adultos: 2,
+                    ninos_num: 0,
+                    ninosedades: [],
+                  },
                 },
                 userAdd: {
                     first_name: '',
@@ -297,8 +438,13 @@
                     password: '',
                     password_confirmation: '',
                 },
+                precioninos: [],
                 price_ultimate: 0,
+                precioAdult: 0,
+                price_second: 0,
+                por_dias: 0,
 
+                total_amultiplicar: 0,
             }
         },
         mounted() {
@@ -313,74 +459,137 @@
             this.get_prueb();
             this.get_reserv();
         },
+        watch: {
+          'resev.person_reservation.ninos_num': {
+            handler() {
+              this.calcularPrecioNinos();
+            },
+            immediate: true,
+          },
+          'resev.person_reservation.ninosedades': {
+            handler() {
+              this.calcularPrecioNinos();
+            },
+            deep: true, // Observa cambios dentro del array
+          },
+        },
+        computed: {
+          totalPersonas: {
+            get() {
+              // Calcula la suma de adultos y niños
+              const total = this.resev.person_reservation.adultos + this.resev.person_reservation.ninos_num;
+              // Asigna el valor calculado a resev.numperson
+              this.resev.numperson = total;
+              return total;
+            },
+            set(value) {
+              // Si necesitas manejar un setter, puedes dejarlo vacío o agregar lógica adicional
+              console.warn('El valor de totalPersonas no debe ser modificado directamente.');
+            },
+          },
+          
+          // Computed property to calculate the total price
+
+          precioTotal() {
+            let total = this.calcularPrecioNinos() + this.precioAdult;
+            this.total_amultiplicar = total; // Guarda el valor en la variable
+            this.calcularTotal()
+            return total;
+          },
+
+          precioConImpuestos() {
+            const basePrice = parseFloat(this.price_second) || 0; // Asegúrate de que sea un número
+            const iva = basePrice * 0.16; // Calcula el porcentaje del impuesto por hotel
+            const total = basePrice + iva; // Suma el precio base y los impuestos
+            this.price = total; // Actualiza el precio total
+            return {
+              basePrice: basePrice.toFixed(2),
+              iva: iva.toFixed(2),
+              total: total.toFixed(2),
+            };
+          },  
+        },
         methods: {
+            calcularPrecioNinos() {
+              let totalPrecioNinos = 0;
+
+              // Recorre las edades seleccionadas por el cliente
+              this.resev.person_reservation.ninosedades.forEach((nino) => {
+                // Busca el precio correspondiente en this.precioninos
+                const precioEdad = this.precioninos.find((item) => item.edad === nino.edad);
+
+                // Si se encuentra un precio, agrégalo al total
+                if (precioEdad) {
+                  totalPrecioNinos += precioEdad.precio;
+                }
+              });
+
+              console.log('Precio total para niños:', totalPrecioNinos);
+              return totalPrecioNinos;
+            },
+            incrementChildren() {
+              this.resev.person_reservation.ninos_num++;
+              this.resev.person_reservation.ninosedades.push({ edad: 0, num: this.resev.person_reservation.ninos_num });
+            },
+
+            decrementChildren() {
+                if (this.resev.person_reservation.ninos_num > 0) {
+                  this.resev.person_reservation.ninos_num-- - 1;
+                  this.resev.person_reservation.ninosedades.pop();
+                }
+            },
+            incrementAdults() {
+                this.resev.person_reservation.adultos++;
+                this.precioAdult = this.precioAdultBase * this.resev.person_reservation.adultos;
+            },
+            decrementAdults() {
+                if (this.resev.person_reservation.adultos > 0) {
+                    this.resev.person_reservation.adultos--;
+                    this.precioAdult = this.precioAdultBase * this.resev.person_reservation.adultos;
+                }
+            },
+
             calcularTotal() {
               if (this.resev.desde && this.resev.hasta) {
                   const desde = new Date(this.resev.desde);
                   const hasta = new Date(this.resev.hasta);
-
+                  hasta.setDate(hasta.getDate() + 1); // Agregar 1 día a la fecha hasta
                   // Calcular la cantidad de días
-                  const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+                  const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)); // Contar días incluyendo el mismo día
 
                   // Validar que las fechas sean correctas
                   if (days > 0) {
-                      const totalPrice = days * this.pricemultiplicado;
+                      this.por_dias = days;
+                      const totalPrice = days * this.total_amultiplicar;
                       this.price = totalPrice; // Actualizar el precio total
+                      this.price_second = totalPrice; // Actualizar el precio total
                       this.price_ultimate = totalPrice; // Actualizar el precio total
-
+                      
                       console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
                   } else {
                       console.error('La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".');
+                      this.$swal({
+                        icon: 'error',
+                        title: 'La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".',
+                        text: 'Por favor ingresa una fecha valida.',
+                        confirmButtonText: 'Entendido',
+                      });
                   }
               }
-              if (this.resev.numperson ) {
-                if (this.resev.numperson === 2) {
-                  this.price = this.price_ultimate * 1; // Actualizar el precio total
-                } else if (this.resev.numperson === 4) {
-                  this.price = this.price_ultimate * 2; // Actualizar el precio total
-                } else if (this.resev.numperson === 6) {
-                  this.price = this.price_ultimate * 3; // Actualizar el precio total
-                }else {
-                  console.log('Número de personas no válido');
+              // if (this.resev.numperson ) {
+              //   if (this.resev.numperson === 2) {
+              //     this.price = this.price_ultimate * 1; // Actualizar el precio total
+              //   } else if (this.resev.numperson === 4) {
+              //     this.price = this.price_ultimate * 2; // Actualizar el precio total
+              //   } else if (this.resev.numperson === 6) {
+              //     this.price = this.price_ultimate * 3; // Actualizar el precio total
+              //   }else {
+              //     console.log('Número de personas no válido');
                   
-                }
-              }
+              //   }
+              // }
             },
-            calcularTotal_Peson() {
-              if (this.resev.desde && this.resev.hasta) {
-                  const desde = new Date(this.resev.desde);
-                  const hasta = new Date(this.resev.hasta);
 
-                  // Calcular la cantidad de días
-                  const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
-
-                  // Validar que las fechas sean correctas
-                  if (days > 0) {
-                      const totalPrice = days * this.pricemultiplicado;
-                      this.price = totalPrice; // Actualizar el precio total
-                      this.price_ultimate = totalPrice; // Actualizar el precio total
-                      console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
-                  } else {
-                      console.error('La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".');
-                  }
-              }
-              const priceNumber = this.price;
-              if (this.resev.numperson ) {
-                if (this.resev.numperson === 2) {
-                  this.price = this.price_ultimate * 1; 
-                } else if (this.resev.numperson === 4) {
-                  this.price = this.price_ultimate * 2; 
-                } else if (this.resev.numperson === 6) {
-                  this.price = this.price_ultimate * 3; 
-                }else {
-                  console.log('Número de personas no válido');
-                  
-                }
-              }
-              console.log('calcularTotal_Peson', this.resev.numperson);
-              console.log('this.price',this.price);
-
-            },
             filtrarNavigation() {
                 LoginServices.getUType({
                     username: this.id_user
@@ -408,7 +617,7 @@
               this.loading = true;
               // const mensaje = "Este es el mensaje que deseas enviar";
               hotelesservices.get_hoteles({ 
-                filt: '' ,
+                filt: this.searchQuery,
               })
               .then(response => {
 
@@ -443,26 +652,62 @@
                 );
             },
             abrir_mdlserv(item){
+              if ( item.precio_adult === 0) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'No hay precios de dulto para este hotel aun ',
+                  text: 'Por favor selecciona un hotel con precios para niños.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              } 
+              if (tem.price_nin_comp === '[]') {
+                this.$swal({
+                  icon: 'error',
+                  title: 'No hay precios para este hotel aun ',
+                  text: 'Por favor selecciona un hotel con precios para niños.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              } else{
                 console.log('id', item);
                 this.nomhotl = item.Nombre
                 const priceNumber = parseFloat(item.price.replace(/,/g, ''));
                 this.price = item.price
+                this.price_second = item.price
                 this.price_ultimate = priceNumber;
                 this.pricemultiplicado = priceNumber;
                 this.idhotl = item.id
                 this.open = true;
-                // Establecer valores predeterminados para "desde" y "hasta" con la fecha actual
-                const today = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
-                this.resev.desde = today;
-                this.resev.hasta = today;
+                this.precioninos = JSON.parse(item.price_nin_comp) 
+                console.log('JSON RESPUESTA', JSON.parse(item.price_nin_comp));
+                console.log('precioniños', this.precioninos);
+      
+                // this.precioAdult = item.precio_adult 
+                this.precioAdultBase = item.precio_adult; // Guardar el precio base de un adulto
+                this.precioAdult = this.precioAdultBase * this.resev.person_reservation.adultos; // Calcular el precio inicial para adultos
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const desde_fech = tomorrow.toISOString().split('T')[0];
+
+                // Obtener la fecha de mañana más 1 día
+                const dayAfterTomorrow = new Date(tomorrow);
+                dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+                const hasta_fech = dayAfterTomorrow.toISOString().split('T')[0];
+                this.resev.desde = desde_fech;
+                this.resev.hasta = hasta_fech;
 
                 // Calcular la cantidad de días y el precio total
                 const desde = new Date(this.resev.desde);
                 const hasta = new Date(this.resev.hasta);
-                const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+                const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) ; // Contar días incluyendo el mismo día
                 const totalPrice = days * this.pricemultiplicado;
 
                 console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
+                console.log('JSON RESPUESTA', JSON.parse(item.price_nin_comp));
+                console.log('precioniños', this.precioninos);
+              }
+
             },
             get_prueb(){
               this.loading = true;
@@ -477,6 +722,8 @@
             },
 
             guardarDatos(){   
+                console.log('resev',this.resev);
+
                 // Validar campos requeridos
               if (!this.resev.tipo_habitacion) {
                 this.$swal({
@@ -534,7 +781,10 @@
               }
               console.log('guardarDatos1', this.nomhotl, this.idhotl, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
               console.log('guardarDatos2', this.resev.desde, this.resev.hasta , this.resev.check);
-
+              let loader = useLoading().show({
+                  canCancel: false,
+                  loader: 'bars'
+              });
               reservacionesservices.createreserv_client({ 
                 email: this.emailusr, 
                 uduario: this.namesr, 
@@ -548,11 +798,16 @@
                 cuentas_pesonas: this.resev.numperson,
                 tip_hab:  this.resev.tipo_habitacion, 
                 tip_vista: this.resev.vista_habitacion, 
+                precio_adult: this.resev.person_reservation.adultos, 
+                precio_nino: this.resev.person_reservation.ninos_num, 
+                tip_peson: JSON.stringify(this.resev.person_reservation),
               })
               .then(response => {
                 console.log('Success:', response.data);
 
-                this.open = false; // Cerrar el modal después de guardar los datos
+                 this.open = false; // Cerrar el modal después de guardar los datos
+                 loader.hide();
+
                 this.$swal({
                     icon: 'success',
                     title: 'se ha Creado su reservacion con exito',
@@ -562,6 +817,8 @@
                 this.get_reserv();
               })
               .catch(error => {
+                  loader.hide();
+
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
               });
 

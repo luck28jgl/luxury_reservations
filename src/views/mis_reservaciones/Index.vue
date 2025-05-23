@@ -219,12 +219,73 @@
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
                                             <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.hasta) }}</p>
                                         </div>
+                                        <!-- Centering wrapper -->
+                                        <div  style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <label class="block mb-1 text-sm text-gray-900">Adultos</label>
+                                          <div class="flex items-center rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                              <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.person_reservation.adultos }}</p>
+
+                                              <!-- Input para mostrar el valor -->
+                                              <!-- <input
+                                                 
+                                                  type="number"
+                                                  v-model="resev.person_reservation.adultos"
+                                                  class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                                  placeholder="55"
+                                                  min="0"
+                                                  disabled
+                                              /> -->
+
+                                          </div>
+                                        </div>
+                                        <!-- Centering wrapper -->
+                                        <div  style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <label class="block mb-1 text-sm text-gray-900">Niños</label>
+                                          <div class="flex items-center rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.person_reservation.ninos_num }}</p>
+                                              <!-- Input para mostrar el valor
+                                              <input
+                                                 
+                                                  type="number"
+                                                  v-model="resev.person_reservation.ninos_num"
+                                                  class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                                  placeholder="0"
+                                                  min="0"
+                                                  disabled
+                                              /> -->
+
+                                          </div>
+                                        </div>
+                                        <!-- Inputs dinámicos para edades -->
+                                         
+                                        <div v-for="(child, index) in resev.person_reservation.ninos_num" :key="index"  style="    width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <label :for="'child-age-' + index" class="block mb-1 text-sm text-gray-900">Edad del niño {{ index + 1 }}</label>
+                                          <p for="edadgchange" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.person_reservation.ninosedades[index].edad }}</p>
+
+                                          <!-- <input
+                                            type="number"
+                                            v-model="resev.person_reservation.ninosedades[index].edad"
+                                            :id="'child-age-' + index"
+                                            style="width: 100px;"
+                                            class="block w-[100px] rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                            placeholder="0"
+                                            min="0"
+                                            disabled
+                                          /> -->
+                                        </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.numperson }}</p>
+
+                                            <!-- <input disabled   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" /> -->
+
+                                        </div>
+                                        <!-- <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
 
                                             <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" />
 
-                                        </div>
+                                        </div> -->
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
                                             <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" disabled>
@@ -324,6 +385,7 @@
                   desde: '',
                   hasta: '',
                   numperson: '',
+                  person_reservation: {},
                   vista_habitacion: '',
                 },
                 userAdd: {
@@ -430,6 +492,8 @@
                 this.nomhotl = item.hotel
                 this.namesr = item.uduario
                 this.emailusr = item.email
+                this.resev.person_reservation = JSON.parse(item.tip_peson) 
+                console.log('person_reservation',this.resev.person_reservation);
                 this.resev.tipo_habitacion = item.tip_hab
                 this.resev.vista_habitacion = item.tip_vista
                 this.resev.desde = item.desde;

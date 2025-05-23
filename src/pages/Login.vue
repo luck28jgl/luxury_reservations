@@ -93,11 +93,10 @@
                           </div>
                           <p class="uppercase tracking-wide text-sm font-bold text-gray-700">precio para 1 noche 
                            </p>
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">${{ item.price }}
-                           </p>
-                          <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">2 dultos </p> -->
-                          <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{item.precio_inicial}} MXN {{item.precio_dec}}</p> -->
-                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ MXN 454 de impuestos y cargos </p>
+                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">${{ item.price }} MXN
+                          </p>
+                          <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ {{ item.impuesto_por_hotel }}% Impuesto por hotel </p> -->
+                          <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ 16 % IVA </p>
 
                         </div>
                         <div class="flex justify-center items-center pt-2">
@@ -299,9 +298,11 @@
 
                                             <!-- <input   v-model="resev.numperson"  placeholder="ingresa el número de perosas para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" /> -->
                                             <div style="    width: 300px; display: flex; justify-content: center; flex-direction: column; ">
-                                                <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Para cuantas personas</label>
+                                                <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-center">Total de personas</label>
                                                 <!-- como ago que este select no intaractue ocn el usuario solo quiero que  -->
-                                                <input disabled   :value="totalPersonas" id="totalperson" style="width: 100%; height: fit-content; align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="personas en total" type="text" name="search" />
+                                                <span class="text-black" style="color: black;" >{{ totalPersonas }}</span>
+
+                                                <!-- <input disabled   :value="totalPersonas" id="totalperson" style="width: 100%; height: fit-content; align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="personas en total" type="text" name="search" /> -->
 
                                             </div>
                                         </div>
@@ -325,7 +326,7 @@
                                         </div> -->
                                         <div class=" w-full">
                                             <p  style="font-weight: 600; font-size: 17px; text-align: center; margin-top: 2px;" class="text-gray-900">
-                                             {{ por_dias }} X <span style="font-size: 10px;" >{{ nomhotl }}</span> =  {{ price }} MXN
+                                              <span style="font-size: 14px; font-weight: 500;" >{{ nomhotl }}</span> <br> {{ por_dias }} X d/f <br> = <br> {{ precioTotal }} MXN,  Por noche
                                             </p>
                                         </div>
 
@@ -369,7 +370,14 @@
                                         </div>
                                         <div style="margin: auto;" class="w-[250px] m-auto max-w-sm relative mt-4">
                                           <p class="text-gray-900 text-center font-bold">
-                                            Precio total: {{ precioTotal }} MXN
+                                            Precio: {{ price_second }} MXN <span class="uppercase tracking-wide text-sm font-bold text-gray-700">+ 16 % IVA </span>
+
+                                          </p>
+                                        </div>
+                                        <div style="margin: auto;" class="w-[250px] m-auto max-w-sm relative mt-4">
+                                          <p class="text-gray-900 text-center font-bold">
+                                            Precio total: {{ precioConImpuestos.total }} MXN
+
                                           </p>
                                         </div>
                                         <!-- <button class="button-confirm">Let`s go →</button> -->
@@ -407,6 +415,7 @@
         data() {
             return {
                 currentDate: new Date().toISOString().split('T')[0], 
+                currentDate_sem: new Date().toISOString().split('T')[7], 
                 tes: [],
                 searchQuery: '',
                 filteredTes: [],
@@ -416,6 +425,7 @@
                 emailusr: '',
                 namesr: '',
                 price: '',
+                price_second: '',
                 pricemultiplicado: '',
                 por_dias: 0,
                 price_ultimate: 0,
@@ -493,6 +503,18 @@
             this.calcularTotal()
             return total;
           },
+          
+          precioConImpuestos() {
+            const basePrice = parseFloat(this.price_second) || 0; // Asegúrate de que sea un número
+            const iva = basePrice * 0.16; // Calcula el porcentaje del impuesto por hotel
+            const total = basePrice + iva; // Suma el precio base y los impuestos
+            this.price = total; // Actualiza el precio total
+            return {
+              basePrice: basePrice.toFixed(2),
+              iva: iva.toFixed(2),
+              total: total.toFixed(2),
+            };
+          },
         },
         methods: {
             calcularPrecioNinos() {
@@ -509,7 +531,7 @@
                 }
               });
 
-              console.log('Precio total para niños:', totalPrecioNinos);
+              // // console.log('Precio total para niños:', totalPrecioNinos);
               return totalPrecioNinos;
             },
 
@@ -537,10 +559,12 @@
             calcularTotal() {
               if (this.resev.desde && this.resev.hasta) {
                   const desde = new Date(this.resev.desde);
+                  //agregar 1 dia a la fecha hasta
                   const hasta = new Date(this.resev.hasta);
+                  hasta.setDate(hasta.getDate() + 1); // Agregar 1 día a la fecha hasta
 
                   // Calcular la cantidad de días
-                  const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
+                  const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) ; // Contar días incluyendo el mismo día
 
                   // Validar que las fechas sean correctas
                   if (days > 0) {
@@ -548,10 +572,11 @@
                       this.por_dias = days;
                       const totalPrice = days * this.total_amultiplicar;
                       this.price = totalPrice; // Actualizar el precio total
+                      this.price_second = totalPrice; // Actualizar el precio total
                       // this.price = this.price; // Actualizar el precio total
                       this.price_ultimate = totalPrice; // Actualizar el precio total
 
-                      console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
+                      // // console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
                   } else {
                       console.error('La fecha "Hasta" debe ser mayor o igual a la fecha "Desde".');
                       this.$swal({
@@ -570,7 +595,7 @@
               //   } else if (this.resev.numperson === 6) {
               //     this.price = this.price_ultimate * 3; // Actualizar el precio total
               //   }else {
-              //     console.log('Número de personas no válido');
+              //     // // console.log('Número de personas no válido');
                   
               //   }
               // }
@@ -582,7 +607,7 @@
                 filt: this.searchQuery ,
               })
               .then(response => {
-                console.log('Success:', response.data);
+                // // console.log('Success:', response.data);
                 this.reservaciones = response.data;
                 this.filteredTes = this.reservaciones
               })
@@ -597,42 +622,62 @@
                 } else if (id === 2) {
                     this.swich = false;
                 }
-                console.log('id', id);
+                // // console.log('id', id);
                 
             },
 
             abrir_mdlserv(item){
-              this.open = true;
-              console.log('id', item);
-              const priceNumber = parseFloat(item.price.replace(/,/g, ''));
-              this.nomhotl = item.Nombre
-              this.price = item.price
-              this.price_ultimate = priceNumber
-              this.pricemultiplicado = priceNumber;
-              this.idhotl = item.id              
-              this.precioninos = JSON.parse(item.price_nin_comp)       
-              // this.precioAdult = item.precio_adult 
-              this.precioAdultBase = item.precio_adult; // Guardar el precio base de un adulto
-              this.precioAdult = this.precioAdultBase * this.resev.person_reservation.adultos; // Calcular el precio inicial para adultos
+              if (item.price_nin_comp === '[]') {
+                this.$swal({
+                  icon: 'error',
+                  title: 'No hay precios para este hotel aun ',
+                  text: 'Por favor selecciona un hotel con precios para niños.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              } else {
+                this.open = true;
+                // // console.log('id', item);
+                const priceNumber = parseFloat(item.price.replace(/,/g, ''));
+                this.nomhotl = item.Nombre
+                this.price = item.price
+                this.price_second = item.price
+                this.price_ultimate = priceNumber
+                this.pricemultiplicado = priceNumber;
+                this.idhotl = item.id              
+                this.precioninos = JSON.parse(item.price_nin_comp)       
+                // this.precioAdult = item.precio_adult 
+                this.precioAdultBase = item.precio_adult; // Guardar el precio base de un adulto
+                this.precioAdult = this.precioAdultBase * this.resev.person_reservation.adultos; // Calcular el precio inicial para adultos
 
-              console.log('precioniños',this.precioniños);
-                  
-              // Establecer valores predeterminados para "desde" y "hasta" con la fecha actual
-              const today = new Date().toISOString().split('T')[0]; // Formato YYYY-MM-DD
-              this.resev.desde = today;
-              this.resev.hasta = today;
-              // Calcular la cantidad de días y el precio total
-              const desde = new Date(this.resev.desde);
-              const hasta = new Date(this.resev.hasta);
-              const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)) + 1; // Contar días incluyendo el mismo día
-              const totalPrice = days * this.pricemultiplicado;
-              console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
+                // // console.log('precioniños',this.precioniños);
+                    
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const desde_fech = tomorrow.toISOString().split('T')[0];
+
+                // Obtener la fecha de mañana más 1 día
+                const dayAfterTomorrow = new Date(tomorrow);
+                dayAfterTomorrow.setDate(dayAfterTomorrow.getDate() + 1);
+                const hasta_fech = dayAfterTomorrow.toISOString().split('T')[0];
+                this.resev.desde = desde_fech;
+                this.resev.hasta = hasta_fech;
+                // Calcular la cantidad de días y el precio total
+                const desde = new Date(this.resev.desde);
+                const hasta = new Date(this.resev.hasta);
+                // Contar días sin incluir el mismo día
+                const days = Math.ceil((hasta - desde) / (1000 * 60 * 60 * 24)); // Contar días sin incluir el mismo día
+                this.por_dias = days;
+                const totalPrice = days * this.pricemultiplicado;
+                // console.log(`Días reservados: ${days}, Precio total: ${totalPrice}`);
+              }
+
             },
             get_prueb(){
               this.loading = true;
               reservacionesservices.getNot({ mensaje: 'Test message' })
               .then(response => {
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
               })
               .catch(error => {
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
@@ -640,6 +685,9 @@
 
             },
             guardarDatos(){   
+              console.log('resev',this.resev);
+              console.log('this.price', this.price);
+
                 // valida el campo emailusr tenga un formato de correo electronico
               const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
               if (!emailRegex.test(this.emailusr)) {
@@ -723,8 +771,7 @@
                 });
                 return;
               }
-              console.log('uduario', this.namesr, 'email', this.emailusr, 'check', this.resev.check,  'tipo habitacione',this.resev.tipo_habitacion,  'tipo de vista',this.resev.vista_habitacion);
-              console.log('precio', this.price, 'hotel', this.nomhotl, 'desde', this.resev.desde, 'hasta', this.resev.hasta, 'numperson', this.resev.numperson);
+              // // // console.log('uduario', this.namesr, 'email', this.emailusr, 'check', this.resev.check,  'tipo habitacione',this.resev.tipo_habitacion,  'tipo de vista',this.resev.vista_habitacion);
               
               // let loader = useLoading().show({
               //     canCancel: false,
@@ -741,11 +788,14 @@
               //   usuario_on: false,
               //   cuentas_pesonas: this.resev.numperson,
               //   tip_hab:  this.resev.tipo_habitacion, 
-              //   tip_vista: this.resev.vista_habitacion, 
+              //   tip_vista:  this.resev.vista_habitacion, 
+              //   precio_adult: this.resev.person_reservation.adultos, 
+              //   precio_nino: this.resev.person_reservation.ninos_num, 
+              //   tip_peson: JSON.stringify(this.resev.person_reservation),
               // })
               // .then(response => {
-              //   // console.log('Success:', response.data);
-              //   // console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
+              //   // // // // console.log('Success:', response.data);
+              //   // // // console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
               //     this.open = false;
               //     loader.hide();
               //     this.$swal({
@@ -761,10 +811,16 @@
               //       check: null,
               //       desde: null,
               //       hasta: null,
-              //       numperson: 0
+              //       numperson: 0,
+              //       person_reservation: {
+              //         adultos: 2,
+              //         ninos_num: 0,
+              //         ninosedades: [],
+              //       },
               //     };
               //     this.nomhotl = '';
               //     this.price = 0;
+              //     this.price_second = 0;
               //     this.emailusr = '';
               //     this.namesr = '';
               // })

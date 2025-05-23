@@ -212,7 +212,7 @@
                     .then(response => {
                         loader.hide()
                         // Verificar si la respuesta contiene el token
-                        console.log(response.data.auth_token);
+                        // console.log(response.data.auth_token);
                         
                         if (response.data.auth_token) {
                             this.$swal({
@@ -271,14 +271,14 @@
                     if (hash_id) {
                         localStorage.setItem('userPk', hash_id); 
                         localStorage.setItem('userId', this.email);
-                        console.log(`El ID del usuario (${this.email}) se guardó correctamente en localStorage.`);
+                        // console.log(`El ID del usuario (${this.email}) se guardó correctamente en localStorage.`);
                     } else {
                         console.error('No se pudo guardar el ID del usuario porque "this.email" está vacío o indefinido.');
                     }
                     // localStorage.setItem('userId', this.email);
                     // aqui quiro quale guarde el id el pk en el storaje 
                 }).catch(e => {
-                    console.log(e.response)
+                    // console.log(e.response)
                 })
             }
         }

@@ -1,7 +1,7 @@
 <script setup>
     // import imgBg from '../assets/bgstate.jpg'
     import { ref, onMounted, onUnmounted } from 'vue';
-
+    import VueEasyLightbox from 'vue-easy-lightbox';
     import ppalogo from '../assets/logoluxereserv.jpg'
     // import ppalogo from '../assets/hotelbok.png'
     import { URL_API } from '@/boot/axios'; // Importar la URL base
@@ -19,6 +19,17 @@
     onUnmounted(() => {
         window.removeEventListener('scroll', handleScroll);
     });
+    const isViewerOpen = ref(false); // Controla si el visor está abierto
+    const currentImage = ref(''); // Imagen actual para mostrar en el visor
+
+    const openImageViewer = (imageUrl) => {
+      currentImage.value = imageUrl;
+      isViewerOpen.value = true;
+    };
+
+    const closeImageViewer = () => {
+      isViewerOpen.value = false;
+    };
 </script>
 <template>
     <div class="sm:flex items-center " style="    height: 25vh;     margin-top: 40px;     display: flex;justify-content: center;" >
@@ -112,7 +123,7 @@
               <p class="text-gray-700 text-lg font-semibold">No hay reservaciones con usuarios con sesion </p>
           </div>
         </div>
-        <div v-if="reserv_priv.length > 0 && !swich "   class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
+        <div v-if="!swich "   class="max-w-6xl " style="  height: 56vh;overflow: scroll;" >
           <div   class="flex items-center justify-center"  style="margin-top: 20px;" >
             <div style="width: 80%;     display: flex;justify-content: center;"  class="flex  items-center p-1   rounded-xl">
                 <p style="color: #900; font-size: 20px; font-weight: 700;">reservaciónes  de externos de la plataforma </p>
@@ -199,9 +210,16 @@
                                         <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Estas  deacuerdo de marcarar como pagada  esta eservacion <br> esta accion no tendra retorno </DialogTitle>
                                     </div>
                                 </div>
-                                <div>
-                                  <img style="    width: 90%;" :src="urlimg" alt="imgalt">
+                                <div style="width: 100px; margin: auto;">
+                                  <img       @click="openImageViewer(urlimg)" style="    width: 90%;" :src="urlimg" alt="imgalt">
+                                  
                                 </div>
+                                  <!-- Componente del visor -->
+                                <VueEasyLightbox
+                                  :visible="isViewerOpen"
+                                  :imgs="[currentImage]"
+                                  @hide="closeImageViewer"
+                                />
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
@@ -293,10 +311,71 @@
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">hasta</label>
                                             <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.hasta) }}</p>
                                         </div>
+                                        <!-- Centering wrapper -->
+                                        <div  style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <label class="block mb-1 text-sm text-gray-900">Adultos</label>
+                                          <div class="flex items-center rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                              <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.person_reservation.adultos }}</p>
+
+                                              <!-- Input para mostrar el valor -->
+                                              <!-- <input
+                                                 
+                                                  type="number"
+                                                  v-model="resev.person_reservation.adultos"
+                                                  class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                                  placeholder="55"
+                                                  min="0"
+                                                  disabled
+                                              /> -->
+
+                                          </div>
+                                        </div>
+                                        <!-- Centering wrapper -->
+                                        <div  style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <label class="block mb-1 text-sm text-gray-900">Niños</label>
+                                          <div class="flex items-center rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.person_reservation.ninos_num }}</p>
+                                              <!-- Input para mostrar el valor
+                                              <input
+                                                 
+                                                  type="number"
+                                                  v-model="resev.person_reservation.ninos_num"
+                                                  class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                                  placeholder="0"
+                                                  min="0"
+                                                  disabled
+                                              /> -->
+
+                                          </div>
+                                        </div>
+                                        <!-- Inputs dinámicos para edades -->
+                                         
+                                        <div v-for="(child, index) in resev.person_reservation.ninos_num" :key="index"  style="    width: 40%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                          <label :for="'child-age-' + index" class="block mb-1 text-sm text-gray-900">Edad del niño {{ index + 1 }}</label>
+                                          <p for="edadgchange" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.person_reservation.ninosedades[index].edad }}</p>
+
+                                          <!-- <input
+                                            type="number"
+                                            v-model="resev.person_reservation.ninosedades[index].edad"
+                                            :id="'child-age-' + index"
+                                            style="width: 100px;"
+                                            class="block w-[100px] rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" 
+                                            placeholder="0"
+                                            min="0"
+                                            disabled
+                                          /> -->
+                                        </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left"> Para cuantas personas</label>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ resev.numperson }}</p>
 
-                                            <input   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" />
+                                            <!-- <input disabled   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" /> -->
+
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
+                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.desde) }}</p>
+
 
                                         </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
@@ -419,6 +498,11 @@
                   hasta: '',
                   numperson: '',
                   vista_habitacion: '',
+                  person_reservation: {
+                    adultos: 2,
+                    ninos_num: 0,
+                    ninosedades: [],
+                  },
                 },
                 userAdd: {
                     first_name: '',
@@ -521,7 +605,9 @@
                 this.emailusr = item.email
                 this.resev.tipo_habitacion = item.tip_hab
                 this.resev.price = item.price
-
+                this.resev.person_reservation = JSON.parse(item.tip_peson) 
+                console.log('person_reservation',this.resev.person_reservation);
+                
                 this.resev.vista_habitacion = item.tip_vista
                 this.resev.desde = item.desde;
                 this.resev.hasta = item.hasta;
@@ -611,32 +697,7 @@
               });
 
             },
-            guardarDatos(){              
 
-              reservacionesservices.createreserv({ 
-                email: this.emailusr, 
-                uduario: this.namesr, 
-                hotel: this.nomhotl, 
-                plan: this.resev.check, 
-                tip_hab:  this.resev.tipo_habitacion, 
-                tip_vista: this.resev.vista_habitacion, 
-              })
-              .then(response => {
-                console.log('Success:', response.data);
-                
-              })
-              .catch(error => {
-                console.error('Error:', error.response.data); // Inspecciona los errores aquí
-              });
-              console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
-              this.open = false;
-              this.$swal({
-                  icon: 'success',
-                  title: 'se ha Creado su reservacion con exito',
-                  timer: 2000
-              });
-              
-            }
         }
     }
 </script>

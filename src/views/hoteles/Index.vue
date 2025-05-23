@@ -2,7 +2,7 @@
     import { URL_API } from '@/boot/axios'; // Importar la URL base
     // import igBg from '../assets/bgstate.jpg'
     import { ref, onMounted, onUnmounted } from 'vue';
-
+    import VueEasyLightbox from 'vue-easy-lightbox';
     import ppalogo from '@/assets/logoluxereserv.jpg'
     // import ppalogo from '../assets/hotelbok.png'
     import tel from '@/assets/icons8-asistente-100.png'
@@ -24,6 +24,17 @@
     onUnmounted(() => {
         window.removeEventListener('scroll', handleScroll);
     });
+    const isViewerOpen = ref(false); // Controla si el visor está abierto
+    const currentImage = ref(''); // Imagen actual para mostrar en el visor
+
+    const openImageViewer = (imageUrl) => {
+      currentImage.value = imageUrl;
+      isViewerOpen.value = true;
+    };
+
+    const closeImageViewer = () => {
+      isViewerOpen.value = false;
+    };
 </script>
 <template>
     <div class="sm:flex items-center " style="    height: 25vh;     margin-top: 40px;     display: flex;justify-content: center;" >
@@ -79,7 +90,8 @@
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.Nombre }}</p>
 
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{ item.price }}</p>
-                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ MXN 454 de impuestos y cargos </p>
+                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ {{ item.impuesto_por_hotel }}% Impuesto por hotel </p>
+                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ {{ item.iva }}% IVA </p>
                         </div>
                         <div>
 
@@ -184,9 +196,14 @@
                                         <div style="width: 100%; height: 30vh;">
                                           <div class="mt-3 text-center sm:mt-5 ">
                                            
-                                              <div style="display: flex; justify-content: center;" >
-                                                <img style="width: 71%; height: 71%;" :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`" alt="imgalt">
+                                              <div style="display: flex; justify-content: center; width: 200px; margin: auto;" >
+                                                <img style="width: 71%; height: 71%;" :src="`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`"  @click="openImageViewer(`https://mi-api-imagenes.s3.us-east-2.amazonaws.com${hote_select.img}`)" alt="imgalt">
                                               </div>
+                                              <VueEasyLightbox
+                                                :visible="isViewerOpen"
+                                                :imgs="[currentImage]"
+                                                @hide="closeImageViewer"
+                                              />
                                           </div>
                                         </div>
                                         <!-- <button class="button-confirm">Let`s go →</button> -->
@@ -216,7 +233,7 @@
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="precio_adulto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto </label>
 
-                                            <input  v-model="hote_select.precio_adult" id="precio_adulto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="precio_adulto" />
+                                            <input  v-model="hote_select.price" id="precio_adulto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="precio_adulto" />
 
                                         </div>
                                         <!-- filepath: c:\Users\JGL\Documents\repos_practica\luxe\luxury_reservations\src\views\hoteles\Index.vue -->
@@ -237,7 +254,7 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <div v-if="edadselectedit && edadselectedit.precio" style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
+                                        <div v-if="edadselectedit " style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
                                             <label for="precio-nino" class="block text-sm font-medium leading-6 text-gray-900 text-left">Precio por niño {{ edadselectedit.edad }}</label>
                                             <input 
                                                 @input="cambiar_precio_edit" 
@@ -301,13 +318,13 @@
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">nombre </label>
 
-                                            <input  v-model="hotel.nombre" id="nombre" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de hotel" type="search" name="search" />
+                                            <input  v-model="hotel.nombre" id="nombre" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Nombre de hotel" type="text" name="search" />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">precio por noche</label>
 
-                                            <input  v-model="hotel.price" id="price" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Precio por noche" type="search" name="search"  />
+                                            <input  v-model="hotel.price" id="price" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="Precio por noche" type="number" name="search"  />
 
                                         </div>
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
@@ -347,25 +364,34 @@
                                         <div class="login-with">
       
                                         </div>
+
                                         <!-- <button class="button-confirm">Let`s go →</button> -->
                                     </form>
                                     <form v-else class="form form2test">
-                                        <div class="return">
-                                          <img :src="imgreturn" alt="return" @click="busc = false" style="width: 50px; height: 50px; cursor: pointer;">
-                                        </div>
-                                        <div class="title">
-                                            <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Asignar precio</DialogTitle>
+                                        <div style="gap: 20px;" class="w-full flex justify-between items-center" >
+                                          <div class="return">
+                                            <img :src="imgreturn" alt="return" @click="busc = false" style="width: 50px; height: 50px; cursor: pointer;">
+                                          </div>
+                                          <div class="title">
+                                              <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Asignar precio</DialogTitle>
+
+                                          </div>
 
                                         </div>
-
                                         <!-- <div style=" width: 100%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
 
                                         </div> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto </label>
+                                            <label for="impuesto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Impuesto por estado  <br> (Solo ingrese numero del porcentaje) </label>
 
-                                            <input  v-model="hotel.precio_adult" id="nombre" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="search" />
+                                            <input  v-model="hotel.impuesto_por_hotel" id="impuesto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por estado" type="number" name="impuesto" />
+
+                                        </div>
+                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="precio_adulto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto  <br>  (Este sera el mismo que el precio por noche ) </label>
+
+                                            <input  v-model="hotel.price" id="precio_adulto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="precio_adulto" />
 
                                         </div>
                                         <!-- filepath: c:\Users\JGL\Documents\repos_practica\luxe\luxury_reservations\src\views\hoteles\Index.vue -->
@@ -374,6 +400,7 @@
                                             <select 
                                                 v-model="edadselect" 
                                                 id="price-child" 
+                                                min-length="1"
                                                 style="width: 100%; height: fit-content; align-items: flex-end;" 
                                                 class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
                                             >
@@ -386,9 +413,9 @@
                                                 </option>
                                             </select>
                                         </div>
-                                        <div v-if="edadselect && edadselect.precio" style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
-                                            <label for="precio-nino" class="block text-sm font-medium leading-6 text-gray-900 text-left">Precio por niño</label>
-                                            <input 
+                                        <div v-if="edadselect " style="width: 95%; display: flex; justify-content: center; align-content: center; flex-direction: column;">
+                                          <label for="precio-nino" class="block text-sm font-medium leading-6 text-gray-900 text-left">Precio por niño {{ edadselect.edad }}</label>
+                                          <input 
                                                 @input="cambiar_precio" 
                                                 v-model="edadselect.precio" 
                                                 id="precio-nino" 
@@ -402,6 +429,11 @@
 
                                         <div class="login-with">
       
+                                        </div>
+                                        <div class="flex flex-col justify-center w-full max-w-xs gap-y-5">
+                                          <button type="button"  @click="guardar_info_nurm()"  style="padding: 15px;" class="bg-black p-[15px] rounded-lg text-sm sm:text-base flex items-center gap-x-3 justify-center text-white hover:bg-black/80 duration-300 transition-colors border border-transparent px-8 py-2.5">
+                                              <span>Guardar informacion </span>
+                                          </button>
                                         </div>
                                     </form>
                                 </div>
@@ -441,8 +473,8 @@
             return {
                 Archivo_recibido: '',
                 searchQuery: '',
-                edadselect: {},
-                edadselectedit: {},
+                edadselect: { id: 1, edad: 1, precio: 100},
+                edadselectedit: { id: 1, edad: 1, precio: 100},
                 filteredTes: [],
                 reservaciones: [],
                 debounceTimeout: null,
@@ -473,7 +505,7 @@
                   nombre: '',
                   img: '',
                   price: 0,
-                  impuesto_por_hotel: 0,
+                  impuesto_por_hotel: 15,
                   precio_adult: 0,
                   iva: 16,
 
@@ -494,6 +526,7 @@
                   ],
                 },
                 hotel: {
+                  impuesto_por_hotel: 15,
                   nombre: '',
                   price: '',
                   archivo: null,
@@ -530,8 +563,30 @@
             this.get_reserv();
         },
         methods: {
+            guardar_info_nurm() {
+              if (!this.hotel.price) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'ingresa un precio por adulto',
+                  text: 'Por favor seleccion  a un precio por adulto.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              if (!this.hotel.impuesto_por_hotel) {
+                this.$swal({
+                  icon: 'error',
+                  title: 'ingresa un precio por estadoen el que se encuentra el hotel',
+                  text: 'Por favor seleccion  a un precio por impuesto.',
+                  confirmButtonText: 'Entendido',
+                });
+                return;
+              }
+              this.busc = false;
+
+            },
             guardar_info() {
-              if (!this.hote_select.precio_adult) {
+              if (!this.hote_select.price) {
                 this.$swal({
                   icon: 'error',
                   title: 'ingresa un precio por adulto',
@@ -564,8 +619,7 @@
               // Actualiza el precio en el array `price_nin_comp` basado en la selección actual
               const index = this.hote_select.price_nin_comp.findIndex(item => item.id === this.edadselectedit.id);
               if (index !== -1) {
-                  this.hote_select.price_nin_comp[index].precio = this.edadselectedit.precio;
-                  
+                  this.hote_select.price_nin_comp[index].precio = this.edadselectedit.precio; 
               }
             },
             asignar_preciospor_hotel() {
@@ -577,7 +631,7 @@
             handleFileUpload(event) {
                   const file = event.target.files[0];
                 if (file) {
-                    console.log('Archivo seleccionado:', file);
+                    // console.log('Archivo seleccionado:', file);
                     this.archivo_enviar = file;
                 }
             },
@@ -586,7 +640,7 @@
                 if (file) {
                     this.hotel.archivo = file;
                     this.Archivo_recibido = this.hotel.archivo.name;
-                    console.log('Archivo seleccionado:', file);
+                    // console.log('Archivo seleccionado:', file);
                 }
             },
             abrir_mdl() {
@@ -602,7 +656,7 @@
             deltereserv(){
                 hotelesservices.Deletehotel({ id: this.idhotl })
                 .then(response => {
-                    console.log('Success:', response.data);
+                    // console.log('Success:', response.data);
                     this.open_confirm = false;
                     this.get_reserv();
                 })
@@ -611,7 +665,7 @@
                 });
             },
             open_delete(item){
-                console.log('ver_info', item);
+                // console.log('ver_info', item);
                 this.idhotl = item.id
                 this.open_confirm = true;
             },
@@ -621,6 +675,11 @@
                 this.hote_select.nombre = item.Nombre
                 this.hote_select.img = item.img
                 this.hote_select.price = item.price
+                if (item.price_nin_comp && item.price_nin_comp !== '[]') {
+                    this.hote_select.price_nin_comp = JSON.parse(item.price_nin_comp)
+                } else {
+                  console.log('sim precio aun no se ha asignado');
+                } 
                 this.hote_select.precio_adult = item.precio_adult
                 this.hote_select.impuesto_por_hotel = item.impuesto_por_hotel
                 this.hote_select.iva = item.iva
@@ -633,7 +692,7 @@
                 } else if (id === 2) {
                     this.swich = false;
                 }
-                console.log('id', id);
+                // console.log('id', id);
                 
             },
             debounceFilter() {
@@ -649,7 +708,7 @@
                 );
             },
             abrir_mdlserv(item){
-                console.log('id', item);
+                // console.log('id', item);
                 this.nomhotl = item.name
                 this.idhotl = item.id
                 this.open = true;
@@ -663,7 +722,7 @@
               reservacionesservices.getNot({ mensaje: 'Test message' })
               .then(response => {
                 loader.hide();
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
               })
               .catch(error => {
                 console.error('Error:', error.response.data); // Inspecciona los errores aquí
@@ -682,7 +741,7 @@
               })
               .then(response => {
                 loader.hide();
-                console.log('Success:', response.data);
+                // console.log('Success:', response.data);
                 this.reservaciones = response.data;
                 this.filteredTes = this.reservaciones
               })
@@ -717,6 +776,8 @@
                     canCancel: false,
                     loader: 'bars'
                 });
+                this.hote_select.precio_adult = this.hote_select.price
+
                 hotelesservices.editCotizacion({
                   id: this.hote_select.id,
                   nombre: this.hote_select.nombre,
@@ -727,7 +788,7 @@
                   impuesto_por_hotel: this.hote_select.impuesto_por_hotel,
                 })
                     .then(response => {
-                        console.log('Success:', response.data);
+                        // // console.log('Success:', response.data);
                         this.openedit = false;
                         this.$swal({
                             icon: 'success',
@@ -755,6 +816,24 @@
                   });
                   return;
                 }
+                if (!this.hotel.impuesto_por_hotel) {
+                  this.$swal({
+                    icon: 'error',
+                    title: 'Selecciona un impuesto_por_hotel',
+                    text: 'Por favor selecciona un impuesto por hotel.',
+                    confirmButtonText: 'Entendido',
+                  });
+                  return;
+                }
+                if (!this.hotel.impuesto_por_hotel) {
+                  this.$swal({
+                    icon: 'error',
+                    title: 'Selecciona un impuesto_por_hotel',
+                    text: 'Por favor selecciona un impuesto por hotel.',
+                    confirmButtonText: 'Entendido',
+                  });
+                  return;
+                }
                 if (this.hotel.nombre == '') {
                   this.$swal({
                     icon: 'error',
@@ -777,17 +856,25 @@
                     canCancel: false,
                     loader: 'bars'
                 });
-                console.log('guardarDatos', this.hotel.nombre, this.hotel.price, this.hotel.archivo);
+                // console.log('guardarDatos', this.hotel.nombre, this.hotel.price, this.hotel.archivo);
 
                 // Crear un objeto FormData
                 const formData = new FormData();
+                this.hote_select.precio_adult = this.hote_select.price
                 formData.append('nombre', this.hotel.nombre);
                 formData.append('price', this.hotel.price);
+                formData.append('precio_adult', this.hotel.price);
+                formData.append('impuesto_por_hotel', this.hotel.impuesto_por_hotel);
+                formData.append('price_nin_comp', JSON.stringify(this.hotel.price_nin_comp));
                 formData.append('archivo', this.hotel.archivo); // Asegúrate de que sea un archivo válido
+                console.log('formData', formData);
+                    // Imprimir el contenido de FormData
+                for (let [key, value] of formData.entries()) {
+                    console.log(`${key}: ${value}`);
+                }
                 hotelesservices.createhotel(formData)
                     .then(response => {
-
-                        console.log('Success:', response.data);
+                        // console.log('Success:', response.data);
                         
                         this.open = false;
                         this.get_prueb();
@@ -798,6 +885,28 @@
                             timer: 2000
                         });
                         loader.hide();
+                        this.hotel = {
+                          impuesto_por_hotel: 0,
+                          nombre: '',
+                          price: '',
+                          archivo: null,
+                          price_nin_comp: [
+                            { id: 1, edad: 1, precio: 100},
+                            { id: 2, edad: 2, precio: 200},
+                            { id: 3, edad: 3, precio: 300},
+                            { id: 4, edad: 4, precio: 400},
+                            { id: 5, edad: 5, precio: 500},
+                            { id: 6, edad: 6, precio: 600},
+                            { id: 7, edad: 7, precio: 700},
+                            { id: 8, edad: 8, precio: 800},
+                            { id: 9, edad: 9, precio: 900},
+                            { id: 10, edad: 10, precio: 1000},
+                            { id: 11, edad: 11, precio: 1100},
+                            { id: 12, edad: 12, precio: 1200},
+                            { id: 13, edad: 13, precio: 1300},
+                          ],
+                          precio_adult: '',
+                        }
                     })
                     .catch(error => {
                       loader.hide();

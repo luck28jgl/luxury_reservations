@@ -136,7 +136,7 @@
       mounted() {
         // this.tipoUsuario = this.$store.state.user.type
         this.id_user = sessionStorage.getItem('pk')
-        console.log(this.id_user)
+        // console.log(this.id_user)
         // this.filtrarNavigation(); // Re-enable the method call
       },
       computed: {
@@ -189,7 +189,7 @@
               }
             });
           }).catch(error => {
-            console.log(error)
+            // console.log(error)
             this.$swal({
               icon: 'error',
               title: 'Error al obtener el tipo de usuario'

@@ -137,7 +137,7 @@
       mounted() {
         // this.tipoUsuario = this.$store.state.user.type
         this.id_user = localStorage.getItem('userPk'); // Obtén el ID del usuario desde localStorage
-        console.log(`ID del usuario obtenido: ${this.id_user}`);
+        // console.log(`ID del usuario obtenido: ${this.id_user}`);
         if (this.id_user) {
             this.filtrarNavigation(); // Llama al método si es necesario
         } else {
@@ -194,7 +194,7 @@
           }).then((response) => {
             this.tipoUsuario = response.data.tipo
             this.$store.dispatch('user/setUserType', this.tipoUsuario);
-            console.log('si se guardo el id del usuario',this.tipoUsuario)
+            // console.log('si se guardo el id del usuario',this.tipoUsuario)
             // 
             this.navigation = this.navigation.filter(item => {
               if (item.tipo.includes(this.tipoUsuario)) {
@@ -202,7 +202,7 @@
               }
             });
           }).catch(error => {
-            console.log(error)
+            // console.log(error)
             this.$swal({
               icon: 'error',
               title: 'Error al obtener el tipo de usuario'
