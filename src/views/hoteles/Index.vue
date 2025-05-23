@@ -215,7 +215,6 @@
                                           </div>
                                           <div class="title">
                                               <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Asignar precio</DialogTitle>
-
                                           </div>
 
                                         </div>
@@ -233,7 +232,7 @@
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="precio_adulto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto <br>  (Este sera el mismo que el precio por noche )</label>
 
-                                            <input  v-model="hote_select.price" id="precio_adulto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="precio_adulto" />
+                                            <input @input="validateNumberInput" v-model="hote_select.price" id="precio_adulto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="precio_adulto" />
 
                                         </div>
                                         <!-- filepath: c:\Users\JGL\Documents\repos_practica\luxe\luxury_reservations\src\views\hoteles\Index.vue -->
@@ -563,6 +562,11 @@
             this.get_reserv();
         },
         methods: {
+          validateNumberInput(event) {
+              const input = event.target;
+              input.value = input.value.replace(/[^0-9]/g, ''); // Permitir solo números
+              this.hote_select.price = input.value; // Actualizar el modelo con el valor limpio
+          },
             guardar_info_nurm() {
               if (!this.hotel.price) {
                 this.$swal({
@@ -872,6 +876,7 @@
                           ],
                           precio_adult: '',
                         }
+                        this.Archivo_recibido = ''
                     })
                     .catch(error => {
                       loader.hide();
