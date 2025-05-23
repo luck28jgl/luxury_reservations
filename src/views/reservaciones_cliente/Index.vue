@@ -661,7 +661,7 @@
                 });
                 return;
               } 
-              if (tem.price_nin_comp === '[]') {
+              if (item.price_nin_comp === '[]') {
                 this.$swal({
                   icon: 'error',
                   title: 'No hay precios para este hotel aun ',
