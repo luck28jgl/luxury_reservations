@@ -3,6 +3,7 @@
     
     import { ref, onMounted, onUnmounted } from 'vue';
     import ppalogo from '../assets/logoluxereserv.jpg'
+    import iconclis from '../assets/icons8-cancel-50.png'
 
     const isScrolled = ref(false);
 
@@ -24,23 +25,25 @@
     <TransitionRoot as="template" :show="sidebarOpen">
       <Dialog as="div" class="relative z-50 " @close="sidebarOpen = false"> <!--class= lg:hidden-->
         <TransitionChild as="template" enter="transition-opacity ease-linear duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="transition-opacity ease-linear duration-300" leave-from="opacity-100" leave-to="opacity-0">
-          <div class="fixed inset-0 bg-gray-900/80" />
+          <div class="fixed inset-0 bg-gray-900/80" @click="sidebarOpen = false" />
         </TransitionChild>
 
         <div class="fixed inset-0 flex">
           <TransitionChild as="template" enter="transition ease-in-out duration-300 transform" enter-from="-translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0" leave-to="-translate-x-full">
             <DialogPanel class="relative mr-16 flex w-full max-w-xs flex-1">
               <TransitionChild as="template" enter="ease-in-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in-out duration-300" leave-from="opacity-100" leave-to="opacity-0">
-                <div style="    left: 220px; top: 50px; width: 30px;" class="absolute left-full top-0 flex w-16 justify-center pt-5">
+                <div style=" left: 198px; top: 70px; width: 36px;;" class="absolute left-full top-0 flex w-16 justify-center pt-5">
                   <button type="button" style="  width: 100%;   color: #000000;" class="-m-2.5 p-2.5 " @click="sidebarOpen = false">
                     <!-- <span class="sr-only">Close</span> -->
-                    <XMarkIcon class="h-6 w-[44px] text-black" aria-hidden="true" />
+                     <img :src="iconclis" alt="iconclis" class="h-6 w-[44px] text-black" aria-hidden="true" >
+                    <!-- <img class="h-6 w-[44px] text-black" aria-hidden="true" /> -->
+                    <!-- <XMarkIcon class="h-6 w-[44px] text-black" aria-hidden="true" /> -->
                   </button>
                 </div>
               </TransitionChild>
               <!--Sidebar component, swap this element with another sidebar if you like -->
               <div style="display: flex ;flex-direction: column; width: 60%; border: solid 4px #024a71;  margin-top: 41px;" class="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6">
-                <div style="height: 220px;" class="flex h-16 shrink-0 items-center mt-6">
+                <div style="height: 220px;  margin-top: 80px;" class="flex h-16 shrink-0 items-center mt-6">
                   <div class="w-11/12 flex justify-center">
                     <img :src="ppalogo" class="w-3/4">
                   </div>
