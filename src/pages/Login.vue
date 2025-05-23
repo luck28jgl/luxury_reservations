@@ -201,6 +201,7 @@
                                                   class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
                                                   placeholder="55"
                                                   min="0"
+                                                  disabled
                                               />
                                               <!-- Botón para incrementar -->
                                               <button
@@ -235,6 +236,7 @@
                                                   class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
                                                   placeholder="0"
                                                   min="0"
+                                                  disabled
                                               />
                                               <!-- Botón para incrementar -->
                                               <button
