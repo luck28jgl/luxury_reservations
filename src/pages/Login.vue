@@ -5,6 +5,8 @@
 
 
     import ppalogo from '../assets/logoluxereserv.jpg'
+    import mas from '../assets/icons8-plus-50.png'
+    import menos from '../assets/icons8-minus-64.png'
     import ewtz from '../assets/icons8-whatsapp-96.png'
     // import tel from '../assets/icons8-llamada-saliente.png'
     import tel from '../assets/icons8-asistente-100.png'
@@ -181,29 +183,20 @@
                                         <!-- Centering wrapper -->
                                         <div style="margin: auto;"  class="w-[250px] m-auto max-w-sm relative mt-4">
                                           <label class="block mb-1 text-sm text-gray-900">Adultos</label>
-                                          <div class="flex items-center border border-gray-900 rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                          <div style="border-radius: 100px;" class="flex items-center border border-gray-900 rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
                                               <!-- Botón para decrementar -->
                                               <button
-                                                  style="width: 50px;"
+                                                  style="width: 50px; border-radius: 100px;"
                                                   @click="decrementAdults"
                                                   class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-r border-gray-900 rounded-l"
                                                   type="button"
                                               >
-                                                  <svg 
-                                                      xmlns="http://www.w3.org/2000/svg" 
-                                                      fill="none" 
-                                                      viewBox="0 0 24 24" 
-                                                      stroke-width="1.5" 
-                                                      stroke="currentColor" 
-                                                      class="w-5 h-5 text-gray-700"
-                                                  >
-                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                                  </svg>
+
+                                                  <img :src="menos" alt="menos" class="w-5 h-5 text-gray-700" />
                                               </button>
                                               <!-- Input para mostrar el valor -->
                                               <input
                                                   type="number"
-                                                  @click="calc_number()"
                                                   v-model="resev.person_reservation.adultos"
                                                   class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
                                                   placeholder="55"
@@ -211,49 +204,32 @@
                                               />
                                               <!-- Botón para incrementar -->
                                               <button
-                                               style="width: 50px;"
+                                               style="width: 50px; border-radius: 100px;"
                                                   @click="incrementAdults"
                                                   class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-l border-gray-900 rounded-r"
                                                   type="button"
                                               >
-                                                  <svg 
-                                                      xmlns="http://www.w3.org/2000/svg" 
-                                                      fill="none" 
-                                                      viewBox="0 0 24 24" 
-                                                      stroke-width="1.5" 
-                                                      stroke="currentColor" 
-                                                      class="w-5 h-5 text-gray-700"
-                                                  >
-                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                  </svg>
+                                                <img :src="mas" alt="mas" class="w-5 h-5 text-gray-700" />
+
                                               </button>
                                           </div>
                                         </div>
                                         <!-- Centering wrapper -->
                                         <div style="margin: auto;" class="w-[250px] m-auto max-w-sm relative mt-4">
                                           <label class="block mb-1 text-sm text-gray-900">Niños</label>
-                                          <div class="flex items-center border border-gray-900 rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
+                                          <div  style="border-radius: 100px;" class="flex items-center border border-gray-900 rounded shadow-sm focus-within:ring-2 focus-within:ring-gray-900">
                                               <!-- Botón para decrementar -->
                                               <button
-                                                  style="width: 50px;"
+                                                  style="width: 50px; border-radius: 100px;"
                                                   @click="decrementChildren"
                                                   class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-r border-gray-900 rounded-l"
                                                   type="button"
                                               >
-                                                  <svg 
-                                                      xmlns="http://www.w3.org/2000/svg" 
-                                                      fill="none" 
-                                                      viewBox="0 0 24 24" 
-                                                      stroke-width="1.5" 
-                                                      stroke="currentColor" 
-                                                      class="w-5 h-5 text-gray-700"
-                                                  >
-                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14" />
-                                                  </svg>
+                                                <img :src="menos" alt="menos" class="w-5 h-5 text-gray-700" />
+
                                               </button>
                                               <!-- Input para mostrar el valor -->
                                               <input
-                                                  @input="decrementChildren()"
                                                   type="number"
                                                   v-model="resev.person_reservation.ninos_num"
                                                   class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
@@ -262,21 +238,13 @@
                                               />
                                               <!-- Botón para incrementar -->
                                               <button
-                                               style="width: 50px;"
+                                               style="width: 50px; border-radius: 100px;"
                                                   @click="incrementChildren"
                                                   class="h-10 w-[70px] flex items-center justify-center bg-gray-100 hover:bg-gray-200 border-l border-gray-900 rounded-r"
                                                   type="button"
                                               >
-                                                  <svg 
-                                                      xmlns="http://www.w3.org/2000/svg" 
-                                                      fill="none" 
-                                                      viewBox="0 0 24 24" 
-                                                      stroke-width="1.5" 
-                                                      stroke="currentColor" 
-                                                      class="w-5 h-5 text-gray-700"
-                                                  >
-                                                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                                                  </svg>
+                                                <img :src="mas" alt="mas" class="w-5 h-5 text-gray-700" />
+
                                               </button>
                                           </div>
                                         </div>
