@@ -877,6 +877,7 @@
                           precio_adult: '',
                         }
                         this.Archivo_recibido = ''
+                        this.edadselectedit= { id: 1, edad: 1, precio: 100 }
                     })
                     .catch(error => {
                       loader.hide();
