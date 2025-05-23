@@ -90,8 +90,8 @@
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">{{ item.Nombre }}</p>
 
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">MXN {{ item.price }}</p>
-                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ {{ item.impuesto_por_hotel }}% Impuesto por hotel </p>
-                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ {{ item.iva }}% IVA </p>
+                            <!-- <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ {{ item.impuesto_por_hotel }}% Impuesto por hotel </p> -->
+                            <p class="uppercase tracking-wide text-sm font-bold text-gray-700">+ 16% IVA </p>
                         </div>
                         <div>
 
@@ -224,14 +224,14 @@
                                             <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
 
                                         </div> -->
-                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="impuesto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Impuesto por estado </label>
+                                        <!-- <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                            <label for="impuesto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Impuesto por estado  <br> (Solo ingrese numero del porcentaje)  </label>
 
                                             <input  v-model="hote_select.impuesto_por_hotel" id="impuesto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por estado" type="number" name="impuesto" />
 
-                                        </div>
+                                        </div> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="precio_adulto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto </label>
+                                            <label for="precio_adulto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto <br>  (Este sera el mismo que el precio por noche )</label>
 
                                             <input  v-model="hote_select.price" id="precio_adulto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por adulto del hotel" type="number" name="precio_adulto" />
 
@@ -382,12 +382,12 @@
                                             <p class="text-base font-semibold leading-6 text-gray-900">Fecha de creacion de la reservacion <br> {{ formatDate(resev.fech_creacion) }}</p>
 
                                         </div> -->
-                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
+                                        <!-- <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="impuesto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Impuesto por estado  <br> (Solo ingrese numero del porcentaje) </label>
 
                                             <input  v-model="hotel.impuesto_por_hotel" id="impuesto" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" placeholder="precio por estado" type="number" name="impuesto" />
 
-                                        </div>
+                                        </div> -->
                                         <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
                                             <label for="precio_adulto" class="block text-sm font-medium leading-6 text-gray-900  text-left">Precio por adulto  <br>  (Este sera el mismo que el precio por noche ) </label>
 
@@ -573,15 +573,7 @@
                 });
                 return;
               }
-              if (!this.hotel.impuesto_por_hotel) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'ingresa un precio por estadoen el que se encuentra el hotel',
-                  text: 'Por favor seleccion  a un precio por impuesto.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
+
               this.busc = false;
 
             },
@@ -591,15 +583,6 @@
                   icon: 'error',
                   title: 'ingresa un precio por adulto',
                   text: 'Por favor seleccion  a un precio por adulto.',
-                  confirmButtonText: 'Entendido',
-                });
-                return;
-              }
-              if (!this.hote_select.impuesto_por_hotel) {
-                this.$swal({
-                  icon: 'error',
-                  title: 'ingresa un precio por estadoen el que se encuentra el hotel',
-                  text: 'Por favor seleccion  a un precio por impuesto.',
                   confirmButtonText: 'Entendido',
                 });
                 return;
@@ -812,24 +795,6 @@
                     icon: 'error',
                     title: 'Selecciona una imagen',
                     text: 'Por favor selecciona una imagen.',
-                    confirmButtonText: 'Entendido',
-                  });
-                  return;
-                }
-                if (!this.hotel.impuesto_por_hotel) {
-                  this.$swal({
-                    icon: 'error',
-                    title: 'Selecciona un impuesto_por_hotel',
-                    text: 'Por favor selecciona un impuesto por hotel.',
-                    confirmButtonText: 'Entendido',
-                  });
-                  return;
-                }
-                if (!this.hotel.impuesto_por_hotel) {
-                  this.$swal({
-                    icon: 'error',
-                    title: 'Selecciona un impuesto_por_hotel',
-                    text: 'Por favor selecciona un impuesto por hotel.',
                     confirmButtonText: 'Entendido',
                   });
                   return;

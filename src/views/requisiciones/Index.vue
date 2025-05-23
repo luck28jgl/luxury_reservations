@@ -20,7 +20,7 @@
                         <span class="card-side"></span>
                         <div class="flip-card__inner">
                             <div class="flip-card__front">
-                                <div class="title">iniciar secion</div>
+                                <div class="title">iniciar sesión</div>
                                 <form class="flip-card__form" @submit="loginUser"> >
                                     <input  v-model="email" class="flip-card__input" name="email" placeholder="Email" type="email">
                                     <input  v-model="password" class="flip-card__input" name="contraseña" placeholder="Password" type="password">

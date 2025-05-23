@@ -147,7 +147,7 @@
               sidebarOpen: false,
               nowYear: new Date().getFullYear(),
               navigation: [
-                { name: 'Inicio de seción', link: 'ReservacionPath', icon: '', url: '/inicio-sesion', tipo:[0]},
+                { name: 'Inicio de sesión', link: 'ReservacionPath', icon: '', url: '/inicio-sesion', tipo:[0]},
                 { name: 'hacer reservaciones', link: 'LoginPath', icon: '', url: '/crear-reservacion', tipo:[0]},
                 // { name: 'todas las reservaciones', link: 'resevacionesall', icon: '', url: '/lista-all-reservation', tipo:[0]},
               ],

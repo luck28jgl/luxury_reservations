@@ -202,8 +202,8 @@
                                               </button>
                                               <!-- Input para mostrar el valor -->
                                               <input
-                                                 
                                                   type="number"
+                                                  @click="calc_number()"
                                                   v-model="resev.person_reservation.adultos"
                                                   class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
                                                   placeholder="55"
@@ -253,7 +253,7 @@
                                               </button>
                                               <!-- Input para mostrar el valor -->
                                               <input
-                                                 
+                                                  @input="decrementChildren()"
                                                   type="number"
                                                   v-model="resev.person_reservation.ninos_num"
                                                   class="w-full h-10 text-center bg-transparent placeholder:text-slate-400 text-gray-900 text-sm focus:outline-none"
@@ -556,6 +556,7 @@
                     this.precioAdult = this.precioAdultBase * this.resev.person_reservation.adultos;
                 }
             },
+
             calcularTotal() {
               if (this.resev.desde && this.resev.hasta) {
                   const desde = new Date(this.resev.desde);
@@ -773,61 +774,61 @@
               }
               // // // console.log('uduario', this.namesr, 'email', this.emailusr, 'check', this.resev.check,  'tipo habitacione',this.resev.tipo_habitacion,  'tipo de vista',this.resev.vista_habitacion);
               
-              // let loader = useLoading().show({
-              //     canCancel: false,
-              //     loader: 'bars'
-              // });
-              // reservacionesservices.createreserv({ 
-              //   email: this.emailusr, 
-              //   uduario: this.namesr, 
-              //   price: this.price, 
-              //   hotel: this.nomhotl, 
-              //   plan: this.resev.check, 
-              //   desde: this.resev.desde,
-              //   hasta: this.resev.hasta,
-              //   usuario_on: false,
-              //   cuentas_pesonas: this.resev.numperson,
-              //   tip_hab:  this.resev.tipo_habitacion, 
-              //   tip_vista:  this.resev.vista_habitacion, 
-              //   precio_adult: this.resev.person_reservation.adultos, 
-              //   precio_nino: this.resev.person_reservation.ninos_num, 
-              //   tip_peson: JSON.stringify(this.resev.person_reservation),
-              // })
-              // .then(response => {
-              //   // // // // console.log('Success:', response.data);
-              //   // // // console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
-              //     this.open = false;
-              //     loader.hide();
-              //     this.$swal({
-              //         icon: 'success',
-              //         title: 'se ha Creado su reservacion con exito',
-              //         timer: 2000
-              //     });
+              let loader = useLoading().show({
+                  canCancel: false,
+                  loader: 'bars'
+              });
+              reservacionesservices.createreserv({ 
+                email: this.emailusr, 
+                uduario: this.namesr, 
+                price: this.price, 
+                hotel: this.nomhotl, 
+                plan: this.resev.check, 
+                desde: this.resev.desde,
+                hasta: this.resev.hasta,
+                usuario_on: false,
+                cuentas_pesonas: this.resev.numperson,
+                tip_hab:  this.resev.tipo_habitacion, 
+                tip_vista:  this.resev.vista_habitacion, 
+                precio_adult: this.resev.person_reservation.adultos, 
+                precio_nino: this.resev.person_reservation.ninos_num, 
+                tip_peson: JSON.stringify(this.resev.person_reservation),
+              })
+              .then(response => {
+                // // // // console.log('Success:', response.data);
+                // // // console.log('guardarDatos2', this.nomhotl, this.emailusr, this.resev.check, this.resev.tipo_habitacion, this.resev.vista_habitacion);
+                  this.open = false;
+                  loader.hide();
+                  this.$swal({
+                      icon: 'success',
+                      title: 'se ha Creado su reservacion con exito',
+                      timer: 2000
+                  });
               
 
-              //     this.resev = {
-              //       tipo_habitacion: '',
-              //       vista_habitacion: '',
-              //       check: null,
-              //       desde: null,
-              //       hasta: null,
-              //       numperson: 0,
-              //       person_reservation: {
-              //         adultos: 2,
-              //         ninos_num: 0,
-              //         ninosedades: [],
-              //       },
-              //     };
-              //     this.nomhotl = '';
-              //     this.price = 0;
-              //     this.price_second = 0;
-              //     this.emailusr = '';
-              //     this.namesr = '';
-              // })
-              // .catch(error => {
-              //   loader.hide();
-              //   console.error('Error:', error.response.data); // Inspecciona los errores aquí
-              // });
+                  this.resev = {
+                    tipo_habitacion: '',
+                    vista_habitacion: '',
+                    check: null,
+                    desde: null,
+                    hasta: null,
+                    numperson: 0,
+                    person_reservation: {
+                      adultos: 2,
+                      ninos_num: 0,
+                      ninosedades: [],
+                    },
+                  };
+                  this.nomhotl = '';
+                  this.price = 0;
+                  this.price_second = 0;
+                  this.emailusr = '';
+                  this.namesr = '';
+              })
+              .catch(error => {
+                loader.hide();
+                console.error('Error:', error.response.data); // Inspecciona los errores aquí
+              });
 
             }
         }
