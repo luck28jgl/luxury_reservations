@@ -372,12 +372,6 @@
                                             <!-- <input disabled   v-model="resev.numperson"  placeholder="ingrea el numero de perosa para la reservacion" id="email" style="width: 100%;     height: fit-content;     align-items: flex-end;" class="block w-full rounded-full border-0 px-4 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"  type="number" name="search" /> -->
 
                                         </div>
-                                        <div style="    width: 95%; display: flex; justify-content: center;align-content: center; flex-direction: column;">
-                                            <label for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">desde</label>
-                                            <p for="location" class="block text-sm font-medium leading-6 text-gray-900  text-left">{{ formatDate(resev.desde) }}</p>
-
-
-                                        </div>
                                         <span class="text-black" style="color: black;" >Selecciona un plan</span>
                                         <div id="checklist">
                                             <input checked="" value="Solo alojamiento" name="r" type="radio" id="01" v-model="resev.check" disabled>
@@ -526,25 +520,25 @@
         methods: {
             Completar_resevacion(item){
               // Vlidate_reserv
-              reservacionesservices.Vlidate_reserv(item.id)
-              .then(response => {
-                console.log('Success:', response.data);
-                this.open_verifi = false;
-                this.get_reserv_priv();
-                this.get_prueb();
-                this.get_reserv();
-                this.reservacion.id = 0;
-                this.$swal({
-                    icon: 'success',
-                    title: 'Se ha completado la reservacion',
-                    text: 'La reservacion se ha realizado con exito',
-                    timer: 2000
-                });
-              })
-              .catch(error => {
-                console.error('Error:', error.response?.data || error.message); // Inspecciona los errores aquí
+              reservacionesservices.Vlidate_reserv({ id: item.id })
+                .then(response => {
+                  console.log('Success:', response.data);
+                  this.open_verifi = false;
+                  this.get_reserv_priv();
+                  this.get_prueb();
+                  this.get_reserv();
+                  this.reservacion.id = 0;
+                  this.$swal({
+                      icon: 'success',
+                      title: 'Se ha completado la reservacion',
+                      text: 'La reservacion se ha realizado con exito',
+                      timer: 2000
+                  });
+                })
+                .catch(error => {
+                  console.error('Error:', error.response?.data || error.message); // Inspecciona los errores aquí
 
-              });
+                });
             },
             validar_reserva(){
               // Vlidate_reserv
@@ -576,7 +570,7 @@
             formatDate(dateString) {
                 const date = new Date(dateString);
                 const day = String(date.getDate()).padStart(2, '0');
-                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const month = String(date.getMonth() ).padStart(2, '0');
                 const year = date.getFullYear();
                 return `${day}/${month}/${year}`;
             },
